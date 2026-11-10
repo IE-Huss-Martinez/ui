@@ -36,7 +36,11 @@
     "check:size": "size-limit",
     "check:api": "tsc -p tsconfig.build.json && api-extractor run && api-extractor run -c api-extractor.react.json",
     "check:package": "publint run --pack pnpm --strict && attw --pack . --profile esm-only --exclude-entrypoints ./styles.css",
-    "api:update": "tsc -p tsconfig.build.json && api-extractor run --local && api-extractor run -c api-extractor.react.json --local"
+    "api:update": "tsc -p tsconfig.build.json && api-extractor run --local && api-extractor run -c api-extractor.react.json --local",
+    "tokens": "node scripts/generate-tokens.ts"
+  },
+  "dependencies": {
+    "@hussmartinez/sdk-core": "catalog:"
   },
   "peerDependencies": {
     "react": ">=18.3",
