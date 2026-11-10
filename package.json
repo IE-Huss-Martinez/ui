@@ -19,10 +19,11 @@
     "test:browser": "pnpm -r --if-present test:browser",
     "test:visual": "node scripts/test-visual.mjs",
     "test:visual:update": "node scripts/test-visual.mjs --update",
+    "test:e2e": "pnpm -r --if-present test:e2e",
     "check:size": "pnpm -r --if-present check:size",
     "check:api": "pnpm -r --if-present check:api",
     "check:package": "pnpm -r --if-present check:package",
-    "verify": "pnpm lint && pnpm lint:css && pnpm typecheck && pnpm lint:deps && pnpm build && pnpm test && pnpm test:browser && pnpm test:visual && pnpm check:size && pnpm check:api && pnpm check:package",
+    "verify": "pnpm lint && pnpm lint:css && pnpm typecheck && pnpm lint:deps && pnpm build && pnpm test && pnpm test:browser && pnpm test:visual && pnpm test:e2e && pnpm check:size && pnpm check:api && pnpm check:package",
     "verify:fast": "pnpm typecheck && pnpm test && pnpm lint:deps && pnpm check:api"
   },
   "devDependencies": {

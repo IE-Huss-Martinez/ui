@@ -1,0 +1,23 @@
+{
+  "name": "@hussmartinez/ui-example-next",
+  "private": true,
+  "description": "A Next.js App Router application that uses the built @hussmartinez/ui, for the server-rendering tests.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "build": "NEXT_TELEMETRY_DISABLED=1 next build",
+    "start": "NEXT_TELEMETRY_DISABLED=1 next start --port 3100"
+  },
+  "dependencies": {
+    "@hussmartinez/ui": "workspace:*",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "typescript": "catalog:"
+  }
+}

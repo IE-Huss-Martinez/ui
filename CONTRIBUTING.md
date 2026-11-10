@@ -31,6 +31,8 @@ pnpm test:visual:update   # write new baselines after an intended visual change
 
 Commit updated baselines with the change that caused them, and look at the image diffs in the pull request before asking for review.
 
+**End-to-end tests** (`pnpm test:e2e`) start production builds of the [Next.js](examples/next) and [Vite](examples/vite) examples, so they need `pnpm build` first; `pnpm verify` runs them in order. Add a component to both examples when it's added to the package.
+
 The git hooks run on their own: a secret scan and lint of staged files on commit, a Conventional Commits check of each message, and `pnpm verify:fast` on push. Don't bypass them with `--no-verify`. If a hook is wrong or too slow, fix it in its own pull request.
 
 ## Make a change
