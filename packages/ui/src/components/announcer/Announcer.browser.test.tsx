@@ -90,6 +90,17 @@ describe("AnnouncerProvider", () => {
     expect(status.textContent).toBe("Two");
   });
 
+  it("announces in both regions when both are used in the same frame", async () => {
+    const container = render();
+    act(() => {
+      announce("Saved");
+      announce("Export failed", { politeness: "assertive" });
+    });
+    await settle();
+    expect(container.querySelector('[role="status"]')?.textContent).toBe("Saved");
+    expect(container.querySelector('[role="alert"]')?.textContent).toBe("Export failed");
+  });
+
   it("keeps its regions hidden on screen but in the accessibility tree", () => {
     const container = render();
     const regions = container.querySelector(".hm-announcer") as Element;

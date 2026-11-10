@@ -5,7 +5,6 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -57,36 +56,38 @@ interface Region {
 export function AnnouncerProvider({ children }: AnnouncerProviderProps): ReactElement {
   const [polite, setPolite] = useState<Region>({ message: "", count: 0 });
   const [assertive, setAssertive] = useState<Region>({ message: "", count: 0 });
-  const frame = useRef<number | undefined>(undefined);
+  // One pending frame per region, so announcing in one region never cancels
+  // the other's message.
+  const frames = useRef<Partial<Record<Politeness, number>>>({});
 
   useEffect(
     () => () => {
-      if (frame.current !== undefined) {
-        cancelAnimationFrame(frame.current);
+      for (const frame of Object.values(frames.current)) {
+        cancelAnimationFrame(frame);
       }
     },
     [],
   );
 
   const announce = useCallback<Announce>((message, options) => {
-    const set = options?.politeness === "assertive" ? setAssertive : setPolite;
+    const politeness = options?.politeness ?? "polite";
+    const set = politeness === "assertive" ? setAssertive : setPolite;
     // Empty the region first, then fill it on the next frame, so a message
     // that repeats the previous one is still a change, and announced again.
     set((region) => ({ message: "", count: region.count }));
-    // At most one frame is pending, so unmounting can cancel it.
-    if (frame.current !== undefined) {
-      cancelAnimationFrame(frame.current);
+    // At most one frame is pending per region, so unmounting can cancel it.
+    const pending = frames.current[politeness];
+    if (pending !== undefined) {
+      cancelAnimationFrame(pending);
     }
-    frame.current = requestAnimationFrame(() => {
-      frame.current = undefined;
+    frames.current[politeness] = requestAnimationFrame(() => {
+      delete frames.current[politeness];
       set((region) => ({ message, count: region.count + 1 }));
     });
   }, []);
 
-  const value = useMemo(() => announce, [announce]);
-
   return (
-    <AnnouncerContext.Provider value={value}>
+    <AnnouncerContext.Provider value={announce}>
       {children}
       <div className="hm-visually-hidden hm-announcer">
         <div role="status" aria-live="polite" aria-atomic="true">
