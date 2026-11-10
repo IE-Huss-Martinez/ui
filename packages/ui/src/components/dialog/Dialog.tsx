@@ -141,6 +141,8 @@ export const Dialog = /* @__PURE__ */ forwardRef(function Dialog(
   // A body that scrolls must be reachable by keyboard, or content without
   // focusable elements can't be scrolled (axe: scrollable-region-focusable).
   // It's a Tab stop only while it overflows, so short dialogs don't get one.
+  // A body at its maximum size doesn't resize when content changes, so its
+  // children are watched too, including ones added after it opened.
   useEffect(() => {
     const element = body.current;
     if (!element || typeof ResizeObserver === "undefined") {
@@ -153,13 +155,27 @@ export const Dialog = /* @__PURE__ */ forwardRef(function Dialog(
         element.removeAttribute("tabindex");
       }
     };
-    const observer = new ResizeObserver(update);
-    observer.observe(element);
+    const resizes = new ResizeObserver(update);
+    resizes.observe(element);
     for (const child of element.children) {
-      observer.observe(child);
+      resizes.observe(child);
     }
+    const children = new MutationObserver((records) => {
+      for (const record of records) {
+        for (const node of record.addedNodes) {
+          if (node instanceof Element) {
+            resizes.observe(node);
+          }
+        }
+      }
+      update();
+    });
+    children.observe(element, { childList: true });
     update();
-    return () => observer.disconnect();
+    return () => {
+      resizes.disconnect();
+      children.disconnect();
+    };
   }, []);
 
   // Escape fires cancel. The dialog only closes when `open` becomes false.

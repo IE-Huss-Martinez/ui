@@ -3,7 +3,7 @@ import { createRoot, hydrateRoot, type Root } from "react-dom/client";
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { userEvent } from "vitest/browser";
-import { cleanUp, loadStyles, mount } from "../../test/dom.js";
+import { addStyle, cleanUp, loadStyles, mount } from "../../test/dom.js";
 import { Button } from "../button/Button.js";
 import { Dialog } from "./Dialog.js";
 
@@ -82,6 +82,30 @@ function Long({ lines }: { lines: number }) {
   );
 }
 
+/**
+ * Adds a long list under a heading that stays, like results arriving. No
+ * element the dialog already watches changes size.
+ */
+function Swapping({ long }: { long: boolean }) {
+  return (
+    <Dialog
+      open
+      onOpenChange={() => undefined}
+      title="Results"
+      classNames={{ body: "hm-test-capped-body" }}
+    >
+      <p key="heading">Results so far</p>
+      {long ? (
+        <ul key="list">
+          {Array.from({ length: 50 }, (_, index) => (
+            <li key={String(index)}>Result {index + 1}</li>
+          ))}
+        </ul>
+      ) : null}
+    </Dialog>
+  );
+}
+
 describe("Dialog", () => {
   it("opens as a modal with showModal, labelled by its title", async () => {
     const container = render(<Host />);
@@ -148,8 +172,26 @@ describe("Dialog", () => {
     expect(dialogOf(short).querySelector(".hm-dialog-body")?.hasAttribute("tabindex")).toBe(false);
     act(() => root?.render(<Long lines={200} />));
     await vi.waitFor(() =>
-      expect((dialogOf(short).querySelector(".hm-dialog-body") as HTMLElement).tabIndex).toBe(0),
+      expect(dialogOf(short).querySelector(".hm-dialog-body")?.getAttribute("tabindex")).toBe("0"),
     );
+  });
+
+  it("notices content added after opening while the body's size can't change", async () => {
+    // A body at its maximum size doesn't resize when its content changes, so
+    // only the content can tell it now overflows. The gutter is reserved up
+    // front, as with overlay scrollbars, so no scrollbar resizes it either.
+    addStyle(".hm-test-capped-body { block-size: 6rem; flex: none; scrollbar-gutter: stable; }");
+    const container = render(<Swapping long={false} />);
+    await vi.waitFor(() => expect(dialogOf(container).open).toBe(true));
+    const body = dialogOf(container).querySelector(".hm-dialog-body") as HTMLElement;
+    expect(body.hasAttribute("tabindex")).toBe(false);
+    // Let the observers deliver their first notifications, so only the
+    // change below can trigger a check.
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    act(() => root?.render(<Swapping long />));
+    // The attribute, not the tabIndex property: browsers report 0 for any
+    // scrollable region, but axe and assistive technology need the attribute.
+    await vi.waitFor(() => expect(body.getAttribute("tabindex")).toBe("0"));
   });
 
   it("hydrates closed without errors, then opens", async () => {
