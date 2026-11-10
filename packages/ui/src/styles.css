@@ -1,0 +1,9 @@
+/*
+ * All styles of @hussmartinez/ui. Applications import this file once; library
+ * code never imports CSS (ADR 0004).
+ *
+ * The layer order comes first, so it holds whichever stylesheet loads first.
+ * ui writes into the first three layers, and SDKs write into hm.sdk. A host's
+ * unlayered CSS beats all of them without !important (ADR 0005).
+ */
+@layer hm.tokens, hm.base, hm.components, hm.sdk;
