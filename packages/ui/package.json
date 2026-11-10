@@ -1,0 +1,71 @@
+{
+  "name": "@hussmartinez/ui",
+  "version": "0.0.0",
+  "description": "Design system of the @hussmartinez SDK family: tokens, themes, base styles and accessible React components.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hussmartinez/ui.git",
+    "directory": "packages/ui"
+  },
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "default": "./dist/react.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.test.json",
+    "build": "vite build && pnpm check:api",
+    "test": "vitest run --project unit",
+    "test:browser": "vitest run --project browser",
+    "test:browser:all": "vitest run --project browser --mode all-browsers",
+    "check:size": "size-limit",
+    "check:api": "tsc -p tsconfig.build.json && api-extractor run && api-extractor run -c api-extractor.react.json",
+    "check:package": "publint run --pack pnpm --strict && attw --pack . --profile esm-only --exclude-entrypoints ./styles.css",
+    "api:update": "tsc -p tsconfig.build.json && api-extractor run --local && api-extractor run -c api-extractor.react.json --local"
+  },
+  "peerDependencies": {
+    "react": ">=18.3",
+    "react-dom": ">=18.3"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "catalog:",
+    "@hussmartinez/sdk-config": "catalog:",
+    "@microsoft/api-extractor": "catalog:",
+    "@size-limit/file": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitest/browser-playwright": "catalog:",
+    "playwright": "catalog:",
+    "publint": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "size-limit": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  }
+}
