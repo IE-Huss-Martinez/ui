@@ -5,12 +5,14 @@
 ```ts
 
 import { ButtonHTMLAttributes } from 'react';
+import { DialogHTMLAttributes } from 'react';
 import { ForwardRefExoticComponent } from 'react';
 import { HTMLAttributes } from 'react';
 import { Messages } from '@hussmartinez/sdk-core';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
 import { RefAttributes } from 'react';
+import { RefObject } from 'react';
 
 // @public
 export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<HTMLButtonElement>>;
@@ -44,6 +46,25 @@ export type ColorMode = "light" | "dark" | "system";
 
 // @public
 export type Density = "comfortable" | "compact";
+
+// @public
+export const Dialog: ForwardRefExoticComponent<DialogProps & RefAttributes<HTMLDialogElement>>;
+
+// @public
+export type DialogPart = "root" | "header" | "title" | "description" | "body" | "footer" | "close";
+
+// @public
+export interface DialogProps extends Omit<DialogHTMLAttributes<HTMLDialogElement>, "className" | "title" | "open">, StyleProps<DialogPart> {
+    readonly closeIcon?: ReactNode;
+    readonly closeLabel?: string | undefined;
+    readonly description?: ReactNode;
+    readonly footer?: ReactNode;
+    readonly initialFocus?: RefObject<HTMLElement | null> | undefined;
+    readonly onOpenChange: (open: boolean) => void;
+    readonly open: boolean;
+    readonly size?: "small" | "medium" | "large" | undefined;
+    readonly title: ReactNode;
+}
 
 // @public
 export const IconButton: ForwardRefExoticComponent<IconButtonProps & RefAttributes<HTMLButtonElement>>;
@@ -163,6 +184,7 @@ export type UiMessages = Messages<typeof uiMessages>;
 
 // @public
 export const uiMessages: {
+    readonly "dialog.close": "Close";
     readonly "errors.INVALID_THEME_TOKEN": "The theme setting {token} has a value that can't be used.";
     readonly "errors.INVALID_THEME_SELECTOR": "The theme can't be applied to the selector {selector}.";
 };

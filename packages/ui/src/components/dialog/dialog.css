@@ -1,0 +1,139 @@
+@layer hm.components {
+  /*
+   * Layout. The browser's modal styles keep the dialog inside the viewport;
+   * these only set its width and arrange its parts.
+   */
+  .hm-dialog {
+    box-sizing: border-box;
+    inline-size: var(--hm-dialog-width, var(--hm-surface-width-medium));
+    padding: 0;
+  }
+
+  .hm-dialog--small {
+    inline-size: var(--hm-dialog-small-width, var(--hm-surface-width-small));
+  }
+
+  .hm-dialog--large {
+    inline-size: var(--hm-dialog-large-width, var(--hm-surface-width-large));
+  }
+
+  .hm-dialog[open] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--hm-dialog-gap, var(--hm-gap-loose));
+    overflow: hidden;
+    /* Scrolling past the dialog's end doesn't scroll the page behind. */
+    overscroll-behavior: contain;
+    padding: var(--hm-dialog-padding, var(--hm-inset-loose));
+  }
+
+  .hm-dialog-header {
+    align-items: flex-start;
+    display: flex;
+    gap: var(--hm-gap-normal);
+    justify-content: space-between;
+  }
+
+  .hm-dialog-title {
+    margin: 0;
+  }
+
+  .hm-dialog-description {
+    margin: 0;
+  }
+
+  /* The body scrolls when the content is long; the header and footer stay. */
+  .hm-dialog-body {
+    flex: 1 1 auto;
+    min-block-size: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  .hm-dialog-body:focus-visible {
+    outline: var(--hm-focus-ring);
+    outline-offset: var(--hm-focus-ring-offset);
+  }
+
+  .hm-dialog-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--hm-gap-normal);
+    justify-content: flex-end;
+  }
+
+  /* Visual styles, dropped with unstyled. */
+  .hm-dialog:not([data-hm-unstyled]) {
+    background: var(--hm-dialog-bg, var(--hm-color-surface-raised));
+    border: var(--hm-border-width) solid var(--hm-dialog-border-color, var(--hm-color-border));
+    border-radius: var(--hm-dialog-radius, var(--hm-radius-surface));
+    box-shadow: var(--hm-dialog-shadow, var(--hm-shadow-overlay));
+    color: var(--hm-dialog-fg, var(--hm-color-text));
+    font-family: var(--hm-font-family);
+    font-size: var(--hm-font-size-body);
+    letter-spacing: var(--hm-letter-spacing);
+    line-height: var(--hm-line-height-body);
+  }
+
+  .hm-dialog:not([data-hm-unstyled])::backdrop {
+    background: var(--hm-dialog-backdrop, var(--hm-color-overlay));
+  }
+
+  .hm-dialog:not([data-hm-unstyled]) .hm-dialog-title {
+    font-size: var(--hm-dialog-title-font-size, var(--hm-font-size-title));
+    font-weight: var(--hm-font-weight-strong);
+    line-height: var(--hm-line-height-tight);
+  }
+
+  .hm-dialog:not([data-hm-unstyled]) .hm-dialog-description {
+    color: var(--hm-color-text-muted);
+  }
+
+  /* Opening and closing fade and rise; reduced motion only fades. */
+  .hm-dialog:not([data-hm-unstyled]),
+  .hm-dialog:not([data-hm-unstyled])::backdrop {
+    transition-behavior: allow-discrete;
+    transition-duration: var(--hm-motion-duration-exit);
+    transition-property: display, overlay, opacity, translate;
+    transition-timing-function: var(--hm-motion-easing-exit);
+  }
+
+  .hm-dialog[open]:not([data-hm-unstyled]),
+  .hm-dialog[open]:not([data-hm-unstyled])::backdrop {
+    transition-duration: var(--hm-motion-duration-enter);
+    transition-timing-function: var(--hm-motion-easing-enter);
+  }
+
+  .hm-dialog:not([open], [data-hm-unstyled]),
+  .hm-dialog:not([open], [data-hm-unstyled])::backdrop {
+    opacity: 0;
+  }
+
+  .hm-dialog:not([open], [data-hm-unstyled]) {
+    translate: 0 var(--hm-gap-normal);
+  }
+
+  @starting-style {
+    .hm-dialog[open]:not([data-hm-unstyled]),
+    .hm-dialog[open]:not([data-hm-unstyled])::backdrop {
+      opacity: 0;
+    }
+
+    .hm-dialog[open]:not([data-hm-unstyled]) {
+      translate: 0 var(--hm-gap-normal);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hm-dialog:not([data-hm-unstyled]),
+    .hm-dialog[open]:not([data-hm-unstyled]) {
+      translate: none;
+    }
+
+    @starting-style {
+      .hm-dialog[open]:not([data-hm-unstyled]) {
+        translate: none;
+      }
+    }
+  }
+}

@@ -20,6 +20,8 @@ export type {
 export { Button } from "./components/button/Button.js";
 export type { IconButtonProps } from "./components/button/IconButton.js";
 export { IconButton } from "./components/button/IconButton.js";
+export type { DialogPart, DialogProps } from "./components/dialog/Dialog.js";
+export { Dialog } from "./components/dialog/Dialog.js";
 export type {
   UiMessages,
   UiMessagesProviderProps,
