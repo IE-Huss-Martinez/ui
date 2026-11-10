@@ -46,7 +46,7 @@ export type TokenCategory =
  *
  * @public
  */
-export type TokenLevel = "base" | "semantic";
+export type TokenLevel = "base" | "semantic" | "component";
 
 /**
  * The description of one token.
@@ -66,6 +66,13 @@ export interface TokenDefinition {
    * `data-hm-density`, not by the colour mode.
    */
   readonly density: boolean;
+  /**
+   * For component tokens, the semantic token they fall back to. `ui` never
+   * declares component tokens; components read them as
+   * `var(--hm-<name>, var(--hm-<fallback>))`, so a theme or host can set them
+   * on any ancestor (docs/adr/0001).
+   */
+  readonly fallback?: SemanticTokenName;
 }
 
 /** The hues of the base colour palettes. */
@@ -598,13 +605,109 @@ type Assert<T extends true> = T;
 type DensityKeys<T> = { [K in keyof T]: T[K] extends { density: true } ? K : never }[keyof T];
 export type NamesMatch = Assert<Exact<SemanticTokenName, keyof typeof semantic>>;
 export type DensityMatches = Assert<Exact<DensityTokenName, DensityKeys<typeof semantic>>>;
+export type ComponentNamesMatch = Assert<Exact<ComponentTokenName, keyof typeof component>>;
 
 /**
  * The name of any token `@hussmartinez/ui` defines.
  *
  * @public
  */
-export type TokenName = BaseTokenName | SemanticTokenName;
+export type TokenName = BaseTokenName | SemanticTokenName | ComponentTokenName;
+
+/**
+ * The names of `ui`'s component tokens: fine-grained overrides for one
+ * component, each falling back to a semantic token.
+ *
+ * @public
+ */
+export type ComponentTokenName =
+  | "button-height"
+  | "button-small-height"
+  | "button-padding-x"
+  | "button-gap"
+  | "button-icon-size"
+  | "button-radius"
+  | "button-font-weight"
+  | "button-bg"
+  | "button-bg-hover"
+  | "button-bg-active"
+  | "button-fg"
+  | "button-border-color"
+  | "button-primary-bg"
+  | "button-primary-bg-hover"
+  | "button-primary-bg-active"
+  | "button-primary-fg"
+  | "button-quiet-bg-hover"
+  | "button-quiet-bg-active"
+  | "button-danger-bg"
+  | "button-danger-bg-hover"
+  | "button-danger-fg"
+  | "button-pressed-bg"
+  | "button-pressed-fg";
+
+type ComponentSpec = { readonly fallback: SemanticTokenName; readonly description: string };
+
+const component = {
+  "button-height": { fallback: "control-height", description: "Height of buttons." },
+  "button-small-height": {
+    fallback: "control-height-small",
+    description: "Height of small buttons.",
+  },
+  "button-padding-x": { fallback: "control-padding-x", description: "Inline padding of buttons." },
+  "button-gap": { fallback: "control-gap", description: "Gap between a button's icon and label." },
+  "button-icon-size": { fallback: "icon-size", description: "Size of icons in buttons." },
+  "button-radius": { fallback: "radius-control", description: "Corner radius of buttons." },
+  "button-font-weight": {
+    fallback: "font-weight-strong",
+    description: "Weight of button labels.",
+  },
+  "button-bg": { fallback: "color-control", description: "Background of secondary buttons." },
+  "button-bg-hover": {
+    fallback: "color-control-hover",
+    description: "Background of secondary buttons under the pointer.",
+  },
+  "button-bg-active": {
+    fallback: "color-control-active",
+    description: "Background of secondary buttons while pressed.",
+  },
+  "button-fg": { fallback: "color-text", description: "Text of secondary and quiet buttons." },
+  "button-border-color": {
+    fallback: "color-border-strong",
+    description: "Border of secondary buttons.",
+  },
+  "button-primary-bg": { fallback: "color-accent", description: "Background of primary buttons." },
+  "button-primary-bg-hover": {
+    fallback: "color-accent-hover",
+    description: "Background of primary buttons under the pointer.",
+  },
+  "button-primary-bg-active": {
+    fallback: "color-accent-active",
+    description: "Background of primary buttons while pressed.",
+  },
+  "button-primary-fg": { fallback: "color-on-accent", description: "Text of primary buttons." },
+  "button-quiet-bg-hover": {
+    fallback: "color-control-hover",
+    description: "Background of quiet buttons under the pointer.",
+  },
+  "button-quiet-bg-active": {
+    fallback: "color-control-active",
+    description: "Background of quiet buttons while pressed.",
+  },
+  "button-danger-bg": { fallback: "color-danger", description: "Background of danger buttons." },
+  "button-danger-bg-hover": {
+    fallback: "color-danger-hover",
+    description: "Background of danger buttons under the pointer.",
+  },
+  "button-danger-fg": { fallback: "color-on-danger", description: "Text of danger buttons." },
+  "button-pressed-bg": {
+    fallback: "color-accent-subtle",
+    description: "Background of toggle buttons that are on.",
+  },
+  "button-pressed-fg": {
+    fallback: "color-text",
+    description: "Text of toggle buttons that are on.",
+  },
+} as const satisfies Record<ComponentTokenName, ComponentSpec>;
 
 function baseDefinitions(): TokenDefinition[] {
   const list: TokenDefinition[] = [];
@@ -677,9 +780,29 @@ export const tokens: readonly TokenDefinition[] = /* @__PURE__ */ allDefinitions
 
 /** Every definition, frozen. A function, so importing this module has no side effects. */
 function allDefinitions(): readonly TokenDefinition[] {
+  const semanticList = semanticDefinitions();
   return Object.freeze(
-    [...baseDefinitions(), ...semanticDefinitions()].map((definition) => Object.freeze(definition)),
+    [...baseDefinitions(), ...semanticList, ...componentDefinitions(semanticList)].map(
+      (definition) => Object.freeze(definition),
+    ),
   );
+}
+
+/** Component tokens take their category and type from their fallback. */
+function componentDefinitions(semanticList: readonly TokenDefinition[]): TokenDefinition[] {
+  const byFallback = new Map(semanticList.map((definition) => [definition.name, definition]));
+  return Object.entries(component).map(([name, spec]) => {
+    const fallback = byFallback.get(spec.fallback) as TokenDefinition;
+    return {
+      name,
+      level: "component",
+      category: fallback.category,
+      type: fallback.type,
+      description: spec.description,
+      density: false,
+      fallback: spec.fallback,
+    };
+  });
 }
 
 /** Token definitions by name. */

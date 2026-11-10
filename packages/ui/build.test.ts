@@ -133,6 +133,20 @@ describe("what applications ship", () => {
     expect(code).not.toContain(TOKEN_DATA);
   });
 
+  it("drops the components an application doesn't import", async () => {
+    const button = await bundleImport(
+      'import { Button } from "./react.js"; export const app = Button;',
+    );
+    expect(button).toContain("hm-button");
+    expect(button).not.toContain("data-hm-theme-scope");
+    expect(button).not.toContain("hm-visually-hidden");
+    const themeProvider = await bundleImport(
+      'import { ThemeProvider } from "./react.js"; export const app = ThemeProvider;',
+    );
+    expect(themeProvider).not.toContain("hm-button");
+    expect(themeProvider).not.toContain("createMessages");
+  });
+
   it("drops everything from the root entry that isn't imported", async () => {
     const code = await bundleImport(
       'import { uiMessages } from "./index.js"; export const m = uiMessages;',

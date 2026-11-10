@@ -33,6 +33,7 @@ export type { ContrastPair } from "./tokens/contrast.js";
 export { contrastPairs } from "./tokens/contrast.js";
 export type {
   BaseTokenName,
+  ComponentTokenName,
   DensityTokenName,
   SemanticTokenName,
   TokenCategory,

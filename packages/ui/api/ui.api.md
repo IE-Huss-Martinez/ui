@@ -29,6 +29,9 @@ export type CompleteThemeTokens = ThemeTokens & {
 };
 
 // @public
+export type ComponentTokenName = "button-height" | "button-small-height" | "button-padding-x" | "button-gap" | "button-icon-size" | "button-radius" | "button-font-weight" | "button-bg" | "button-bg-hover" | "button-bg-active" | "button-fg" | "button-border-color" | "button-primary-bg" | "button-primary-bg-hover" | "button-primary-bg-active" | "button-primary-fg" | "button-quiet-bg-hover" | "button-quiet-bg-active" | "button-danger-bg" | "button-danger-bg-hover" | "button-danger-fg" | "button-pressed-bg" | "button-pressed-fg";
+
+// @public
 export interface ComponentTokens {
 }
 
@@ -136,6 +139,7 @@ export interface TokenDefinition {
     readonly category: TokenCategory;
     readonly density: boolean;
     readonly description: string;
+    readonly fallback?: SemanticTokenName;
     // (undocumented)
     readonly level: TokenLevel;
     readonly name: string;
@@ -144,10 +148,10 @@ export interface TokenDefinition {
 }
 
 // @public
-export type TokenLevel = "base" | "semantic";
+export type TokenLevel = "base" | "semantic" | "component";
 
 // @public
-export type TokenName = BaseTokenName | SemanticTokenName;
+export type TokenName = BaseTokenName | SemanticTokenName | ComponentTokenName;
 
 // @public
 export const tokens: readonly TokenDefinition[];

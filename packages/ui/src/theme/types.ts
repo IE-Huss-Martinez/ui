@@ -17,9 +17,9 @@ export type ColorMode = "light" | "dark" | "system";
 export type Density = "comfortable" | "compact";
 
 /**
- * Component tokens a theme may set, such as `button-radius`. Empty in this
- * release. SDKs add theirs through declaration merging, so their themes are
- * typed too:
+ * Component tokens from SDKs, such as `pdf-thumb-radius`. `ui`'s own
+ * component tokens are typed already ({@link ComponentTokenName}); SDKs add
+ * theirs through declaration merging, so their themes are typed too:
  *
  * ```ts
  * declare module "@hussmartinez/ui" {
