@@ -1,0 +1,148 @@
+@layer hm.components {
+  /*
+   * Layout, focus and target size: kept with unstyled, so the button stays
+   * usable and accessible.
+   */
+  .hm-button {
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-flex;
+    flex-shrink: 0;
+    gap: var(--hm-button-gap, var(--hm-control-gap));
+    justify-content: center;
+    min-block-size: max(var(--hm-button-height, var(--hm-control-height)), var(--hm-target-size));
+    min-inline-size: var(--hm-target-size);
+    padding-block: 0;
+    padding-inline: var(--hm-button-padding-x, var(--hm-control-padding-x));
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .hm-button--small {
+    min-block-size: max(
+      var(--hm-button-small-height, var(--hm-control-height-small)),
+      var(--hm-target-size)
+    );
+  }
+
+  .hm-button:focus-visible {
+    outline: var(--hm-focus-ring);
+    outline-offset: var(--hm-focus-ring-offset);
+  }
+
+  .hm-button:disabled,
+  .hm-button[aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+
+  .hm-button-icon {
+    block-size: var(--hm-button-icon-size, var(--hm-icon-size));
+    display: inline-flex;
+    flex-shrink: 0;
+    inline-size: var(--hm-button-icon-size, var(--hm-icon-size));
+  }
+
+  .hm-button-icon > svg {
+    block-size: inherit;
+    inline-size: inherit;
+  }
+
+  /* Square, with no label. */
+  .hm-icon-button {
+    min-inline-size: max(var(--hm-button-height, var(--hm-control-height)), var(--hm-target-size));
+    padding-inline: 0;
+  }
+
+  .hm-icon-button.hm-button--small {
+    min-inline-size: max(
+      var(--hm-button-small-height, var(--hm-control-height-small)),
+      var(--hm-target-size)
+    );
+  }
+
+  /* Visual styles, dropped with unstyled. */
+  .hm-button:not([data-hm-unstyled]) {
+    background: var(--hm-button-bg, var(--hm-color-control));
+    /*
+     * The border is transparent unless a variant colours it. It still takes
+     * space, so variants line up, and forced-colours mode draws it.
+     */
+    border: var(--hm-border-width) solid transparent;
+    border-radius: var(--hm-button-radius, var(--hm-radius-control));
+    color: var(--hm-button-fg, var(--hm-color-text));
+    font-family: var(--hm-font-family);
+    font-size: var(--hm-font-size-body);
+    font-weight: var(--hm-button-font-weight, var(--hm-font-weight-strong));
+    letter-spacing: var(--hm-letter-spacing);
+    line-height: var(--hm-line-height-tight);
+    transition-duration: var(--hm-motion-duration-feedback);
+    transition-property: background-color, border-color, color;
+    transition-timing-function: var(--hm-motion-easing-standard);
+  }
+
+  .hm-button--secondary:not([data-hm-unstyled]) {
+    border-color: var(--hm-button-border-color, var(--hm-color-border-strong));
+  }
+
+  .hm-button--primary:not([data-hm-unstyled]) {
+    background: var(--hm-button-primary-bg, var(--hm-color-accent));
+    color: var(--hm-button-primary-fg, var(--hm-color-on-accent));
+  }
+
+  .hm-button--quiet:not([data-hm-unstyled]) {
+    background: transparent;
+  }
+
+  .hm-button--danger:not([data-hm-unstyled]) {
+    background: var(--hm-button-danger-bg, var(--hm-color-danger));
+    color: var(--hm-button-danger-fg, var(--hm-color-on-danger));
+  }
+
+  .hm-button[aria-pressed="true"]:not([data-hm-unstyled]) {
+    background: var(--hm-button-pressed-bg, var(--hm-color-accent-subtle));
+    color: var(--hm-button-pressed-fg, var(--hm-color-text));
+  }
+
+  /* Hover only where there's a real pointer, so touch doesn't leave it stuck. */
+  @media (hover: hover) {
+    .hm-button--secondary:not([data-hm-unstyled], :disabled, [aria-disabled="true"]):hover {
+      background: var(--hm-button-bg-hover, var(--hm-color-control-hover));
+    }
+
+    .hm-button--primary:not([data-hm-unstyled], :disabled, [aria-disabled="true"]):hover {
+      background: var(--hm-button-primary-bg-hover, var(--hm-color-accent-hover));
+    }
+
+    .hm-button--quiet:not([data-hm-unstyled], :disabled, [aria-disabled="true"]):hover {
+      background: var(--hm-button-quiet-bg-hover, var(--hm-color-control-hover));
+    }
+
+    .hm-button--danger:not([data-hm-unstyled], :disabled, [aria-disabled="true"]):hover {
+      background: var(--hm-button-danger-bg-hover, var(--hm-color-danger-hover));
+    }
+  }
+
+  .hm-button--secondary:not([data-hm-unstyled], :disabled, [aria-disabled="true"]):active {
+    background: var(--hm-button-bg-active, var(--hm-color-control-active));
+  }
+
+  .hm-button--primary:not([data-hm-unstyled], :disabled, [aria-disabled="true"]):active {
+    background: var(--hm-button-primary-bg-active, var(--hm-color-accent-active));
+  }
+
+  .hm-button--quiet:not([data-hm-unstyled], :disabled, [aria-disabled="true"]):active {
+    background: var(--hm-button-quiet-bg-active, var(--hm-color-control-active));
+  }
+
+  .hm-button:not([data-hm-unstyled]):disabled,
+  .hm-button[aria-disabled="true"]:not([data-hm-unstyled]) {
+    opacity: var(--hm-opacity-disabled);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hm-button:not([data-hm-unstyled]) {
+      transition-duration: 0s;
+    }
+  }
+}

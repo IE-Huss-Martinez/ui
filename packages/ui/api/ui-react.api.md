@@ -4,14 +4,63 @@
 
 ```ts
 
-import type { ReactElement } from 'react';
-import type { ReactNode } from 'react';
+import { ButtonHTMLAttributes } from 'react';
+import { ForwardRefExoticComponent } from 'react';
+import { HTMLAttributes } from 'react';
+import { Messages } from '@hussmartinez/sdk-core';
+import { ReactElement } from 'react';
+import { ReactNode } from 'react';
+import { RefAttributes } from 'react';
+
+// @public
+export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<HTMLButtonElement>>;
+
+// @public
+export type ButtonPart = "root" | "icon" | "label";
+
+// @public
+export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className">, StyleProps<ButtonPart> {
+    readonly endIcon?: ReactNode;
+    readonly focusableWhenDisabled?: boolean | undefined;
+    readonly pressed?: boolean | undefined;
+    readonly size?: ButtonSize | undefined;
+    readonly startIcon?: ReactNode;
+    readonly variant?: ButtonVariant | undefined;
+}
+
+// @public
+export type ButtonSize = "medium" | "small";
+
+// @public
+export type ButtonVariant = "primary" | "secondary" | "quiet" | "danger";
+
+// @public
+export type ClassNames<Part extends string> = {
+    readonly [Name in Part]?: string;
+};
 
 // @public
 export type ColorMode = "light" | "dark" | "system";
 
 // @public
 export type Density = "comfortable" | "compact";
+
+// @public
+export const IconButton: ForwardRefExoticComponent<IconButtonProps & RefAttributes<HTMLButtonElement>>;
+
+// @public
+export interface IconButtonProps extends Omit<ButtonProps, "startIcon" | "endIcon" | "children" | "classNames"> {
+    readonly classNames?: ClassNames<"root" | "icon"> | undefined;
+    readonly icon: ReactNode;
+    readonly label: string;
+}
+
+// @public
+export interface StyleProps<Part extends string> {
+    readonly className?: string | undefined;
+    readonly classNames?: ClassNames<Part> | undefined;
+    readonly unstyled?: boolean | undefined;
+}
 
 // @public
 export interface Theme {
@@ -56,6 +105,36 @@ export interface ThemeProviderSingleProps extends ThemeProviderBaseProps {
     readonly mode?: undefined;
     // (undocumented)
     readonly theme: Theme;
+}
+
+// @public
+export type UiMessages = Messages<typeof uiMessages>;
+
+// @public
+export const uiMessages: {
+    readonly "errors.INVALID_THEME_TOKEN": "The theme setting {token} has a value that can't be used.";
+    readonly "errors.INVALID_THEME_SELECTOR": "The theme can't be applied to the selector {selector}.";
+};
+
+// @public
+export function UiMessagesProvider(input: UiMessagesProviderProps): ReactElement;
+
+// @public
+export interface UiMessagesProviderProps {
+    // (undocumented)
+    readonly children?: ReactNode;
+    readonly messages: UiMessages;
+}
+
+// @public
+export function useUiMessages(): UiMessages;
+
+// @public
+export const VisuallyHidden: ForwardRefExoticComponent<VisuallyHiddenProps & RefAttributes<HTMLElement>>;
+
+// @public
+export interface VisuallyHiddenProps extends HTMLAttributes<HTMLElement> {
+    readonly as?: "span" | "div";
 }
 
 ```
