@@ -21,6 +21,17 @@ describe("the visual test image", () => {
     expect(await dockerfile()).toMatch(/^FROM \S+@sha256:[0-9a-f]{64}$/m);
   });
 
+  it("is the image CI's verify job runs in", async () => {
+    const image = /^FROM (\S+)$/m.exec(await dockerfile())?.[1];
+    const workflow = await readFile(
+      new URL("../../../.github/workflows/verify.yml", import.meta.url),
+      "utf8",
+    );
+    const container = /container:\n\s+image: (\S+)/.exec(workflow)?.[1];
+    expect(image).toBeDefined();
+    expect(container, "keep verify.yml's container image equal to visual/Dockerfile's").toBe(image);
+  });
+
   it("installs the pnpm version in packageManager", async () => {
     const manifest = JSON.parse(
       await readFile(new URL("../../../package.json", import.meta.url), "utf8"),
