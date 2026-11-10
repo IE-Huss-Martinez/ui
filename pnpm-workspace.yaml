@@ -14,9 +14,14 @@ catalog:
   "@hussmartinez/sdk-core": ^0.1.0
   "@microsoft/api-extractor": ^7.60.1
   "@size-limit/file": ^14.3.0
+  "@storybook/addon-a11y": ^10.6.6
+  "@storybook/addon-docs": ^10.6.6
+  "@storybook/addon-vitest": ^10.6.6
+  "@storybook/react-vite": ^10.6.6
   "@types/node": ^24.19.2
   "@types/react": ^19.3.0
   "@types/react-dom": ^19.3.0
+  "@vitest/browser": 5.1.0
   "@vitest/browser-playwright": 5.1.0
   dependency-cruiser: ^18.7.2
   husky: ^9.1.7
@@ -27,14 +32,18 @@ catalog:
   react-dom: ^19.3.0
   secretlint: ^13.1.0
   size-limit: ^14.3.0
+  storybook: ^10.6.6
   stylelint: ^18.0.0
   typescript: ^6.0.3
   vite: ^8.3.6
   vitest: ^5.1.0
 
 # Supply-chain hardening (ADR 0012).
-# Dependency install scripts are blocked unless allowlisted here.
-allowBuilds: {}
+# Dependency install scripts are blocked unless allowlisted here. esbuild's
+# (from Storybook) only checks its platform binary, which works without it,
+# so it's denied explicitly (ADR 0022).
+allowBuilds:
+  esbuild: false
 # Fail the install when an unapproved package wants to run a build script.
 strictDepBuilds: true
 # Don't resolve versions published less than a day ago.

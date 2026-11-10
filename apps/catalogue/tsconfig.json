@@ -1,0 +1,16 @@
+{
+  "extends": "@hussmartinez/sdk-config/tsconfig/browser",
+  "compilerOptions": {
+    "noEmit": true,
+    "jsx": "react-jsx",
+    // Storybook and Vitest configs run in Node; stories import CSS through Vite.
+    "types": ["node", "vite/client"],
+    // The same source the Vite aliases in ui-source.ts resolve to, so the
+    // catalogue typechecks before the package is built.
+    "paths": {
+      "@hussmartinez/ui": ["../../packages/ui/src/index.ts"],
+      "@hussmartinez/ui/react": ["../../packages/ui/src/react.ts"]
+    }
+  },
+  "include": [".storybook", "src", "visual", "*.ts"]
+}

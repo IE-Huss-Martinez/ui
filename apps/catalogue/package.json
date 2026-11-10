@@ -1,0 +1,37 @@
+{
+  "name": "@hussmartinez/ui-catalogue",
+  "private": true,
+  "description": "The component catalogue of @hussmartinez/ui, built with Storybook.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "storybook dev --port 6006 --no-open",
+    "typecheck": "tsc",
+    "build": "storybook build --output-dir storybook-static --quiet",
+    "test": "vitest run --project unit",
+    "test:browser": "vitest run --project storybook",
+    "test:browser:all": "vitest run --project storybook --mode all-browsers"
+  },
+  "dependencies": {
+    "@hussmartinez/ui": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@hussmartinez/sdk-config": "catalog:",
+    "@storybook/addon-a11y": "catalog:",
+    "@storybook/addon-docs": "catalog:",
+    "@storybook/addon-vitest": "catalog:",
+    "@storybook/react-vite": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitest/browser": "catalog:",
+    "@vitest/browser-playwright": "catalog:",
+    "playwright": "catalog:",
+    "storybook": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  }
+}
