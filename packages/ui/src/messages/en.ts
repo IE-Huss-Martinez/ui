@@ -15,6 +15,8 @@ import { defineMessages } from "@hussmartinez/sdk-core";
  */
 export const uiMessages = /* @__PURE__ */ defineMessages({
   "dialog.close": "Close",
+  "progress.label": "Progress",
+  "spinner.label": "Loading",
   "errors.INVALID_THEME_TOKEN": "The theme setting {token} has a value that can't be used.",
   "errors.INVALID_THEME_SELECTOR": "The theme can't be applied to the selector {selector}.",
 });

@@ -35,6 +35,9 @@ const shared = {
   "surface-width-small": "24rem",
   "surface-width-medium": "32rem",
   "surface-width-large": "48rem",
+  "track-size": "0.375rem",
+  "motion-duration-loop": "1s",
+  "motion-easing-loop": "linear",
 } as const;
 
 /** Semantic values of the built-in light theme. */
