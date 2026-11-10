@@ -7,8 +7,13 @@
 
 // A literal, not a joined array: a call at module scope would make bundlers
 // keep this module in applications that never use a toolbar.
+//
+// Items the toolbar has managed carry data-hm-roving, so a custom item, such
+// as a div with tabindex="0", still counts after the toolbar sets its
+// tabindex to -1. Elements an author set to tabindex="-1" are never marked,
+// so they stay out. A managed item that becomes disabled drops out again.
 const FOCUSABLE =
-  'button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex^="-"]):not(button, a, input, select, textarea)';
+  'button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex^="-"]):not(button, a, input, select, textarea), [data-hm-roving]:not(:disabled)';
 
 /** The toolbar's items, in DOM order, skipping hidden ones. */
 export function items(toolbar: HTMLElement): HTMLElement[] {
@@ -26,6 +31,7 @@ export function syncTabStop(toolbar: HTMLElement, active?: Element | null): void
     list[0];
   for (const item of list) {
     const isStop = item === current;
+    item.dataset["hmRoving"] = "";
     item.tabIndex = isStop ? 0 : -1;
     if (isStop) {
       item.dataset["hmTabStop"] = "";

@@ -76,6 +76,17 @@ function Growing() {
   );
 }
 
+function Toggle() {
+  const [off, setOff] = useState(false);
+  return (
+    <Toolbar label="Tools">
+      <Button onClick={() => setOff(true)}>Disable next</Button>
+      <Button disabled={off}>Next</Button>
+      <Button>Last</Button>
+    </Toolbar>
+  );
+}
+
 describe("Toolbar", () => {
   it("has exactly one Tab stop after hydration, and Tab leaves it", async () => {
     const container = render(<Tools />, renderToString(<Tools />));
@@ -145,6 +156,47 @@ describe("Toolbar", () => {
     await userEvent.click(container.querySelector("button") as HTMLElement);
     await vi.waitFor(() => expect(container.querySelectorAll("button")).toHaveLength(2));
     await vi.waitFor(() => expect(tabStops(container).map((e) => e.textContent)).toEqual(["Add"]));
+  });
+
+  it("keeps custom tabindex items after making them non-stops, and leaves author-hidden ones out", async () => {
+    const container = render(
+      <Toolbar label="Format">
+        {/* biome-ignore lint/a11y/useSemanticElements: a custom tabindex item is what this test is about. */}
+        <div role="checkbox" aria-checked="false" aria-label="Bold" tabIndex={0}>
+          B
+        </div>
+        <span tabIndex={-1}>Skipped</span>
+        {/* biome-ignore lint/a11y/useSemanticElements: a custom tabindex item is what this test is about. */}
+        <div role="checkbox" aria-checked="false" aria-label="Italic" tabIndex={0}>
+          I
+        </div>
+        <Button>Clear</Button>
+      </Toolbar>,
+    );
+    const label = (): string | null =>
+      (document.activeElement as HTMLElement | null)?.getAttribute("aria-label") ??
+      document.activeElement?.textContent ??
+      null;
+    await userEvent.tab();
+    expect(label()).toBe("Bold");
+    await userEvent.keyboard("{ArrowRight}");
+    expect(label()).toBe("Italic");
+    await userEvent.keyboard("{ArrowRight}");
+    expect(label()).toBe("Clear");
+    await userEvent.keyboard("{ArrowRight}");
+    expect(label()).toBe("Bold");
+    await userEvent.keyboard("{ArrowLeft}{ArrowLeft}");
+    expect(label()).toBe("Italic");
+    expect((container.querySelector("span") as HTMLElement).tabIndex).toBe(-1);
+    expect(tabStops(container)).toHaveLength(1);
+  });
+
+  it("skips an item that becomes disabled after the toolbar managed it", async () => {
+    render(<Toggle />);
+    await userEvent.tab();
+    await userEvent.keyboard("{Enter}");
+    await userEvent.keyboard("{ArrowRight}");
+    expect(active()).toBe("Last");
   });
 
   it("hydrates without errors or warnings", () => {
