@@ -7,3 +7,12 @@
  * unlayered CSS beats all of them without !important (ADR 0005).
  */
 @layer hm.tokens, hm.base, hm.components, hm.sdk;
+
+/*
+ * Custom themes from themeToCss and ThemeProvider beat the built-in themes,
+ * whatever order the stylesheets load in (docs/adr/0001).
+ */
+@layer hm.tokens.default, hm.tokens.theme;
+
+@import "./tokens/tokens.css";
+@import "./base/base.css";
