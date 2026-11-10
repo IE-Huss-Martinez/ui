@@ -22,6 +22,15 @@ pnpm verify:fast   # the subset the pre-push hook runs
 
 Browser tests need Playwright's browsers once: `pnpm --filter @hussmartinez/ui exec playwright install chromium firefox webkit`.
 
+**Visual tests need [Docker](https://docs.docker.com/get-docker/).** `pnpm verify` runs them inside a pinned Playwright image, so screenshots match on every machine ([ADR 0002](docs/adr/0002-visual-regression-in-a-pinned-container.md)). The first run downloads the image, about 2 GB. Without Docker, `pnpm verify` stops at `test:visual` and says how to fix it.
+
+```sh
+pnpm test:visual          # compare every story with its baselines
+pnpm test:visual:update   # write new baselines after an intended visual change
+```
+
+Commit updated baselines with the change that caused them, and look at the image diffs in the pull request before asking for review.
+
 The git hooks run on their own: a secret scan and lint of staged files on commit, a Conventional Commits check of each message, and `pnpm verify:fast` on push. Don't bypass them with `--no-verify`. If a hook is wrong or too slow, fix it in its own pull request.
 
 ## Make a change
@@ -34,6 +43,7 @@ The git hooks run on their own: a secret scan and lint of staged files on commit
   - **breaking changes** take a `!`, as in `feat!: …`, and explain the migration in the body.
 - **Signed commits** are preferred.
 - **Tests:** unit tests sit next to the code as `*.test.ts`, and browser tests as `*.browser.test.ts`. Test behaviour, not lines of code. Components are tested with the keyboard and with axe.
+- **Catalogue:** every component has stories in [`apps/catalogue`](apps/catalogue), covering its states. Each story is a test: it runs on three engines with axe, and visual tests render it in every theme and density.
 - **Public API:** fully typed, with TSDoc on every export. If a change alters the API on purpose, update the reports with `pnpm --filter @hussmartinez/ui api:update` and commit them.
 - **Styles:** plain CSS in the `hm.*` cascade layers, with `hm-` names and values from `--hm-*` tokens. stylelint enforces this. A disable comment needs a description that says why.
 - **Tokens:** edit the source in `packages/ui/src/tokens`, then run `pnpm --filter @hussmartinez/ui tokens` to regenerate `tokens.css` and the token reference. A test fails if they're stale. New semantic tokens and changes to the built-in colours must keep every contrast pair at WCAG 2.2 AA, which the tests check. See [ADR 0001](docs/adr/0001-design-tokens-and-theme-scoping.md).

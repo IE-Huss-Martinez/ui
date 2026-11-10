@@ -1,0 +1,88 @@
+/*
+ * Styles of the catalogue's own pages. They follow the same rules as the
+ * library: hm- names and token values only, so every theme applies to them.
+ */
+.hm-catalogue-canvas {
+  background: var(--hm-color-bg);
+  color: var(--hm-color-text);
+  font-family: var(--hm-font-family);
+  font-size: var(--hm-font-size-body);
+  letter-spacing: var(--hm-letter-spacing);
+  line-height: var(--hm-line-height-body);
+  padding: var(--hm-inset-loose);
+}
+
+.hm-catalogue-title {
+  font-size: var(--hm-font-size-title);
+  font-weight: var(--hm-font-weight-strong);
+  line-height: var(--hm-line-height-tight);
+  margin-block: 0 var(--hm-gap-loose);
+}
+
+.hm-catalogue-table {
+  border-collapse: collapse;
+  inline-size: 100%;
+}
+
+.hm-catalogue-table th,
+.hm-catalogue-table td {
+  border-block-end: var(--hm-border-width) solid var(--hm-color-border);
+  padding: var(--hm-gap-normal) var(--hm-gap-loose) var(--hm-gap-normal) 0;
+  text-align: start;
+  vertical-align: middle;
+}
+
+.hm-catalogue-table th {
+  color: var(--hm-color-text-muted);
+  font-size: var(--hm-font-size-small);
+  font-weight: var(--hm-font-weight-strong);
+}
+
+.hm-catalogue-code {
+  font-family: var(--hm-font-family-mono);
+  font-size: var(--hm-font-size-small);
+}
+
+.hm-catalogue-muted {
+  color: var(--hm-color-text-muted);
+  font-size: var(--hm-font-size-small);
+}
+
+.hm-catalogue-swatch {
+  block-size: var(--hm-control-height);
+  border: var(--hm-border-width) solid var(--hm-color-border-strong);
+  border-radius: var(--hm-radius-control);
+  inline-size: var(--hm-control-height);
+}
+
+.hm-catalogue-bar {
+  background: var(--hm-color-accent);
+  block-size: var(--hm-space-3);
+}
+
+.hm-catalogue-box {
+  background: var(--hm-color-surface-raised);
+  block-size: var(--hm-space-9);
+  border: var(--hm-border-width) solid var(--hm-color-border-strong);
+  inline-size: var(--hm-space-9);
+}
+
+/*
+ * A themed panel sets its own text colour: color is inherited as a computed
+ * value, so a nested theme doesn't change it on its own.
+ */
+.hm-catalogue-panel {
+  background: var(--hm-color-surface);
+  color: var(--hm-color-text);
+  border: var(--hm-border-width) solid var(--hm-color-border);
+  border-radius: var(--hm-radius-surface);
+  display: grid;
+  gap: var(--hm-gap-normal);
+  padding: var(--hm-inset-normal);
+}
+
+.hm-catalogue-sample {
+  border-radius: var(--hm-radius-control);
+  display: inline-block;
+  padding: var(--hm-gap-tight) var(--hm-gap-normal);
+}

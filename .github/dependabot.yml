@@ -17,6 +17,18 @@ updates:
       github-actions:
         patterns: ["*"]
 
+  # The pinned Playwright image for visual tests. Its tag must move together
+  # with the playwright package; a unit test in apps/catalogue fails until
+  # both match.
+  - package-ecosystem: docker
+    directory: /apps/catalogue/visual
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: test
+
   # Workspace dependencies, including the pnpm catalog in pnpm-workspace.yaml.
   - package-ecosystem: npm
     directory: /

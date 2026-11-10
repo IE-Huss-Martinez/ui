@@ -8,9 +8,9 @@ This repository will publish **`@hussmartinez/ui`**. It follows the family stand
 
 ## Development
 
-This repository is a pnpm workspace. The published package lives in [`packages/ui`](packages/ui); applications that aren't published, such as the component catalogue, will live in `apps/`.
+This repository is a pnpm workspace. The published package lives in [`packages/ui`](packages/ui), and the component catalogue, built with Storybook, in [`apps/catalogue`](apps/catalogue). `pnpm --filter @hussmartinez/ui-catalogue dev` starts it.
 
-You need Node 24 (see [`.node-version`](.node-version)) and pnpm. The exact pnpm version is pinned in `package.json`, and pnpm switches to it automatically.
+You need Node 24 (see [`.node-version`](.node-version)), pnpm, and Docker for the visual tests. The exact pnpm version is pinned in `package.json`, and pnpm switches to it automatically.
 
 ```sh
 pnpm install       # also installs the git hooks
@@ -28,7 +28,8 @@ pnpm verify:fast   # the subset the pre-push hook runs
 | Dependency rules | `lint:deps` | dependency-cruiser, through `hm-lint-deps` |
 | Build | `build` | Vite, then api-extractor for the type declarations |
 | Unit tests | `test` | Vitest |
-| Browser tests | `test:browser` | Vitest in Chromium, and in Firefox and WebKit too in CI |
+| Browser tests | `test:browser` | Vitest, and every catalogue story with axe, in Chromium, and in Firefox and WebKit too in CI |
+| Visual tests | `test:visual` | Every story in three themes and two densities, in a pinned Playwright image (needs Docker) |
 | Size budgets | `check:size` | size-limit, brotli size of each entry point |
 | API reports | `check:api` | api-extractor, one report per entry point in `packages/ui/api` |
 | Package checks | `check:package` | publint and Are the Types Wrong? |

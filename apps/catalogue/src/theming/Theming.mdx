@@ -1,0 +1,48 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Theming/Guide" />
+
+# Theming
+
+Every visual value in `@hussmartinez/ui` is a design token: a CSS custom property such as `--hm-color-accent`. Themes are sets of token values, so any look can be expressed without touching a component. The [token reference](https://github.com/hussmartinez/ui/blob/main/packages/ui/docs/tokens.md) lists every token, and the **Tokens** pages here show them live. Use the toolbar to switch theme and density.
+
+## Built-in themes
+
+Load `@hussmartinez/ui/styles.css` once. The light and dark themes then follow the operating system in pure CSS, so nothing flashes on load. Attributes change any subtree:
+
+```html
+<section data-hm-theme="dark">Always dark</section>
+<section data-hm-theme="system">Follows the system again</section>
+<aside data-hm-density="compact">Tighter controls</aside>
+```
+
+## Custom themes
+
+```ts
+import { createTheme } from "@hussmartinez/ui";
+
+const brandLight = createTheme({ extends: "light", tokens: { "color-accent": "#5b21b6" } });
+const brandDark = createTheme({ extends: "dark", tokens: { "color-accent": "#c4b5fd" } });
+```
+
+Every value is validated, so a value from a user can't inject CSS. In development, `createTheme` warns about colours below WCAG 2.2 AA contrast.
+
+Apply a theme with `ThemeProvider`, which renders on the server so nothing flashes:
+
+```tsx
+<ThemeProvider theme={{ light: brandLight, dark: brandDark }} mode="system" density="compact">
+  <App />
+</ThemeProvider>
+```
+
+Or write it as a static stylesheet with `themeToCss`, for strict Content Security Policies:
+
+```ts
+const css = themeToCss({ light: brandLight, dark: brandDark }, ".brand");
+```
+
+Themes nest, and the closest one wins: see **Theming / Scoped themes**.
+
+## The Poster theme
+
+Poster is a deliberately unusual demo theme: square corners, a monospace face, a vermilion accent, thick borders and hard shadows. It exists only in this catalogue and the visual tests, to show that everything follows the tokens. A component that hard-codes a value looks wrong in it straight away.
