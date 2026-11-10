@@ -85,6 +85,14 @@ const scoped = themeToCss(brandLight, ".marketing"); // only inside .marketing
 
 Custom themes always beat the built-in ones, whatever order stylesheets load in. Themes can nest; the closest one wins. Invalid selectors throw `UiError` with the code `INVALID_THEME_SELECTOR`.
 
+## Server rendering and frameworks
+
+Every component renders on the server and hydrates without warnings; end-to-end tests check it in a Next.js App Router application and a server-rendered Vite application ([ADR 0007](https://github.com/hussmartinez/sdk-core/blob/main/docs/adr/0007-server-rendering-and-nextjs.md)). Nothing touches the browser when either entry is imported.
+
+- **Next.js Server Components** can import `@hussmartinez/ui` (tokens, `createTheme`, `themeToCss`) and render components from `@hussmartinez/ui/react` directly, as long as they pass no functions. Put components that need callbacks, such as `Dialog`, in a client component.
+- **Custom themes in Server Components:** a theme passed to a client component is serialised, so `ThemeProvider` can't receive one from a Server Component. Write it as CSS instead, `<style>{themeToCss(theme, ".brand")}</style>`, or create the theme in a client module.
+- **Vite** may print "module level directive may not be preserved" for `@hussmartinez/ui/react`. It's harmless: `"use client"` only matters to frameworks with Server Components.
+
 ## Content Security Policy
 
 - **The built-in themes** need no inline styles: `styles.css` and the `data-hm-*` attributes are enough.
