@@ -131,6 +131,36 @@ Density tokens change with `data-hm-density`: the Light and Dark columns hold th
 | `--hm-focus-ring-offset` | `2px` | `2px` |  | Gap between a control and its focus indicator. |
 | `--hm-focus-ring` | `var(--hm-focus-ring-width) solid var(--hm-focus-ring-color)` | `var(--hm-focus-ring-width) solid var(--hm-focus-ring-color)` |  | The focus indicator as an `outline` value (ADR 0014). |
 
+## Component tokens
+
+Fine-grained overrides for one component. `ui` never declares them: each component reads `var(--hm-<token>, var(--hm-<fallback>))`, so set them on any ancestor, in a theme or in your own CSS.
+
+| Token | Falls back to | Description |
+|---|---|---|
+| `--hm-button-height` | `--hm-control-height` | Height of buttons. |
+| `--hm-button-small-height` | `--hm-control-height-small` | Height of small buttons. |
+| `--hm-button-padding-x` | `--hm-control-padding-x` | Inline padding of buttons. |
+| `--hm-button-gap` | `--hm-control-gap` | Gap between a button's icon and label. |
+| `--hm-button-icon-size` | `--hm-icon-size` | Size of icons in buttons. |
+| `--hm-button-radius` | `--hm-radius-control` | Corner radius of buttons. |
+| `--hm-button-font-weight` | `--hm-font-weight-strong` | Weight of button labels. |
+| `--hm-button-bg` | `--hm-color-control` | Background of secondary buttons. |
+| `--hm-button-bg-hover` | `--hm-color-control-hover` | Background of secondary buttons under the pointer. |
+| `--hm-button-bg-active` | `--hm-color-control-active` | Background of secondary buttons while pressed. |
+| `--hm-button-fg` | `--hm-color-text` | Text of secondary and quiet buttons. |
+| `--hm-button-border-color` | `--hm-color-border-strong` | Border of secondary buttons. |
+| `--hm-button-primary-bg` | `--hm-color-accent` | Background of primary buttons. |
+| `--hm-button-primary-bg-hover` | `--hm-color-accent-hover` | Background of primary buttons under the pointer. |
+| `--hm-button-primary-bg-active` | `--hm-color-accent-active` | Background of primary buttons while pressed. |
+| `--hm-button-primary-fg` | `--hm-color-on-accent` | Text of primary buttons. |
+| `--hm-button-quiet-bg-hover` | `--hm-color-control-hover` | Background of quiet buttons under the pointer. |
+| `--hm-button-quiet-bg-active` | `--hm-color-control-active` | Background of quiet buttons while pressed. |
+| `--hm-button-danger-bg` | `--hm-color-danger` | Background of danger buttons. |
+| `--hm-button-danger-bg-hover` | `--hm-color-danger-hover` | Background of danger buttons under the pointer. |
+| `--hm-button-danger-fg` | `--hm-color-on-danger` | Text of danger buttons. |
+| `--hm-button-pressed-bg` | `--hm-color-accent-subtle` | Background of toggle buttons that are on. |
+| `--hm-button-pressed-fg` | `--hm-color-text` | Text of toggle buttons that are on. |
+
 ## Base tokens
 
 | Token | Value |

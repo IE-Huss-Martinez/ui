@@ -9,10 +9,11 @@ export default [
     name: "Server-safe entry (.), with the shared code it loads",
     path: ["dist/index.js", "dist/shared/*.js"],
     brotli: true,
-    // 12 kB. At 0.1.0 it measures 11 kB. Each module compressed on its own,
-    // in kB:
+    // 12 kB. It measures 11.6 kB with the button's component tokens. Each
+    // module compressed on its own, in kB:
     //   theme/css-value.ts      2.6  the injection allowlist and type grammars
-    //   tokens/definitions.ts   2.1  token metadata behind the `tokens` export
+    //   tokens/definitions.ts   2.5  token metadata behind the `tokens` export;
+    //                                it grows with every component's tokens
     //   theme/color.ts          1.6  colour parsing and WCAG contrast
     //   theme/css-writer.ts     1.5  the selector allowlist and CSS writer
     //   theme/create-theme.ts   1.5  validation, extends, built-in themes

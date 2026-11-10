@@ -24,7 +24,7 @@ describe("the built-in themes", () => {
     ["light", lightTheme],
     ["dark", darkTheme],
   ] as const)("%s sets every token, with a value valid for its type", (_name, theme) => {
-    for (const definition of tokens) {
+    for (const definition of tokens.filter((t) => t.level !== "component")) {
       const value = theme.tokens[definition.name];
       expect(value, definition.name).toBeDefined();
       expect(() => validateValue(value as string, definition.type), definition.name).not.toThrow();
@@ -47,6 +47,13 @@ describe("the built-in themes", () => {
 });
 
 describe("the token definitions", () => {
+  it("never give built-in themes component tokens, which fall back instead", () => {
+    for (const definition of tokens.filter((t) => t.level === "component")) {
+      expect(lightTheme.tokens[definition.name], definition.name).toBeUndefined();
+      expect(tokensByName.get(definition.fallback as string)?.level).toBe("semantic");
+    }
+  });
+
   it("name every token once", () => {
     expect(new Set(tokens.map((t) => t.name)).size).toBe(tokens.length);
   });

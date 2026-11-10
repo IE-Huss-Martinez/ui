@@ -81,6 +81,20 @@ function tokensMarkdown(): string {
     }
     lines.push("");
   }
+  lines.push(
+    "## Component tokens",
+    "",
+    "Fine-grained overrides for one component. `ui` never declares them: each component reads `var(--hm-<token>, var(--hm-<fallback>))`, so set them on any ancestor, in a theme or in your own CSS.",
+    "",
+    "| Token | Falls back to | Description |",
+    "|---|---|---|",
+  );
+  for (const definition of tokens.filter((d) => d.level === "component")) {
+    lines.push(
+      `| \`--hm-${definition.name}\` | \`--hm-${definition.fallback}\` | ${definition.description} |`,
+    );
+  }
+  lines.push("");
   lines.push("## Base tokens", "", "| Token | Value |", "|---|---|");
   for (const definition of tokens.filter((d) => d.level === "base")) {
     lines.push(`| \`--hm-${definition.name}\` | ${code(lightTheme.tokens[definition.name])} |`);
