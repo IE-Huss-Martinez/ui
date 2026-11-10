@@ -84,4 +84,5 @@ Most applications use only the built-in themes, so `ThemeProvider` must not pull
 - Any visual difference between two applications can be expressed as token values, at any level of the page, and nested themes behave predictably.
 - Custom theme CSS is larger than strictly needed, because every block re-declares every token. It compresses well, and correctness matters more here.
 - `ui` depends on `@hussmartinez/sdk-core` at runtime for `SdkError` and the message helpers.
+- **Descriptions stay out of the runtime API.** What each token is for lives in `src/tokens/descriptions.ts`, which no entry point imports; the generated token reference and the catalogue read it. The `tokens` export carries only names, levels, categories, types and fallbacks, because applications don't need prose at runtime and it grew the `.` entry with every component's tokens. This was changed before the first release, when it cost nothing.
 - Values outside the allowlist are rejected even when they're valid CSS, such as named colours other than `black`, `white` and `transparent`. The grammar can be widened in a later release without breaking anyone.

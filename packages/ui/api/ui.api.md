@@ -135,15 +135,11 @@ export type TokenCategory = "color" | "typography" | "space" | "size" | "shape" 
 
 // @public
 export interface TokenDefinition {
-    // (undocumented)
     readonly category: TokenCategory;
     readonly density: boolean;
-    readonly description: string;
     readonly fallback?: SemanticTokenName;
-    // (undocumented)
     readonly level: TokenLevel;
     readonly name: string;
-    // (undocumented)
     readonly type: TokenType;
 }
 
