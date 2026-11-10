@@ -215,6 +215,9 @@ catalogs:
     dependency-cruiser:
       specifier: ^18.7.2
       version: 18.7.2
+    esbuild:
+      specifier: ^0.28.2
+      version: 0.28.2
     husky:
       specifier: ^9.1.7
       version: 9.1.7
@@ -372,6 +375,9 @@ importers:
       '@vitest/browser-playwright':
         specifier: 'catalog:'
         version: 5.1.0(playwright@1.65.0)(vite@8.3.7(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@5.1.0)
+      esbuild:
+        specifier: 'catalog:'
+        version: 0.28.2
       playwright:
         specifier: 'catalog:'
         version: 1.65.0
