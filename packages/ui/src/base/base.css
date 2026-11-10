@@ -3,9 +3,15 @@
  * attribute or class, never to the host page (ADR 0005).
  */
 @layer hm.base {
-  /* Native scrollbars and form controls follow the theme. */
+  /*
+   * Native scrollbars and form controls follow the theme, and so does text.
+   * color is inherited as a computed value, so without this, text inside a
+   * themed subtree would keep the colour of the theme around it. It's in the
+   * lowest layer, so any host CSS still wins. Backgrounds stay the host's.
+   */
   [data-hm-theme],
   [data-hm-theme-scope] {
+    color: var(--hm-color-text);
     color-scheme: var(--hm-color-scheme);
   }
 
