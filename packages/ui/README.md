@@ -110,6 +110,9 @@ Every component follows one contract ([ADR 0003](https://github.com/hussmartinez
 | `Toolbar`, `ToolbarGroup`, `ToolbarSeparator` | A row or column of controls with one Tab stop: arrow keys move between items, Home and End jump to the ends. `label` is required on the toolbar and its groups |
 | `SegmentedControl` | A few mutually exclusive choices side by side. A radio group: arrow keys move and select. Inside a `Toolbar`, it joins the toolbar's arrow keys, and Space or Enter selects |
 | `Dialog` | A modal dialog on the native `<dialog>`: focus moves in and is trapped, the page behind is inert, Escape asks to close through `onOpenChange(false)`, and focus returns to the opener. Controlled by `open`; labelled by `title`. Long content scrolls in the body, which becomes keyboard-scrollable when it overflows |
+| `Spinner` | Loading for an unknown time. An indeterminate progress bar to assistive technology, named by `label`; its size follows `--hm-spinner-size` |
+| `ProgressBar` | Progress for a known amount, on the native `<progress>`: `value`, `max`, `label`, `valueText`. Indeterminate without `value`. It needs no inline styles, so it works under a strict Content Security Policy |
+| `AnnouncerProvider`, `useAnnounce` | Announcements for screen readers, such as "Saved 1.3 MB": `announce(message, { politeness })`. The provider renders the live regions once, on the server too |
 
 ```tsx
 import { Button, IconButton } from "@hussmartinez/ui/react";
