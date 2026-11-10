@@ -2,7 +2,7 @@
 
 The design system of the `@hussmartinez` SDK family: design tokens, themes, base styles and accessible React components. Every SDK's editor uses it, and standalone applications can too.
 
-> Status: not published yet. Tokens and theming are in place; components come next.
+> Status: not published yet. Tokens, theming and the first components are in place; more components are on the way.
 
 ## Entry points
 
@@ -11,7 +11,7 @@ The package is ESM only ([ADR 0004](https://github.com/hussmartinez/sdk-core/blo
 | Entry | Contents |
 |---|---|
 | `@hussmartinez/ui` | Tokens, `createTheme`, `themeToCss`, the built-in themes and their types. No React and no DOM access on import, so it's safe in Server Components and build scripts |
-| `@hussmartinez/ui/react` | `ThemeProvider` and, later, components. Starts with `"use client"`. React and React DOM `>=18.3` are optional peer dependencies |
+| `@hussmartinez/ui/react` | `ThemeProvider`, `UiMessagesProvider` and the components. Starts with `"use client"`. React and React DOM `>=18.3` are optional peer dependencies |
 | `@hussmartinez/ui/styles.css` | All styles: the built-in tokens and base styles, in the cascade layers `hm.tokens` and `hm.base`. Import it once in your application |
 
 JavaScript never imports CSS, so your application decides where the stylesheet loads. Your own unlayered CSS overrides every `hm` layer without `!important` ([ADR 0005](https://github.com/hussmartinez/sdk-core/blob/main/docs/adr/0005-plain-css-with-cascade-layers.md)).
@@ -92,6 +92,44 @@ Custom themes always beat the built-in ones, whatever order stylesheets load in.
 - **A strict policy without nonces:** generate the theme with `themeToCss` at build time and serve it as a stylesheet, then use `ThemeProvider` without `theme`, or plain `data-hm-*` attributes.
 
 No styles are evaluated as JavaScript, and nothing needs `unsafe-eval`.
+
+## Components
+
+Every component follows one contract ([ADR 0003](https://github.com/hussmartinez/ui/blob/main/docs/adr/0003-component-contract.md)):
+
+- **Styling:** `className` on the root, `classNames` per named part, and stable `.hm-*` classes to target. `unstyled` drops colours, borders, typography and motion, and keeps layout, focus rings and target sizes.
+- **Theming:** component tokens, such as `--hm-button-radius`, fall back to semantic tokens. Set them on any ancestor.
+- **Refs and props:** refs reach the root element, and native props pass through.
+- **Text:** text props, falling back to `UiMessagesProvider`.
+
+| Component | Use it for |
+|---|---|
+| `Button` | Actions. `variant` is `primary`, `secondary` (default), `quiet` or `danger`; `size` is `medium` or `small`; `pressed` makes a toggle button; `startIcon` and `endIcon` take icons |
+| `IconButton` | Icon-only actions. `label` is required: it's the accessible name |
+| `VisuallyHidden` | Text for assistive technology only |
+
+```tsx
+import { Button, IconButton } from "@hussmartinez/ui/react";
+
+<Button variant="primary" startIcon={<DownloadIcon />} onClick={save}>
+  {messages.t("toolbar.download")}
+</Button>
+<IconButton label={messages.t("toolbar.rotate")} icon={<RotateIcon />} onClick={rotate} />
+```
+
+Icons are yours: pass any element that draws with `currentColor`. Each component costs a few hundred bytes minified and compressed, and a bundler drops the ones you don't import.
+
+### Text
+
+Components never contain inline text. Text props win; otherwise, components read `UiMessagesProvider`, which takes an sdk-core `Messages` object whose catalogue includes `uiMessages`:
+
+```tsx
+const messages = createMessages({ ...sdkCoreMessages, ...uiMessages, ...yourMessages }, { locale });
+
+<UiMessagesProvider messages={messages}>
+  <App />
+</UiMessagesProvider>
+```
 
 ## Errors and messages
 
