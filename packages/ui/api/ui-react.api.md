@@ -4,4 +4,58 @@
 
 ```ts
 
+import type { ReactElement } from 'react';
+import type { ReactNode } from 'react';
+
+// @public
+export type ColorMode = "light" | "dark" | "system";
+
+// @public
+export type Density = "comfortable" | "compact";
+
+// @public
+export interface Theme {
+    readonly coarsePointer: Readonly<Record<string, string>>;
+    // (undocumented)
+    readonly colorScheme: "light" | "dark";
+    readonly compact: Readonly<Record<string, string>>;
+    readonly tokens: Readonly<Record<string, string>>;
+}
+
+// @public
+export interface ThemePair {
+    // (undocumented)
+    readonly dark: Theme;
+    // (undocumented)
+    readonly light: Theme;
+}
+
+// @public
+export function ThemeProvider(props: ThemeProviderProps): ReactElement;
+
+// @public
+export interface ThemeProviderBaseProps {
+    // (undocumented)
+    readonly children?: ReactNode;
+    readonly density?: Density;
+    readonly nonce?: string;
+}
+
+// @public
+export interface ThemeProviderModeProps extends ThemeProviderBaseProps {
+    readonly mode?: ColorMode;
+    readonly theme?: ThemePair;
+}
+
+// @public
+export type ThemeProviderProps = ThemeProviderModeProps | ThemeProviderSingleProps;
+
+// @public
+export interface ThemeProviderSingleProps extends ThemeProviderBaseProps {
+    // (undocumented)
+    readonly mode?: undefined;
+    // (undocumented)
+    readonly theme: Theme;
+}
+
 ```
