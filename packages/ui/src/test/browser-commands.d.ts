@@ -2,6 +2,7 @@
 declare module "vitest/browser" {
   interface BrowserCommands {
     setColorScheme: (scheme: "light" | "dark") => Promise<void>;
+    setReducedMotion: (reduce: boolean) => Promise<void>;
   }
 }
 

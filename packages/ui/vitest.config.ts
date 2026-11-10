@@ -17,6 +17,14 @@ const ALL_BROWSERS = ["chromium", "firefox", "webkit"] as const;
 
 // Browser tests run on Chromium locally, and on all three engines in CI or
 // with --mode all-browsers (ADR 0015).
+/** Emulates `prefers-reduced-motion`, so browser tests can check motion fallbacks. */
+const setReducedMotion: BrowserCommand<[reduce: boolean]> = async (context, reduce) => {
+  if (context.provider.name !== "playwright") {
+    throw new Error("setReducedMotion needs the Playwright provider");
+  }
+  await context.page.emulateMedia({ reducedMotion: reduce ? "reduce" : "no-preference" });
+};
+
 export default defineConfig(({ mode }) => {
   const browsers =
     process.env["CI"] || mode === "all-browsers" ? ALL_BROWSERS : (["chromium"] as const);
@@ -42,7 +50,7 @@ export default defineConfig(({ mode }) => {
               headless: true,
               provider: playwright(),
               instances: browsers.map((browser) => ({ browser })),
-              commands: { setColorScheme },
+              commands: { setColorScheme, setReducedMotion },
             },
           },
         },

@@ -12,6 +12,12 @@
  */
 
 export type {
+  Announce,
+  AnnouncerProviderProps,
+  Politeness,
+} from "./components/announcer/Announcer.js";
+export { AnnouncerProvider, useAnnounce } from "./components/announcer/Announcer.js";
+export type {
   ButtonPart,
   ButtonProps,
   ButtonSize,
@@ -27,6 +33,8 @@ export type {
   UiMessagesProviderProps,
 } from "./components/messages/UiMessagesProvider.js";
 export { UiMessagesProvider, useUiMessages } from "./components/messages/UiMessagesProvider.js";
+export type { ProgressBarProps } from "./components/progress-bar/ProgressBar.js";
+export { ProgressBar } from "./components/progress-bar/ProgressBar.js";
 export type {
   SegmentedControlOption,
   SegmentedControlPart,
@@ -34,6 +42,8 @@ export type {
 } from "./components/segmented-control/SegmentedControl.js";
 export { SegmentedControl } from "./components/segmented-control/SegmentedControl.js";
 export type { ClassNames, StyleProps } from "./components/shared/style-props.js";
+export type { SpinnerProps } from "./components/spinner/Spinner.js";
+export { Spinner } from "./components/spinner/Spinner.js";
 export type { ToolbarProps } from "./components/toolbar/Toolbar.js";
 export { Toolbar } from "./components/toolbar/Toolbar.js";
 export type { ToolbarGroupProps } from "./components/toolbar/ToolbarGroup.js";
