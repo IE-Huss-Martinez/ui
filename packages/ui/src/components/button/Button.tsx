@@ -102,7 +102,6 @@ export const Button = /* @__PURE__ */ forwardRef<HTMLButtonElement, ButtonProps>
     <button
       {...props}
       ref={ref}
-      // biome-ignore lint/a11y/useButtonType: the type comes from props, and defaults to "button".
       type={type}
       className={cx(
         "hm-button",

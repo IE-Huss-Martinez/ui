@@ -1,0 +1,47 @@
+@layer hm.components {
+  .hm-toolbar {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--hm-toolbar-gap, var(--hm-gap-tight));
+    padding: var(--hm-toolbar-padding, var(--hm-inset-tight));
+  }
+
+  .hm-toolbar--vertical {
+    align-items: stretch;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .hm-toolbar-group {
+    align-items: center;
+    display: flex;
+    gap: var(--hm-toolbar-group-gap, var(--hm-gap-tight));
+  }
+
+  .hm-toolbar--vertical .hm-toolbar-group {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .hm-toolbar-separator {
+    align-self: stretch;
+    border: 0;
+    margin: 0;
+    background: var(--hm-toolbar-separator-color, var(--hm-color-border));
+    flex-shrink: 0;
+    inline-size: var(--hm-border-width);
+  }
+
+  .hm-toolbar--vertical .hm-toolbar-separator {
+    block-size: var(--hm-border-width);
+    inline-size: auto;
+  }
+
+  .hm-toolbar:not([data-hm-unstyled]) {
+    background: var(--hm-toolbar-bg, var(--hm-color-surface));
+    border: var(--hm-border-width) solid var(--hm-toolbar-border-color, var(--hm-color-border));
+    border-radius: var(--hm-toolbar-radius, var(--hm-radius-surface));
+  }
+}

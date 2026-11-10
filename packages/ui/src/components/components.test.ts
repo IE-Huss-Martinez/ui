@@ -16,7 +16,7 @@ async function componentCss(): Promise<Record<string, string>> {
 
 const componentTokens = tokens.filter((t) => t.level === "component");
 const baseTokens = new Set(tokens.filter((t) => t.level === "base").map((t) => t.name));
-const VAR = /var\(--hm-([a-z0-9-]+)(?:,\s*var\(--hm-([a-z0-9-]+)\))?/g;
+const VAR = /var\(\s*--hm-([a-z0-9-]+)(?:\s*,\s*var\(--hm-([a-z0-9-]+)\))?/g;
 
 describe("component CSS", () => {
   it("reads every component token with its declared fallback, and never declares one", async () => {
@@ -37,6 +37,18 @@ describe("component CSS", () => {
       }
     }
     expect([...componentTokens.map((t) => t.name)].filter((n) => !used.has(n))).toEqual([]);
+  });
+
+  it("uses only tokens that exist", async () => {
+    const known = new Set(tokens.map((t) => t.name));
+    for (const [file, css] of Object.entries(await componentCss())) {
+      for (const [, name, fallback] of css.matchAll(VAR)) {
+        expect(known.has(name as string), `${file} uses unknown --hm-${name}`).toBe(true);
+        if (fallback) {
+          expect(known.has(fallback), `${file} uses unknown --hm-${fallback}`).toBe(true);
+        }
+      }
+    }
   });
 
   it("uses only semantic and component tokens (ADR 0006)", async () => {

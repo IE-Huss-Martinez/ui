@@ -573,7 +573,27 @@ export type ComponentTokenName =
   | "button-danger-bg-hover"
   | "button-danger-fg"
   | "button-pressed-bg"
-  | "button-pressed-fg";
+  | "button-pressed-fg"
+  | "toolbar-bg"
+  | "toolbar-border-color"
+  | "toolbar-radius"
+  | "toolbar-padding"
+  | "toolbar-gap"
+  | "toolbar-group-gap"
+  | "toolbar-separator-color"
+  | "segmented-control-height"
+  | "segmented-control-small-height"
+  | "segmented-control-padding"
+  | "segmented-control-gap"
+  | "segmented-control-radius"
+  | "segmented-control-bg"
+  | "segmented-control-border-color"
+  | "segmented-control-option-padding-x"
+  | "segmented-control-option-fg"
+  | "segmented-control-option-bg-hover"
+  | "segmented-control-option-checked-bg"
+  | "segmented-control-option-checked-fg"
+  | "segmented-control-option-checked-border-color";
 
 type ComponentSpec = { readonly fallback: SemanticTokenName };
 
@@ -625,6 +645,26 @@ const component = {
   "button-pressed-fg": {
     fallback: "color-text",
   },
+  "toolbar-bg": { fallback: "color-surface" },
+  "toolbar-border-color": { fallback: "color-border" },
+  "toolbar-radius": { fallback: "radius-surface" },
+  "toolbar-padding": { fallback: "inset-tight" },
+  "toolbar-gap": { fallback: "gap-tight" },
+  "toolbar-group-gap": { fallback: "gap-tight" },
+  "toolbar-separator-color": { fallback: "color-border" },
+  "segmented-control-height": { fallback: "control-height" },
+  "segmented-control-small-height": { fallback: "control-height-small" },
+  "segmented-control-padding": { fallback: "gap-tight" },
+  "segmented-control-gap": { fallback: "gap-tight" },
+  "segmented-control-radius": { fallback: "radius-control" },
+  "segmented-control-bg": { fallback: "color-surface-sunken" },
+  "segmented-control-border-color": { fallback: "color-border-strong" },
+  "segmented-control-option-padding-x": { fallback: "control-padding-x" },
+  "segmented-control-option-fg": { fallback: "color-text" },
+  "segmented-control-option-bg-hover": { fallback: "color-control-hover" },
+  "segmented-control-option-checked-bg": { fallback: "color-surface-raised" },
+  "segmented-control-option-checked-fg": { fallback: "color-text" },
+  "segmented-control-option-checked-border-color": { fallback: "color-border-strong" },
 } as const satisfies Record<ComponentTokenName, ComponentSpec>;
 
 function baseDefinitions(): TokenDefinition[] {

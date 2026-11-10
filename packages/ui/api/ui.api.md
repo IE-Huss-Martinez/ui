@@ -29,7 +29,7 @@ export type CompleteThemeTokens = ThemeTokens & {
 };
 
 // @public
-export type ComponentTokenName = "button-height" | "button-small-height" | "button-padding-x" | "button-gap" | "button-icon-size" | "button-radius" | "button-font-weight" | "button-bg" | "button-bg-hover" | "button-bg-active" | "button-fg" | "button-border-color" | "button-primary-bg" | "button-primary-bg-hover" | "button-primary-bg-active" | "button-primary-fg" | "button-quiet-bg-hover" | "button-quiet-bg-active" | "button-danger-bg" | "button-danger-bg-hover" | "button-danger-fg" | "button-pressed-bg" | "button-pressed-fg";
+export type ComponentTokenName = "button-height" | "button-small-height" | "button-padding-x" | "button-gap" | "button-icon-size" | "button-radius" | "button-font-weight" | "button-bg" | "button-bg-hover" | "button-bg-active" | "button-fg" | "button-border-color" | "button-primary-bg" | "button-primary-bg-hover" | "button-primary-bg-active" | "button-primary-fg" | "button-quiet-bg-hover" | "button-quiet-bg-active" | "button-danger-bg" | "button-danger-bg-hover" | "button-danger-fg" | "button-pressed-bg" | "button-pressed-fg" | "toolbar-bg" | "toolbar-border-color" | "toolbar-radius" | "toolbar-padding" | "toolbar-gap" | "toolbar-group-gap" | "toolbar-separator-color" | "segmented-control-height" | "segmented-control-small-height" | "segmented-control-padding" | "segmented-control-gap" | "segmented-control-radius" | "segmented-control-bg" | "segmented-control-border-color" | "segmented-control-option-padding-x" | "segmented-control-option-fg" | "segmented-control-option-bg-hover" | "segmented-control-option-checked-bg" | "segmented-control-option-checked-fg" | "segmented-control-option-checked-border-color";
 
 // @public
 export interface ComponentTokens {

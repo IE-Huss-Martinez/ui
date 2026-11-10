@@ -15,5 +15,5 @@ it("hides content on screen but keeps it in the accessible name", () => {
   expect(box.width).toBeLessThanOrEqual(1);
   expect(box.height).toBeLessThanOrEqual(1);
   expect(getComputedStyle(hidden).position).toBe("absolute");
-  expect((container.querySelector("button") as HTMLElement).innerText.trim()).toBe("Close");
+  expect((container.querySelector("button") as HTMLElement).textContent?.trim()).toBe("Close");
 });
