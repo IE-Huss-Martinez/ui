@@ -6,6 +6,10 @@
  *   node scripts/test-visual.mjs            compare with the baselines
  *   node scripts/test-visual.mjs --update   write new baselines
  *
+ * Inside the pinned image itself, as in CI's verify job, it runs the tests
+ * directly: a unit test keeps the workflow's image identical to the
+ * Dockerfile's.
+ *
  * The container gets its own node_modules volumes, so binaries installed for
  * the host never mix with the container's, and its own pnpm store volume, so
  * installs after the first are fast. Files it writes are handed back to the
@@ -22,6 +26,22 @@ const fail = (message) => {
   process.stderr.write(`test:visual: ${message}\n`);
   process.exit(1);
 };
+
+const vitestArgs = [
+  "--filter",
+  "@hussmartinez/ui-catalogue",
+  "exec",
+  "vitest",
+  "run",
+  "--project",
+  "visual",
+  ...(update ? ["--update"] : []),
+];
+
+if (process.env.HM_VISUAL_CONTAINER === "1") {
+  const direct = spawnSync("pnpm", vitestArgs, { cwd: root, stdio: "inherit" });
+  process.exit(direct.status ?? 1);
+}
 
 const docker = spawnSync("docker", ["info", "--format", "{{.ServerVersion}}"], {
   encoding: "utf8",
@@ -41,7 +61,7 @@ if (run(["build", "--quiet", "--tag", image, "apps/catalogue/visual"]) !== 0) {
 const owner =
   typeof process.getuid === "function" ? `${process.getuid()}:${process.getgid()}` : "0:0";
 const volume = (name, path) => ["--volume", `hm-ui-visual-${name}:/work/${path}`];
-const vitest = `pnpm --filter @hussmartinez/ui-catalogue exec vitest run --project visual${update ? " --update" : ""}`;
+const vitest = `pnpm ${vitestArgs.join(" ")}`;
 
 const status = run([
   "run",
