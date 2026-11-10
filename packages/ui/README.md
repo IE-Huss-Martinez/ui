@@ -38,7 +38,7 @@ With `styles.css` loaded, the built-in light and dark themes follow the operatin
 <aside data-hm-density="compact">Tighter controls</aside>
 ```
 
-`data-hm-theme` takes `light`, `dark` or `system`, and `data-hm-density` takes `comfortable` (the default) or `compact`. On touch screens, targets are 44 px in either density.
+`data-hm-theme` takes `light`, `dark` or `system`, and `data-hm-density` takes `comfortable` (the default) or `compact`. On touch screens, targets are 44 px in either density. A themed subtree also sets its text colour to `--hm-color-text`, in the lowest-priority layer, so your own CSS still wins. Backgrounds are left to you: paint them with `--hm-color-bg` or `--hm-color-surface`.
 
 ### Custom themes
 

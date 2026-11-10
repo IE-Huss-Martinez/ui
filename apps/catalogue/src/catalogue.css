@@ -67,13 +67,8 @@
   inline-size: var(--hm-space-9);
 }
 
-/*
- * A themed panel sets its own text colour: color is inherited as a computed
- * value, so a nested theme doesn't change it on its own.
- */
 .hm-catalogue-panel {
   background: var(--hm-color-surface);
-  color: var(--hm-color-text);
   border: var(--hm-border-width) solid var(--hm-color-border);
   border-radius: var(--hm-radius-surface);
   display: grid;
