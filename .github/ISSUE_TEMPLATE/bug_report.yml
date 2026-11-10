@@ -1,0 +1,69 @@
+name: Bug report
+description: Something in @hussmartinez/ui doesn't work or look as documented.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. **Security vulnerabilities** go through [private reporting](https://github.com/hussmartinez/ui/security/advisories/new) instead. Accessibility problems are bugs, and belong here.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Component behaviour
+        - Accessibility (keyboard, screen readers, focus, contrast)
+        - Styling, tokens or themes
+        - Server rendering or hydration
+        - Types or packaging
+        - Something else
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The package version, or the commit if you're working from source.
+      placeholder: 0.1.0
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: Include any error or console warning. For visual problems, a screenshot and the theme and density in use help a lot.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: The smallest set of steps or code that shows the problem. A link to a minimal repository is ideal.
+      placeholder: |
+        1. …
+        2. …
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser and version, operating system, React version, framework and bundler. For accessibility problems, the assistive technology and its version.
+      placeholder: Safari 19 on iOS 19 with VoiceOver, React 19, Next.js 16 with Turbopack
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you submit
+      options:
+        - label: I searched the existing issues, and this hasn't been reported yet.
+          required: true
+        - label: This isn't a security vulnerability.
+          required: true
