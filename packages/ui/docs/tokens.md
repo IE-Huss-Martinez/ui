@@ -160,6 +160,26 @@ Fine-grained overrides for one component. `ui` never declares them: each compone
 | `--hm-button-danger-fg` | `--hm-color-on-danger` | Text of danger buttons. |
 | `--hm-button-pressed-bg` | `--hm-color-accent-subtle` | Background of toggle buttons that are on. |
 | `--hm-button-pressed-fg` | `--hm-color-text` | Text of toggle buttons that are on. |
+| `--hm-toolbar-bg` | `--hm-color-surface` | Background of toolbars. |
+| `--hm-toolbar-border-color` | `--hm-color-border` | Border of toolbars. |
+| `--hm-toolbar-radius` | `--hm-radius-surface` | Corner radius of toolbars. |
+| `--hm-toolbar-padding` | `--hm-inset-tight` | Padding inside toolbars. |
+| `--hm-toolbar-gap` | `--hm-gap-tight` | Gap between toolbar items and groups. |
+| `--hm-toolbar-group-gap` | `--hm-gap-tight` | Gap between items in a toolbar group. |
+| `--hm-toolbar-separator-color` | `--hm-color-border` | Colour of toolbar separators. |
+| `--hm-segmented-control-height` | `--hm-control-height` | Height of segmented control options. |
+| `--hm-segmented-control-small-height` | `--hm-control-height-small` | Height of small segmented control options. |
+| `--hm-segmented-control-padding` | `--hm-gap-tight` | Padding around a segmented control's options. |
+| `--hm-segmented-control-gap` | `--hm-gap-tight` | Gap between a segmented control's options. |
+| `--hm-segmented-control-radius` | `--hm-radius-control` | Corner radius of segmented controls. |
+| `--hm-segmented-control-bg` | `--hm-color-surface-sunken` | Background of segmented controls. |
+| `--hm-segmented-control-border-color` | `--hm-color-border-strong` | Border of segmented controls. |
+| `--hm-segmented-control-option-padding-x` | `--hm-control-padding-x` | Inline padding of segmented control options. |
+| `--hm-segmented-control-option-fg` | `--hm-color-text` | Text of segmented control options. |
+| `--hm-segmented-control-option-bg-hover` | `--hm-color-control-hover` | Background of options under the pointer. |
+| `--hm-segmented-control-option-checked-bg` | `--hm-color-surface-raised` | Background of the selected option. |
+| `--hm-segmented-control-option-checked-fg` | `--hm-color-text` | Text of the selected option. |
+| `--hm-segmented-control-option-checked-border-color` | `--hm-color-border-strong` | Border of the selected option, so selection shows without colour. |
 
 ## Base tokens
 

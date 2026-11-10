@@ -107,6 +107,8 @@ Every component follows one contract ([ADR 0003](https://github.com/hussmartinez
 | `Button` | Actions. `variant` is `primary`, `secondary` (default), `quiet` or `danger`; `size` is `medium` or `small`; `pressed` makes a toggle button; `startIcon` and `endIcon` take icons |
 | `IconButton` | Icon-only actions. `label` is required: it's the accessible name |
 | `VisuallyHidden` | Text for assistive technology only |
+| `Toolbar`, `ToolbarGroup`, `ToolbarSeparator` | A row or column of controls with one Tab stop: arrow keys move between items, Home and End jump to the ends. `label` is required on the toolbar and its groups |
+| `SegmentedControl` | A few mutually exclusive choices side by side. A radio group: arrow keys move and select. Inside a `Toolbar`, it joins the toolbar's arrow keys, and Space or Enter selects |
 
 ```tsx
 import { Button, IconButton } from "@hussmartinez/ui/react";

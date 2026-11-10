@@ -1,0 +1,104 @@
+@layer hm.components {
+  .hm-segmented-control {
+    box-sizing: border-box;
+    display: inline-flex;
+    gap: var(--hm-segmented-control-gap, var(--hm-gap-tight));
+    padding: var(--hm-segmented-control-padding, var(--hm-gap-tight));
+  }
+
+  .hm-segmented-control-option {
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-flex;
+    gap: var(--hm-control-gap);
+    justify-content: center;
+    min-block-size: max(
+      var(--hm-segmented-control-height, var(--hm-control-height)),
+      var(--hm-target-size)
+    );
+    min-inline-size: var(--hm-target-size);
+    padding-block: 0;
+    padding-inline: var(--hm-segmented-control-option-padding-x, var(--hm-control-padding-x));
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .hm-segmented-control--small .hm-segmented-control-option {
+    min-block-size: max(
+      var(--hm-segmented-control-small-height, var(--hm-control-height-small)),
+      var(--hm-target-size)
+    );
+  }
+
+  .hm-segmented-control-option:focus-visible {
+    outline: var(--hm-focus-ring);
+    outline-offset: var(--hm-focus-ring-offset);
+  }
+
+  .hm-segmented-control-option:disabled {
+    cursor: not-allowed;
+  }
+
+  .hm-segmented-control-icon {
+    block-size: var(--hm-icon-size);
+    display: inline-flex;
+    flex-shrink: 0;
+    inline-size: var(--hm-icon-size);
+  }
+
+  .hm-segmented-control-icon > svg {
+    block-size: inherit;
+    inline-size: inherit;
+  }
+
+  .hm-segmented-control:not([data-hm-unstyled]) {
+    background: var(--hm-segmented-control-bg, var(--hm-color-surface-sunken));
+    border: var(--hm-border-width) solid
+      var(--hm-segmented-control-border-color, var(--hm-color-border-strong));
+    border-radius: var(--hm-segmented-control-radius, var(--hm-radius-control));
+  }
+
+  .hm-segmented-control:not([data-hm-unstyled]) .hm-segmented-control-option {
+    background: transparent;
+    border: var(--hm-border-width) solid transparent;
+    border-radius: var(--hm-segmented-control-radius, var(--hm-radius-control));
+    color: var(--hm-segmented-control-option-fg, var(--hm-color-text));
+    font-family: var(--hm-font-family);
+    font-size: var(--hm-font-size-body);
+    font-weight: var(--hm-font-weight-regular);
+    letter-spacing: var(--hm-letter-spacing);
+    line-height: var(--hm-line-height-tight);
+    transition-duration: var(--hm-motion-duration-feedback);
+    transition-property: background-color, border-color, color;
+    transition-timing-function: var(--hm-motion-easing-standard);
+  }
+
+  .hm-segmented-control:not([data-hm-unstyled]) .hm-segmented-control-option[aria-checked="true"] {
+    background: var(--hm-segmented-control-option-checked-bg, var(--hm-color-surface-raised));
+    /* Selection shows as a boundary too, not only as a colour (WCAG 1.4.11). */
+    border-color: var(
+      --hm-segmented-control-option-checked-border-color,
+      var(--hm-color-border-strong)
+    );
+    color: var(--hm-segmented-control-option-checked-fg, var(--hm-color-text));
+    font-weight: var(--hm-font-weight-strong);
+  }
+
+  @media (hover: hover) {
+    .hm-segmented-control:not([data-hm-unstyled])
+      .hm-segmented-control-option:not([aria-checked="true"], :disabled):hover {
+      background: var(--hm-segmented-control-option-bg-hover, var(--hm-color-control-hover));
+    }
+  }
+
+  .hm-segmented-control:not([data-hm-unstyled]) .hm-segmented-control-option:disabled {
+    opacity: var(--hm-opacity-disabled);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hm-segmented-control:not([data-hm-unstyled]) .hm-segmented-control-option {
+      transition-duration: 0s;
+    }
+  }
+}

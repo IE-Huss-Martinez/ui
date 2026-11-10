@@ -25,7 +25,19 @@ export type {
   UiMessagesProviderProps,
 } from "./components/messages/UiMessagesProvider.js";
 export { UiMessagesProvider, useUiMessages } from "./components/messages/UiMessagesProvider.js";
+export type {
+  SegmentedControlOption,
+  SegmentedControlPart,
+  SegmentedControlProps,
+} from "./components/segmented-control/SegmentedControl.js";
+export { SegmentedControl } from "./components/segmented-control/SegmentedControl.js";
 export type { ClassNames, StyleProps } from "./components/shared/style-props.js";
+export type { ToolbarProps } from "./components/toolbar/Toolbar.js";
+export { Toolbar } from "./components/toolbar/Toolbar.js";
+export type { ToolbarGroupProps } from "./components/toolbar/ToolbarGroup.js";
+export { ToolbarGroup } from "./components/toolbar/ToolbarGroup.js";
+export type { ToolbarSeparatorProps } from "./components/toolbar/ToolbarSeparator.js";
+export { ToolbarSeparator } from "./components/toolbar/ToolbarSeparator.js";
 export type { VisuallyHiddenProps } from "./components/visually-hidden/VisuallyHidden.js";
 export { VisuallyHidden } from "./components/visually-hidden/VisuallyHidden.js";
 export { uiMessages } from "./messages/en.js";

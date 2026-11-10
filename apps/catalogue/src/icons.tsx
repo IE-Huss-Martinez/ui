@@ -42,3 +42,56 @@ export function TrashIcon() {
     </svg>
   );
 }
+
+export function UndoIcon() {
+  return (
+    <svg {...base} aria-hidden="true">
+      <path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3" />
+    </svg>
+  );
+}
+
+export function RedoIcon() {
+  return (
+    <svg {...base} aria-hidden="true">
+      <path d="m15 14 5-5-5-5M20 9H10a6 6 0 0 0 0 12h3" />
+    </svg>
+  );
+}
+
+export function ZoomInIcon() {
+  return (
+    <svg {...base} aria-hidden="true">
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-4-4M11 8v6M8 11h6" />
+    </svg>
+  );
+}
+
+export function ZoomOutIcon() {
+  return (
+    <svg {...base} aria-hidden="true">
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-4-4M8 11h6" />
+    </svg>
+  );
+}
+
+export function SinglePageIcon() {
+  return (
+    <svg {...base} aria-hidden="true">
+      <rect x="6" y="3" width="12" height="18" rx="1" />
+    </svg>
+  );
+}
+
+export function GridIcon() {
+  return (
+    <svg {...base} aria-hidden="true">
+      <rect x="4" y="4" width="7" height="7" rx="1" />
+      <rect x="13" y="4" width="7" height="7" rx="1" />
+      <rect x="4" y="13" width="7" height="7" rx="1" />
+      <rect x="13" y="13" width="7" height="7" rx="1" />
+    </svg>
+  );
+}

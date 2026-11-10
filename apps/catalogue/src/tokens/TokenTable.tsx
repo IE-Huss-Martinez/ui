@@ -1,5 +1,8 @@
-import { type TokenCategory, type TokenDefinition, tokens } from "@hussmartinez/ui";
+import { type TokenCategory, type TokenDefinition, type TokenName, tokens } from "@hussmartinez/ui";
 import { type ReactNode, useLayoutEffect, useRef, useState } from "react";
+// Descriptions aren't part of the runtime API (docs/adr/0001); the catalogue
+// reads them from the source, like the generated token reference.
+import { tokenDescriptions } from "../../../../packages/ui/src/tokens/descriptions.js";
 
 /** The value a token resolves to here, under the current theme and density. */
 function ResolvedValue({ name }: { name: string }) {
@@ -50,7 +53,9 @@ export function TokenTable({ title, category, level = "semantic", preview }: Tok
               <td>
                 <ResolvedValue name={definition.name} />
               </td>
-              <td className="hm-catalogue-muted">{definition.description}</td>
+              <td className="hm-catalogue-muted">
+                {tokenDescriptions[definition.name as TokenName]}
+              </td>
             </tr>
           ))}
         </tbody>

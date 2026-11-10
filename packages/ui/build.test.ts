@@ -1,6 +1,7 @@
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { build as esbuild } from "esbuild";
 import { build, type Rolldown } from "vite";
 import { afterAll, describe, expect, it } from "vitest";
 import { externalPackages } from "./vite.config.js";
@@ -75,12 +76,16 @@ describe("the built package", () => {
   });
 });
 
+const EXTERNAL = /^(react|react-dom|@hussmartinez\/sdk-core)(\/|$)/;
+
 /**
  * Bundles an application's import from the built package, minified, the way a
- * host's bundler would. The temporary directory has no package.json, so the
- * `sideEffects` field doesn't help: only side-effect-free modules are dropped.
+ * host's bundler would: with Rolldown (Vite) and with esbuild, whose
+ * tree-shaking is more conservative. The temporary directory has no
+ * package.json, so the `sideEffects` field doesn't help: only side-effect-free
+ * modules are dropped.
  */
-async function bundleImport(source: string): Promise<string> {
+async function bundleImport(source: string): Promise<{ bundler: string; code: string }[]> {
   const directory = await temporaryBuild;
   const entry = join(directory, `app-${Math.random().toString(36).slice(2)}.js`);
   await writeFile(entry, source);
@@ -91,16 +96,52 @@ async function bundleImport(source: string): Promise<string> {
       write: false,
       minify: true,
       lib: { entry, formats: ["es"], fileName: "app" },
-      rolldownOptions: {
-        external: (id) => /^(react|react-dom|@hussmartinez\/sdk-core)(\/|$)/.test(id),
-      },
+      rolldownOptions: { external: (id) => EXTERNAL.test(id) },
     },
   });
   const outputs = Array.isArray(result) ? result : [result];
-  return outputs
+  const rolldown = outputs
     .flatMap((output) => ("output" in output ? output.output : []))
     .flatMap((file) => (file.type === "chunk" ? [file.code] : []))
     .join("\n");
+  const esbuilt = await esbuild({
+    entryPoints: [entry],
+    bundle: true,
+    minify: true,
+    format: "esm",
+    write: false,
+    logLevel: "silent",
+    plugins: [
+      {
+        name: "external",
+        setup(pluginBuild) {
+          pluginBuild.onResolve({ filter: EXTERNAL }, (args) => ({
+            path: args.path,
+            external: true,
+          }));
+        },
+      },
+    ],
+  });
+  return [
+    { bundler: "rolldown", code: rolldown },
+    { bundler: "esbuild", code: esbuilt.outputFiles.map((file) => file.text).join("\n") },
+  ];
+}
+
+/** Checks what every bundler shipped. */
+async function expectShipped(
+  source: string,
+  check: { includes: string[]; excludes: string[] },
+): Promise<void> {
+  for (const { bundler, code } of await bundleImport(source)) {
+    for (const text of check.includes) {
+      expect(code, `${bundler} should keep "${text}"`).toContain(text);
+    }
+    for (const text of check.excludes) {
+      expect(code, `${bundler} should drop "${text}"`).not.toContain(text);
+    }
+  }
 }
 
 const temporaryBuild = (async () => {
@@ -122,38 +163,37 @@ const VALIDATOR = "isn't allowed";
 const COLOUR_MATHS = "3963377774";
 const TOKEN_DATA = "color-on-accent";
 
+// Strings that only appear in the toolbar's roving focus.
+const ROVING_FOCUS = "textarea:not(:disabled)";
+
 describe("what applications ship", () => {
   it("drops the validator, colour maths and token data with ThemeProvider and built-in themes", async () => {
-    const code = await bundleImport(
+    await expectShipped(
       'import { ThemeProvider } from "./react.js"; export const app = ThemeProvider;',
+      {
+        includes: ["data-hm-theme-scope"],
+        // sdk-core is external here, so its import line stays as written; a
+        // host's bundler drops what's unused, as sdk-core has no side effects.
+        excludes: [VALIDATOR, COLOUR_MATHS, TOKEN_DATA, "hm-button", ROVING_FOCUS],
+      },
     );
-    expect(code).toContain("data-hm-theme-scope");
-    expect(code).not.toContain(VALIDATOR);
-    expect(code).not.toContain(COLOUR_MATHS);
-    expect(code).not.toContain(TOKEN_DATA);
   });
 
   it("drops the components an application doesn't import", async () => {
-    const button = await bundleImport(
-      'import { Button } from "./react.js"; export const app = Button;',
+    await expectShipped('import { Button } from "./react.js"; export const app = Button;', {
+      includes: ["hm-button"],
+      excludes: ["data-hm-theme-scope", "hm-visually-hidden", "hm-toolbar", ROVING_FOCUS],
+    });
+    await expectShipped(
+      'import { SegmentedControl } from "./react.js"; export const app = SegmentedControl;',
+      { includes: ["hm-segmented-control"], excludes: ["hm-button", ROVING_FOCUS] },
     );
-    expect(button).toContain("hm-button");
-    expect(button).not.toContain("data-hm-theme-scope");
-    expect(button).not.toContain("hm-visually-hidden");
-    const themeProvider = await bundleImport(
-      'import { ThemeProvider } from "./react.js"; export const app = ThemeProvider;',
-    );
-    expect(themeProvider).not.toContain("hm-button");
-    expect(themeProvider).not.toContain("createMessages");
   });
 
   it("drops everything from the root entry that isn't imported", async () => {
-    const code = await bundleImport(
-      'import { uiMessages } from "./index.js"; export const m = uiMessages;',
-    );
-    expect(code).toContain("INVALID_THEME_TOKEN");
-    expect(code).not.toContain(VALIDATOR);
-    expect(code).not.toContain(COLOUR_MATHS);
-    expect(code).not.toContain(TOKEN_DATA);
+    await expectShipped('import { uiMessages } from "./index.js"; export const m = uiMessages;', {
+      includes: ["INVALID_THEME_TOKEN"],
+      excludes: [VALIDATOR, COLOUR_MATHS, TOKEN_DATA],
+    });
   });
 });

@@ -56,6 +56,34 @@ export interface IconButtonProps extends Omit<ButtonProps, "startIcon" | "endIco
 }
 
 // @public
+export const SegmentedControl: <Value extends string>(props: SegmentedControlProps<Value> & RefAttributes<HTMLDivElement>) => ReactElement;
+
+// @public
+export interface SegmentedControlOption<Value extends string> {
+    // (undocumented)
+    readonly disabled?: boolean;
+    readonly hideLabel?: boolean;
+    readonly icon?: ReactNode;
+    readonly label: string;
+    // (undocumented)
+    readonly value: Value;
+}
+
+// @public
+export type SegmentedControlPart = "root" | "option" | "icon" | "label";
+
+// @public
+export interface SegmentedControlProps<Value extends string> extends Omit<HTMLAttributes<HTMLDivElement>, "className" | "role" | "onChange">, StyleProps<SegmentedControlPart> {
+    readonly label: string;
+    // (undocumented)
+    readonly onValueChange: (value: Value) => void;
+    // (undocumented)
+    readonly options: readonly SegmentedControlOption<Value>[];
+    readonly size?: "medium" | "small" | undefined;
+    readonly value: Value;
+}
+
+// @public
 export interface StyleProps<Part extends string> {
     readonly className?: string | undefined;
     readonly classNames?: ClassNames<Part> | undefined;
@@ -106,6 +134,29 @@ export interface ThemeProviderSingleProps extends ThemeProviderBaseProps {
     // (undocumented)
     readonly theme: Theme;
 }
+
+// @public
+export const Toolbar: ForwardRefExoticComponent<ToolbarProps & RefAttributes<HTMLDivElement>>;
+
+// @public
+export const ToolbarGroup: ForwardRefExoticComponent<ToolbarGroupProps & RefAttributes<HTMLDivElement>>;
+
+// @public
+export interface ToolbarGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, "role"> {
+    readonly label: string;
+}
+
+// @public
+export interface ToolbarProps extends Omit<HTMLAttributes<HTMLDivElement>, "className" | "role">, StyleProps<"root"> {
+    readonly label: string;
+    readonly orientation?: "horizontal" | "vertical" | undefined;
+}
+
+// @public
+export const ToolbarSeparator: ForwardRefExoticComponent<ToolbarSeparatorProps & RefAttributes<HTMLHRElement>>;
+
+// @public
+export type ToolbarSeparatorProps = Omit<HTMLAttributes<HTMLHRElement>, "children">;
 
 // @public
 export type UiMessages = Messages<typeof uiMessages>;

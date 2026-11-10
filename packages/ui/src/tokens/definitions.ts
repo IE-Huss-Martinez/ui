@@ -49,18 +49,21 @@ export type TokenCategory =
 export type TokenLevel = "base" | "semantic" | "component";
 
 /**
- * The description of one token.
+ * What a token is, for tooling: its name, level, category and value type.
+ * What each token is for is documented in the token reference,
+ * `docs/tokens.md`, rather than shipped to applications (docs/adr/0001).
  *
  * @public
  */
 export interface TokenDefinition {
   /** The name without the `--hm-` prefix, such as `color-accent`. */
   readonly name: string;
+  /** Base, semantic or component (ADR 0006). */
   readonly level: TokenLevel;
+  /** What the token styles, used to group the token reference. */
   readonly category: TokenCategory;
+  /** The grammar its values must follow. */
   readonly type: TokenType;
-  /** One sentence on what the token is for. */
-  readonly description: string;
   /**
    * Whether density changes the token. Density tokens are set by
    * `data-hm-density`, not by the colour mode.
@@ -219,7 +222,6 @@ export type DensityTokenName =
 type SemanticSpec = {
   readonly category: TokenCategory;
   readonly type: TokenType;
-  readonly description: string;
   readonly density?: true;
 };
 
@@ -227,374 +229,302 @@ const semantic = {
   "color-scheme": {
     category: "color",
     type: "color-scheme",
-    description:
-      "Whether the theme is light or dark. Native scrollbars and form controls follow it.",
   },
   "color-bg": {
     category: "color",
     type: "color",
-    description: "Background of the page or editor canvas.",
   },
   "color-surface": {
     category: "color",
     type: "color",
-    description: "Background of panels and toolbars.",
   },
   "color-surface-raised": {
     category: "color",
     type: "color",
-    description: "Background of dialogs, menus and popovers.",
   },
   "color-surface-sunken": {
     category: "color",
     type: "color",
-    description: "Background of wells and recessed areas.",
   },
   "color-overlay": {
     category: "color",
     type: "color",
-    description: "Backdrop behind modal dialogs. Usually translucent.",
   },
-  "color-text": { category: "color", type: "color", description: "Body text and icons." },
+  "color-text": { category: "color", type: "color" },
   "color-text-muted": {
     category: "color",
     type: "color",
-    description: "Secondary text, still readable at 4.5:1.",
   },
   "color-text-disabled": {
     category: "color",
     type: "color",
-    description: "Text of disabled controls, which WCAG exempts from contrast.",
   },
   "color-border": {
     category: "color",
     type: "color",
-    description: "Decorative borders and separators.",
   },
   "color-border-strong": {
     category: "color",
     type: "color",
-    description: "Boundaries of controls, at 3:1 against surfaces.",
   },
   "color-control": {
     category: "color",
     type: "color",
-    description: "Background of neutral controls.",
   },
   "color-control-hover": {
     category: "color",
     type: "color",
-    description: "Background of neutral controls under the pointer.",
   },
   "color-control-active": {
     category: "color",
     type: "color",
-    description: "Background of neutral controls while pressed.",
   },
   "color-accent": {
     category: "color",
     type: "color",
-    description: "Fill of primary actions and selected states.",
   },
   "color-accent-hover": {
     category: "color",
     type: "color",
-    description: "Accent fill under the pointer.",
   },
   "color-accent-active": {
     category: "color",
     type: "color",
-    description: "Accent fill while pressed.",
   },
   "color-on-accent": {
     category: "color",
     type: "color",
-    description: "Text and icons on the accent fill.",
   },
   "color-accent-subtle": {
     category: "color",
     type: "color",
-    description: "Quiet background for selected or pressed items.",
   },
   "color-accent-text": {
     category: "color",
     type: "color",
-    description: "Accent-coloured text, such as links, on surfaces.",
   },
   "color-danger": {
     category: "color",
     type: "color",
-    description: "Fill of destructive actions.",
   },
   "color-danger-hover": {
     category: "color",
     type: "color",
-    description: "Danger fill under the pointer.",
   },
   "color-on-danger": {
     category: "color",
     type: "color",
-    description: "Text and icons on the danger fill.",
   },
   "color-danger-subtle": {
     category: "color",
     type: "color",
-    description: "Quiet background for errors.",
   },
   "color-danger-text": {
     category: "color",
     type: "color",
-    description: "Error text on surfaces and on the subtle danger background.",
   },
-  "color-warning": { category: "color", type: "color", description: "Fill of warnings." },
+  "color-warning": { category: "color", type: "color" },
   "color-on-warning": {
     category: "color",
     type: "color",
-    description: "Text and icons on the warning fill.",
   },
   "color-warning-subtle": {
     category: "color",
     type: "color",
-    description: "Quiet background for warnings.",
   },
   "color-warning-text": {
     category: "color",
     type: "color",
-    description: "Warning text on surfaces and on the subtle warning background.",
   },
-  "color-success": { category: "color", type: "color", description: "Fill of success states." },
+  "color-success": { category: "color", type: "color" },
   "color-on-success": {
     category: "color",
     type: "color",
-    description: "Text and icons on the success fill.",
   },
   "color-success-subtle": {
     category: "color",
     type: "color",
-    description: "Quiet background for success messages.",
   },
   "color-success-text": {
     category: "color",
     type: "color",
-    description: "Success text on surfaces and on the subtle success background.",
   },
   "focus-ring-color": {
     category: "focus",
     type: "color",
-    description: "Colour of the focus indicator, at 3:1 against surfaces.",
   },
   "focus-ring-width": {
     category: "focus",
     type: "length",
-    description: "Thickness of the focus indicator.",
   },
   "focus-ring-offset": {
     category: "focus",
     type: "length",
-    description: "Gap between a control and its focus indicator.",
   },
   "focus-ring": {
     category: "focus",
     type: "outline",
-    description: "The focus indicator as an `outline` value (ADR 0014).",
   },
   "font-family": {
     category: "typography",
     type: "font-family",
-    description: "Font of all interface text. Fonts are never fetched.",
   },
   "font-family-mono": {
     category: "typography",
     type: "font-family",
-    description: "Font of code and tabular values.",
   },
   "font-size-small": {
     category: "typography",
     type: "length",
-    description: "Captions, hints and dense labels.",
   },
   "font-size-body": {
     category: "typography",
     type: "length",
-    description: "Body text and control labels.",
   },
   "font-size-title": {
     category: "typography",
     type: "length",
-    description: "Dialog and panel titles.",
   },
   "font-weight-regular": {
     category: "typography",
     type: "font-weight",
-    description: "Weight of body text.",
   },
   "font-weight-strong": {
     category: "typography",
     type: "font-weight",
-    description: "Weight of titles and emphasis.",
   },
   "line-height-body": {
     category: "typography",
     type: "number",
-    description: "Line height of running text.",
   },
   "line-height-tight": {
     category: "typography",
     type: "number",
-    description: "Line height of single-line labels and titles.",
   },
   "letter-spacing": {
     category: "typography",
     type: "length",
-    description: "Letter spacing of interface text.",
   },
   "control-height": {
     category: "size",
     type: "length",
-    description: "Height of buttons, inputs and segmented controls.",
     density: true,
   },
   "control-height-small": {
     category: "size",
     type: "length",
-    description: "Height of small controls, such as toolbar icon buttons.",
     density: true,
   },
   "control-padding-x": {
     category: "space",
     type: "length",
-    description: "Inline padding of controls.",
     density: true,
   },
   "control-gap": {
     category: "space",
     type: "length",
-    description: "Gap between a control's icon and label.",
     density: true,
   },
   "icon-size": {
     category: "size",
     type: "length",
-    description: "Size of icons in controls.",
     density: true,
   },
   "target-size": {
     category: "size",
     type: "length",
-    description: "Smallest pointer target: 24 px, and 44 px on coarse pointers (ADR 0014).",
     density: true,
   },
   "gap-tight": {
     category: "space",
     type: "length",
-    description: "Gap between closely related items.",
     density: true,
   },
   "gap-normal": {
     category: "space",
     type: "length",
-    description: "Gap between items in a group.",
     density: true,
   },
   "gap-loose": {
     category: "space",
     type: "length",
-    description: "Gap between groups.",
     density: true,
   },
   "inset-tight": {
     category: "space",
     type: "length",
-    description: "Padding of small containers.",
     density: true,
   },
   "inset-normal": {
     category: "space",
     type: "length",
-    description: "Padding of panels and popovers.",
     density: true,
   },
   "inset-loose": {
     category: "space",
     type: "length",
-    description: "Padding of dialogs.",
     density: true,
   },
   "radius-control": {
     category: "shape",
     type: "length",
-    description: "Corner radius of controls.",
   },
   "radius-surface": {
     category: "shape",
     type: "length",
-    description: "Corner radius of panels and dialogs.",
   },
   "radius-round": {
     category: "shape",
     type: "length",
-    description: "Radius that makes pills and circles.",
   },
-  "border-width": { category: "shape", type: "length", description: "Width of borders." },
+  "border-width": { category: "shape", type: "length" },
   "shadow-raised": {
     category: "shadow",
     type: "shadow",
-    description: "Shadow of menus and popovers.",
   },
   "shadow-overlay": {
     category: "shadow",
     type: "shadow",
-    description: "Shadow of dialogs.",
   },
   "motion-duration-feedback": {
     category: "motion",
     type: "duration",
-    description: "Duration of hover and press feedback.",
   },
   "motion-duration-enter": {
     category: "motion",
     type: "duration",
-    description: "Duration of elements appearing.",
   },
   "motion-duration-exit": {
     category: "motion",
     type: "duration",
-    description: "Duration of elements disappearing.",
   },
   "motion-easing-standard": {
     category: "motion",
     type: "easing",
-    description: "Easing of movement within the screen.",
   },
   "motion-easing-enter": {
     category: "motion",
     type: "easing",
-    description: "Easing of elements appearing.",
   },
   "motion-easing-exit": {
     category: "motion",
     type: "easing",
-    description: "Easing of elements disappearing.",
   },
   "z-raised": {
     category: "z-index",
     type: "integer",
-    description: "Stacking of raised elements within a component.",
   },
   "z-sticky": {
     category: "z-index",
     type: "integer",
-    description: "Stacking of sticky headers and toolbars.",
   },
   "z-overlay": {
     category: "z-index",
     type: "integer",
-    description: "Stacking of popovers that don't use the top layer.",
   },
   "opacity-disabled": {
     category: "opacity",
     type: "number",
-    description: "Opacity of disabled controls.",
   },
 } as const satisfies Record<SemanticTokenName, SemanticSpec>;
 
@@ -643,118 +573,136 @@ export type ComponentTokenName =
   | "button-danger-bg-hover"
   | "button-danger-fg"
   | "button-pressed-bg"
-  | "button-pressed-fg";
+  | "button-pressed-fg"
+  | "toolbar-bg"
+  | "toolbar-border-color"
+  | "toolbar-radius"
+  | "toolbar-padding"
+  | "toolbar-gap"
+  | "toolbar-group-gap"
+  | "toolbar-separator-color"
+  | "segmented-control-height"
+  | "segmented-control-small-height"
+  | "segmented-control-padding"
+  | "segmented-control-gap"
+  | "segmented-control-radius"
+  | "segmented-control-bg"
+  | "segmented-control-border-color"
+  | "segmented-control-option-padding-x"
+  | "segmented-control-option-fg"
+  | "segmented-control-option-bg-hover"
+  | "segmented-control-option-checked-bg"
+  | "segmented-control-option-checked-fg"
+  | "segmented-control-option-checked-border-color";
 
-type ComponentSpec = { readonly fallback: SemanticTokenName; readonly description: string };
+type ComponentSpec = { readonly fallback: SemanticTokenName };
 
 const component = {
-  "button-height": { fallback: "control-height", description: "Height of buttons." },
+  "button-height": { fallback: "control-height" },
   "button-small-height": {
     fallback: "control-height-small",
-    description: "Height of small buttons.",
   },
-  "button-padding-x": { fallback: "control-padding-x", description: "Inline padding of buttons." },
-  "button-gap": { fallback: "control-gap", description: "Gap between a button's icon and label." },
-  "button-icon-size": { fallback: "icon-size", description: "Size of icons in buttons." },
-  "button-radius": { fallback: "radius-control", description: "Corner radius of buttons." },
+  "button-padding-x": { fallback: "control-padding-x" },
+  "button-gap": { fallback: "control-gap" },
+  "button-icon-size": { fallback: "icon-size" },
+  "button-radius": { fallback: "radius-control" },
   "button-font-weight": {
     fallback: "font-weight-strong",
-    description: "Weight of button labels.",
   },
-  "button-bg": { fallback: "color-control", description: "Background of secondary buttons." },
+  "button-bg": { fallback: "color-control" },
   "button-bg-hover": {
     fallback: "color-control-hover",
-    description: "Background of secondary buttons under the pointer.",
   },
   "button-bg-active": {
     fallback: "color-control-active",
-    description: "Background of secondary buttons while pressed.",
   },
-  "button-fg": { fallback: "color-text", description: "Text of secondary and quiet buttons." },
+  "button-fg": { fallback: "color-text" },
   "button-border-color": {
     fallback: "color-border-strong",
-    description: "Border of secondary buttons.",
   },
-  "button-primary-bg": { fallback: "color-accent", description: "Background of primary buttons." },
+  "button-primary-bg": { fallback: "color-accent" },
   "button-primary-bg-hover": {
     fallback: "color-accent-hover",
-    description: "Background of primary buttons under the pointer.",
   },
   "button-primary-bg-active": {
     fallback: "color-accent-active",
-    description: "Background of primary buttons while pressed.",
   },
-  "button-primary-fg": { fallback: "color-on-accent", description: "Text of primary buttons." },
+  "button-primary-fg": { fallback: "color-on-accent" },
   "button-quiet-bg-hover": {
     fallback: "color-control-hover",
-    description: "Background of quiet buttons under the pointer.",
   },
   "button-quiet-bg-active": {
     fallback: "color-control-active",
-    description: "Background of quiet buttons while pressed.",
   },
-  "button-danger-bg": { fallback: "color-danger", description: "Background of danger buttons." },
+  "button-danger-bg": { fallback: "color-danger" },
   "button-danger-bg-hover": {
     fallback: "color-danger-hover",
-    description: "Background of danger buttons under the pointer.",
   },
-  "button-danger-fg": { fallback: "color-on-danger", description: "Text of danger buttons." },
+  "button-danger-fg": { fallback: "color-on-danger" },
   "button-pressed-bg": {
     fallback: "color-accent-subtle",
-    description: "Background of toggle buttons that are on.",
   },
   "button-pressed-fg": {
     fallback: "color-text",
-    description: "Text of toggle buttons that are on.",
   },
+  "toolbar-bg": { fallback: "color-surface" },
+  "toolbar-border-color": { fallback: "color-border" },
+  "toolbar-radius": { fallback: "radius-surface" },
+  "toolbar-padding": { fallback: "inset-tight" },
+  "toolbar-gap": { fallback: "gap-tight" },
+  "toolbar-group-gap": { fallback: "gap-tight" },
+  "toolbar-separator-color": { fallback: "color-border" },
+  "segmented-control-height": { fallback: "control-height" },
+  "segmented-control-small-height": { fallback: "control-height-small" },
+  "segmented-control-padding": { fallback: "gap-tight" },
+  "segmented-control-gap": { fallback: "gap-tight" },
+  "segmented-control-radius": { fallback: "radius-control" },
+  "segmented-control-bg": { fallback: "color-surface-sunken" },
+  "segmented-control-border-color": { fallback: "color-border-strong" },
+  "segmented-control-option-padding-x": { fallback: "control-padding-x" },
+  "segmented-control-option-fg": { fallback: "color-text" },
+  "segmented-control-option-bg-hover": { fallback: "color-control-hover" },
+  "segmented-control-option-checked-bg": { fallback: "color-surface-raised" },
+  "segmented-control-option-checked-fg": { fallback: "color-text" },
+  "segmented-control-option-checked-border-color": { fallback: "color-border-strong" },
 } as const satisfies Record<ComponentTokenName, ComponentSpec>;
 
 function baseDefinitions(): TokenDefinition[] {
   const list: TokenDefinition[] = [];
-  const add = (
-    name: BaseTokenName,
-    category: TokenCategory,
-    type: TokenType,
-    description: string,
-  ): void => {
-    list.push({ name, level: "base", category, type, description, density: false });
+  const add = (name: BaseTokenName, category: TokenCategory, type: TokenType): void => {
+    list.push({ name, level: "base", category, type, density: false });
   };
   for (const hue of HUES) {
     for (const step of STEPS) {
-      add(`${hue}-${step}`, "color", "color", `Step ${step} of the ${hue} palette.`);
+      add(`${hue}-${step}`, "color", "color");
     }
   }
-  add("white", "color", "color", "Pure white.");
-  add("black", "color", "color", "Pure black.");
+  add("white", "color", "color");
+  add("black", "color", "color");
   for (let step = 1; step <= 12; step++) {
-    add(`space-${step}` as BaseTokenName, "space", "length", `Step ${step} of the space scale.`);
+    add(`space-${step}` as BaseTokenName, "space", "length");
   }
   for (const size of ["none", "sm", "md", "lg", "full"] as const) {
-    add(`radius-${size}`, "shape", "length", `The ${size} corner radius.`);
+    add(`radius-${size}`, "shape", "length");
   }
-  add("border-width-1", "shape", "length", "Thin border.");
-  add("border-width-2", "shape", "length", "Thick border.");
-  add("font-sans", "typography", "font-family", "The system sans-serif stack.");
-  add("font-mono", "typography", "font-family", "The system monospace stack.");
+  add("border-width-1", "shape", "length");
+  add("border-width-2", "shape", "length");
+  add("font-sans", "typography", "font-family");
+  add("font-mono", "typography", "font-family");
   for (let step = 1; step <= 7; step++) {
-    add(
-      `font-size-${step}` as BaseTokenName,
-      "typography",
-      "length",
-      `Step ${step} of the type scale.`,
-    );
+    add(`font-size-${step}` as BaseTokenName, "typography", "length");
   }
   for (const weight of [400, 500, 600, 700] as const) {
-    add(`font-weight-${weight}`, "typography", "font-weight", `Font weight ${weight}.`);
+    add(`font-weight-${weight}`, "typography", "font-weight");
   }
   for (const leading of ["tight", "normal", "relaxed"] as const) {
-    add(`leading-${leading}`, "typography", "number", `The ${leading} line height.`);
+    add(`leading-${leading}`, "typography", "number");
   }
   for (const speed of ["fast", "normal", "slow"] as const) {
-    add(`duration-${speed}`, "motion", "duration", `The ${speed} duration.`);
+    add(`duration-${speed}`, "motion", "duration");
   }
   for (const easing of ["standard", "decelerate", "accelerate"] as const) {
-    add(`easing-${easing}`, "motion", "easing", `The ${easing} easing curve.`);
+    add(`easing-${easing}`, "motion", "easing");
   }
   return list;
 }
@@ -765,7 +713,6 @@ function semanticDefinitions(): TokenDefinition[] {
     level: "semantic",
     category: spec.category,
     type: spec.type,
-    description: spec.description,
     density: "density" in spec,
   }));
 }
@@ -798,7 +745,6 @@ function componentDefinitions(semanticList: readonly TokenDefinition[]): TokenDe
       level: "component",
       category: fallback.category,
       type: fallback.type,
-      description: spec.description,
       density: false,
       fallback: spec.fallback,
     };
