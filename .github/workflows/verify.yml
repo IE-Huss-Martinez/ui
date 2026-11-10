@@ -1,0 +1,61 @@
+name: Verify
+
+# Runs the full `pnpm verify` on every pull request and every push to main
+# (ADR 0015). The job name is the required status check, so keep it `verify`.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# Cancel a superseded run on the same pull request, but let every run on main
+# finish, so each commit on main keeps its own result.
+concurrency:
+  group: verify-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  verify:
+    name: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+
+      # Installs the pnpm version in `packageManager` and caches its store.
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+        with:
+          cache: true
+
+      - run: pnpm install --frozen-lockfile
+
+      # Browser tests run on Chromium, Firefox and WebKit (ADR 0015). The
+      # browsers are cached per Playwright version. Their system libraries
+      # aren't cacheable, so they're installed on a cache hit too.
+      - name: Read the Playwright version
+        id: playwright
+        run: echo "version=$(pnpm --filter @hussmartinez/ui exec playwright --version | cut -d ' ' -f 2)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}
+
+      - name: Install the browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm --filter @hussmartinez/ui exec playwright install --with-deps chromium firefox webkit
+
+      - name: Install the browsers' system libraries
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm --filter @hussmartinez/ui exec playwright install-deps chromium firefox webkit
+
+      - run: pnpm verify
