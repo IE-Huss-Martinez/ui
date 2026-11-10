@@ -162,6 +162,7 @@
     --hm-surface-width-small: 24rem;
     --hm-surface-width-medium: 32rem;
     --hm-surface-width-large: 48rem;
+    --hm-track-size: 0.375rem;
     --hm-radius-control: var(--hm-radius-md);
     --hm-radius-surface: var(--hm-radius-lg);
     --hm-radius-round: var(--hm-radius-full);
@@ -174,6 +175,8 @@
     --hm-motion-easing-standard: var(--hm-easing-standard);
     --hm-motion-easing-enter: var(--hm-easing-decelerate);
     --hm-motion-easing-exit: var(--hm-easing-accelerate);
+    --hm-motion-duration-loop: 1s;
+    --hm-motion-easing-loop: linear;
     --hm-z-raised: 1;
     --hm-z-sticky: 10;
     --hm-z-overlay: 100;
@@ -233,6 +236,7 @@
       --hm-surface-width-small: 24rem;
       --hm-surface-width-medium: 32rem;
       --hm-surface-width-large: 48rem;
+      --hm-track-size: 0.375rem;
       --hm-radius-control: var(--hm-radius-md);
       --hm-radius-surface: var(--hm-radius-lg);
       --hm-radius-round: var(--hm-radius-full);
@@ -245,6 +249,8 @@
       --hm-motion-easing-standard: var(--hm-easing-standard);
       --hm-motion-easing-enter: var(--hm-easing-decelerate);
       --hm-motion-easing-exit: var(--hm-easing-accelerate);
+      --hm-motion-duration-loop: 1s;
+      --hm-motion-easing-loop: linear;
       --hm-z-raised: 1;
       --hm-z-sticky: 10;
       --hm-z-overlay: 100;
@@ -304,6 +310,7 @@
     --hm-surface-width-small: 24rem;
     --hm-surface-width-medium: 32rem;
     --hm-surface-width-large: 48rem;
+    --hm-track-size: 0.375rem;
     --hm-radius-control: var(--hm-radius-md);
     --hm-radius-surface: var(--hm-radius-lg);
     --hm-radius-round: var(--hm-radius-full);
@@ -316,6 +323,8 @@
     --hm-motion-easing-standard: var(--hm-easing-standard);
     --hm-motion-easing-enter: var(--hm-easing-decelerate);
     --hm-motion-easing-exit: var(--hm-easing-accelerate);
+    --hm-motion-duration-loop: 1s;
+    --hm-motion-easing-loop: linear;
     --hm-z-raised: 1;
     --hm-z-sticky: 10;
     --hm-z-overlay: 100;
@@ -374,6 +383,7 @@
     --hm-surface-width-small: 24rem;
     --hm-surface-width-medium: 32rem;
     --hm-surface-width-large: 48rem;
+    --hm-track-size: 0.375rem;
     --hm-radius-control: var(--hm-radius-md);
     --hm-radius-surface: var(--hm-radius-lg);
     --hm-radius-round: var(--hm-radius-full);
@@ -386,6 +396,8 @@
     --hm-motion-easing-standard: var(--hm-easing-standard);
     --hm-motion-easing-enter: var(--hm-easing-decelerate);
     --hm-motion-easing-exit: var(--hm-easing-accelerate);
+    --hm-motion-duration-loop: 1s;
+    --hm-motion-easing-loop: linear;
     --hm-z-raised: 1;
     --hm-z-sticky: 10;
     --hm-z-overlay: 100;

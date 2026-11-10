@@ -1,0 +1,39 @@
+@layer hm.components {
+  .hm-spinner {
+    block-size: var(--hm-spinner-size, var(--hm-icon-size));
+    box-sizing: border-box;
+    display: inline-block;
+    flex-shrink: 0;
+    inline-size: var(--hm-spinner-size, var(--hm-icon-size));
+  }
+
+  .hm-spinner:not([data-hm-unstyled]) {
+    animation: hm-spinner-turn var(--hm-spinner-duration, var(--hm-motion-duration-loop))
+      var(--hm-motion-easing-loop) infinite;
+    border: var(--hm-spinner-thickness, var(--hm-focus-ring-width)) solid
+      var(--hm-spinner-track-color, var(--hm-color-border));
+    border-block-start-color: var(--hm-spinner-color, var(--hm-color-accent));
+    border-radius: var(--hm-radius-round);
+  }
+
+  /* Reduced motion: a slow pulse instead of turning. */
+  @media (prefers-reduced-motion: reduce) {
+    .hm-spinner:not([data-hm-unstyled]) {
+      animation-name: hm-spinner-pulse;
+      animation-direction: alternate;
+      animation-timing-function: var(--hm-motion-easing-standard);
+    }
+  }
+
+  @keyframes hm-spinner-turn {
+    to {
+      rotate: 1turn;
+    }
+  }
+
+  @keyframes hm-spinner-pulse {
+    to {
+      opacity: var(--hm-opacity-disabled);
+    }
+  }
+}

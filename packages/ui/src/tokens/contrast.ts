@@ -48,6 +48,8 @@ function buildPairs(): readonly ContrastPair[] {
   // Boundaries and indicators that identify a control or its state.
   needs("color-border-strong", SURFACES, NON_TEXT);
   needs("color-accent", SURFACES, NON_TEXT);
+  // The fill of a progress bar against its track.
+  needs("color-accent", ["color-surface-sunken"], NON_TEXT);
   needs("focus-ring-color", SURFACES, NON_TEXT);
   return Object.freeze(pairs);
 }

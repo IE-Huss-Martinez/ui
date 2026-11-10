@@ -42,8 +42,20 @@ for (const [path, module] of Object.entries(modules)) {
             mounted.push(canvasElement);
             await Story.run({ canvasElement });
             await document.fonts.ready;
-            // Let opening transitions, such as a dialog's, finish first.
-            await Promise.all(document.getAnimations().map((animation) => animation.finished));
+            // Let opening transitions, such as a dialog's, finish first, and
+            // hold endless ones, such as a spinner's, at their first frame.
+            const animations = document.getAnimations();
+            for (const animation of animations) {
+              if (animation.effect?.getComputedTiming().iterations === Number.POSITIVE_INFINITY) {
+                animation.pause();
+                animation.currentTime = 0;
+              }
+            }
+            await Promise.all(
+              animations
+                .filter((animation) => animation.playState !== "paused")
+                .map((animation) => animation.finished),
+            );
             const slug = `${title}--${name}--${theme}--${density}`
               .toLowerCase()
               .replace(/[^a-z0-9-]+/g, "-");

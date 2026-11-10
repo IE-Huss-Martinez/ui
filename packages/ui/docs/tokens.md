@@ -83,6 +83,7 @@ Density tokens change with `data-hm-density`: the Light and Dark columns hold th
 | `--hm-surface-width-small` | `24rem` | `24rem` |  | Width of small dialogs and popovers. |
 | `--hm-surface-width-medium` | `32rem` | `32rem` |  | Width of dialogs and panels. |
 | `--hm-surface-width-large` | `48rem` | `48rem` |  | Width of large dialogs. |
+| `--hm-track-size` | `0.375rem` | `0.375rem` |  | Thickness of progress bars and other tracks. |
 
 ## Shape
 
@@ -110,6 +111,8 @@ Density tokens change with `data-hm-density`: the Light and Dark columns hold th
 | `--hm-motion-easing-standard` | `var(--hm-easing-standard)` | `var(--hm-easing-standard)` |  | Easing of movement within the screen. |
 | `--hm-motion-easing-enter` | `var(--hm-easing-decelerate)` | `var(--hm-easing-decelerate)` |  | Easing of elements appearing. |
 | `--hm-motion-easing-exit` | `var(--hm-easing-accelerate)` | `var(--hm-easing-accelerate)` |  | Easing of elements disappearing. |
+| `--hm-motion-duration-loop` | `1s` | `1s` |  | Duration of one cycle of a continuous animation, such as a spinner. |
+| `--hm-motion-easing-loop` | `linear` | `linear` |  | Easing of continuous animations, such as a spinner's turn. |
 
 ## Z-index
 
@@ -195,6 +198,16 @@ Fine-grained overrides for one component. `ui` never declares them: each compone
 | `--hm-dialog-small-width` | `--hm-surface-width-small` | Width of small dialogs. |
 | `--hm-dialog-width` | `--hm-surface-width-medium` | Width of dialogs. |
 | `--hm-dialog-large-width` | `--hm-surface-width-large` | Width of large dialogs. |
+| `--hm-spinner-size` | `--hm-icon-size` | Size of spinners. |
+| `--hm-spinner-thickness` | `--hm-focus-ring-width` | Thickness of a spinner's ring. |
+| `--hm-spinner-color` | `--hm-color-accent` | Colour of a spinner's moving arc. |
+| `--hm-spinner-track-color` | `--hm-color-border` | Colour of a spinner's ring. |
+| `--hm-spinner-duration` | `--hm-motion-duration-loop` | Duration of one spinner turn. |
+| `--hm-progress-height` | `--hm-track-size` | Height of progress bars. |
+| `--hm-progress-radius` | `--hm-radius-round` | Corner radius of progress bars. |
+| `--hm-progress-track-color` | `--hm-color-surface-sunken` | Background of progress bars. |
+| `--hm-progress-fill-color` | `--hm-color-accent` | Fill of progress bars. |
+| `--hm-progress-duration` | `--hm-motion-duration-loop` | Duration of an indeterminate progress bar's pulse. |
 
 ## Base tokens
 

@@ -186,6 +186,7 @@ export type SemanticTokenName =
   | "surface-width-small"
   | "surface-width-medium"
   | "surface-width-large"
+  | "track-size"
   | "radius-control"
   | "radius-surface"
   | "radius-round"
@@ -198,6 +199,8 @@ export type SemanticTokenName =
   | "motion-easing-standard"
   | "motion-easing-enter"
   | "motion-easing-exit"
+  | "motion-duration-loop"
+  | "motion-easing-loop"
   | "z-raised"
   | "z-sticky"
   | "z-overlay"
@@ -471,6 +474,7 @@ const semantic = {
   "surface-width-small": { category: "size", type: "length" },
   "surface-width-medium": { category: "size", type: "length" },
   "surface-width-large": { category: "size", type: "length" },
+  "track-size": { category: "size", type: "length" },
   "radius-control": {
     category: "shape",
     type: "length",
@@ -516,6 +520,8 @@ const semantic = {
     category: "motion",
     type: "easing",
   },
+  "motion-duration-loop": { category: "motion", type: "duration" },
+  "motion-easing-loop": { category: "motion", type: "easing" },
   "z-raised": {
     category: "z-index",
     type: "integer",
@@ -611,7 +617,17 @@ export type ComponentTokenName =
   | "dialog-title-font-size"
   | "dialog-small-width"
   | "dialog-width"
-  | "dialog-large-width";
+  | "dialog-large-width"
+  | "spinner-size"
+  | "spinner-thickness"
+  | "spinner-color"
+  | "spinner-track-color"
+  | "spinner-duration"
+  | "progress-height"
+  | "progress-radius"
+  | "progress-track-color"
+  | "progress-fill-color"
+  | "progress-duration";
 
 type ComponentSpec = { readonly fallback: SemanticTokenName };
 
@@ -695,6 +711,16 @@ const component = {
   "dialog-small-width": { fallback: "surface-width-small" },
   "dialog-width": { fallback: "surface-width-medium" },
   "dialog-large-width": { fallback: "surface-width-large" },
+  "spinner-size": { fallback: "icon-size" },
+  "spinner-thickness": { fallback: "focus-ring-width" },
+  "spinner-color": { fallback: "color-accent" },
+  "spinner-track-color": { fallback: "color-border" },
+  "spinner-duration": { fallback: "motion-duration-loop" },
+  "progress-height": { fallback: "track-size" },
+  "progress-radius": { fallback: "radius-round" },
+  "progress-track-color": { fallback: "color-surface-sunken" },
+  "progress-fill-color": { fallback: "color-accent" },
+  "progress-duration": { fallback: "motion-duration-loop" },
 } as const satisfies Record<ComponentTokenName, ComponentSpec>;
 
 function baseDefinitions(): TokenDefinition[] {

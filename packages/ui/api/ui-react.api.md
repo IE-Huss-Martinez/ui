@@ -9,10 +9,25 @@ import { DialogHTMLAttributes } from 'react';
 import { ForwardRefExoticComponent } from 'react';
 import { HTMLAttributes } from 'react';
 import { Messages } from '@hussmartinez/sdk-core';
+import { ProgressHTMLAttributes } from 'react';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
 import { RefAttributes } from 'react';
 import { RefObject } from 'react';
+
+// @public
+export type Announce = (message: string, options?: {
+    politeness?: Politeness;
+}) => void;
+
+// @public
+export function AnnouncerProvider(input: AnnouncerProviderProps): ReactElement;
+
+// @public
+export interface AnnouncerProviderProps {
+    // (undocumented)
+    readonly children?: ReactNode;
+}
 
 // @public
 export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<HTMLButtonElement>>;
@@ -77,6 +92,20 @@ export interface IconButtonProps extends Omit<ButtonProps, "startIcon" | "endIco
 }
 
 // @public
+export type Politeness = "polite" | "assertive";
+
+// @public
+export const ProgressBar: ForwardRefExoticComponent<ProgressBarProps & RefAttributes<HTMLProgressElement>>;
+
+// @public
+export interface ProgressBarProps extends Omit<ProgressHTMLAttributes<HTMLProgressElement>, "className" | "value" | "max">, StyleProps<"root"> {
+    readonly label?: string | undefined;
+    readonly max?: number | undefined;
+    readonly value?: number | undefined;
+    readonly valueText?: string | undefined;
+}
+
+// @public
 export const SegmentedControl: <Value extends string>(props: SegmentedControlProps<Value> & RefAttributes<HTMLDivElement>) => ReactElement;
 
 // @public
@@ -102,6 +131,14 @@ export interface SegmentedControlProps<Value extends string> extends Omit<HTMLAt
     readonly options: readonly SegmentedControlOption<Value>[];
     readonly size?: "medium" | "small" | undefined;
     readonly value: Value;
+}
+
+// @public
+export const Spinner: ForwardRefExoticComponent<SpinnerProps & RefAttributes<HTMLSpanElement>>;
+
+// @public
+export interface SpinnerProps extends Omit<HTMLAttributes<HTMLSpanElement>, "className" | "role" | "children">, StyleProps<"root"> {
+    readonly label?: string | undefined;
 }
 
 // @public
@@ -185,6 +222,8 @@ export type UiMessages = Messages<typeof uiMessages>;
 // @public
 export const uiMessages: {
     readonly "dialog.close": "Close";
+    readonly "progress.label": "Progress";
+    readonly "spinner.label": "Loading";
     readonly "errors.INVALID_THEME_TOKEN": "The theme setting {token} has a value that can't be used.";
     readonly "errors.INVALID_THEME_SELECTOR": "The theme can't be applied to the selector {selector}.";
 };
@@ -198,6 +237,9 @@ export interface UiMessagesProviderProps {
     readonly children?: ReactNode;
     readonly messages: UiMessages;
 }
+
+// @public
+export function useAnnounce(): Announce;
 
 // @public
 export function useUiMessages(): UiMessages;

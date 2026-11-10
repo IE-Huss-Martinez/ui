@@ -1,0 +1,59 @@
+@layer hm.components {
+  .hm-progress-bar {
+    block-size: var(--hm-progress-height, var(--hm-track-size));
+    box-sizing: border-box;
+    display: block;
+    inline-size: 100%;
+  }
+
+  /* The native element, restyled through each engine's pseudo-elements. */
+  .hm-progress-bar:not([data-hm-unstyled]) {
+    appearance: none;
+    background: var(--hm-progress-track-color, var(--hm-color-surface-sunken));
+    border: 0;
+    border-radius: var(--hm-progress-radius, var(--hm-radius-round));
+    color: var(--hm-progress-fill-color, var(--hm-color-accent));
+    overflow: hidden;
+  }
+
+  .hm-progress-bar:not([data-hm-unstyled])::-webkit-progress-bar {
+    background: transparent;
+  }
+
+  .hm-progress-bar:not([data-hm-unstyled])::-webkit-progress-value {
+    background: var(--hm-progress-fill-color, var(--hm-color-accent));
+    border-radius: var(--hm-progress-radius, var(--hm-radius-round));
+    transition: inline-size var(--hm-motion-duration-feedback) var(--hm-motion-easing-standard);
+  }
+
+  .hm-progress-bar:not([data-hm-unstyled])::-moz-progress-bar {
+    background: var(--hm-progress-fill-color, var(--hm-color-accent));
+    border-radius: var(--hm-progress-radius, var(--hm-radius-round));
+  }
+
+  /* Unknown progress: the whole track pulses between track and fill. */
+  .hm-progress-bar:not([data-hm-unstyled]):indeterminate {
+    animation: hm-progress-pulse var(--hm-progress-duration, var(--hm-motion-duration-loop))
+      var(--hm-motion-easing-standard) infinite alternate;
+  }
+
+  .hm-progress-bar:not([data-hm-unstyled]):indeterminate::-moz-progress-bar {
+    background: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hm-progress-bar:not([data-hm-unstyled]):indeterminate {
+      animation: none;
+    }
+
+    .hm-progress-bar:not([data-hm-unstyled])::-webkit-progress-value {
+      transition: none;
+    }
+  }
+
+  @keyframes hm-progress-pulse {
+    to {
+      background-color: var(--hm-progress-fill-color, var(--hm-color-accent));
+    }
+  }
+}
