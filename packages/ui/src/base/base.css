@@ -1,0 +1,19 @@
+/*
+ * Base styles. They only apply inside elements that opt in with an hm
+ * attribute or class, never to the host page (ADR 0005).
+ */
+@layer hm.base {
+  /* Native scrollbars and form controls follow the theme. */
+  [data-hm-theme],
+  [data-hm-theme-scope] {
+    color-scheme: var(--hm-color-scheme);
+  }
+
+  /*
+   * ThemeProvider's wrapper. Custom properties still inherit through it,
+   * because inheritance follows the DOM tree, not boxes.
+   */
+  [data-hm-theme-scope] {
+    display: contents;
+  }
+}

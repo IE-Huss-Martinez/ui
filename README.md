@@ -37,6 +37,8 @@ The configuration extends the shared presets in [`@hussmartinez/sdk-config`](htt
 
 When a change alters the public API on purpose, update the reports with `pnpm --filter @hussmartinez/ui api:update` and commit them.
 
+Design tokens are defined once in [`packages/ui/src/tokens`](packages/ui/src/tokens). `pnpm --filter @hussmartinez/ui tokens` regenerates the CSS and the [token reference](packages/ui/docs/tokens.md) from them. Decisions specific to this repository are in [`docs/adr`](docs/adr).
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before opening a pull request. Coding agents also start with [`AGENTS.md`](AGENTS.md). Everyone taking part follows the [code of conduct](CODE_OF_CONDUCT.md). Report vulnerabilities privately, as described in the [security policy](SECURITY.md).

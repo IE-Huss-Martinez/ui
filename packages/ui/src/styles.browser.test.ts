@@ -1,50 +1,22 @@
 import { afterEach, describe, expect, it } from "vitest";
-import stylesUrl from "./styles.css?url";
+import { addStyle, cleanUp, loadStyles, mount, track } from "./test/dom.js";
 
-const added: Element[] = [];
-
-afterEach(() => {
-  for (const element of added.splice(0)) {
-    element.remove();
-  }
-});
-
-async function loadStyles(): Promise<CSSStyleSheet> {
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = stylesUrl;
-  const loaded = new Promise<void>((resolve, reject) => {
-    link.addEventListener("load", () => resolve(), { once: true });
-    link.addEventListener("error", () => reject(new Error("styles.css failed to load")), {
-      once: true,
-    });
-  });
-  document.head.append(link);
-  added.push(link);
-  await loaded;
-  if (!link.sheet) {
-    throw new Error("styles.css loaded without a stylesheet");
-  }
-  return link.sheet;
-}
-
-function addStyle(css: string): void {
-  const style = document.createElement("style");
-  style.textContent = css;
-  document.head.append(style);
-  added.push(style);
-}
+afterEach(cleanUp);
 
 describe("styles.css", () => {
   it("declares the cascade layers first, in the order of ADR 0005", async () => {
     const sheet = await loadStyles();
-    const first = sheet.cssRules[0];
+    const [first, second] = [...sheet.cssRules];
     expect(first).toBeInstanceOf(CSSLayerStatementRule);
     expect([...(first as CSSLayerStatementRule).nameList]).toEqual([
       "hm.tokens",
       "hm.base",
       "hm.components",
       "hm.sdk",
+    ]);
+    expect([...(second as CSSLayerStatementRule).nameList]).toEqual([
+      "hm.tokens.default",
+      "hm.tokens.theme",
     ]);
   });
 
@@ -58,14 +30,23 @@ describe("styles.css", () => {
       @layer hm.base { .hm-layer-probe { order: 2; } }
       @layer hm.tokens { .hm-layer-probe { order: 1; } }
     `);
-    const probe = document.createElement("div");
+    const probe = track(document.createElement("div"));
     probe.className = "hm-layer-probe";
     document.body.append(probe);
-    added.push(probe);
     expect(getComputedStyle(probe).order).toBe("4");
 
     // A host's unlayered CSS beats every hm layer, without !important.
     addStyle(".hm-layer-probe { order: 5; }");
     expect(getComputedStyle(probe).order).toBe("5");
+  });
+
+  it("makes ThemeProvider's wrapper take no box, and themed roots set color-scheme", async () => {
+    await loadStyles();
+    const root = mount('<div data-hm-theme="dark"><div data-hm-theme-scope="x"></div></div>');
+    const themed = root.querySelector("[data-hm-theme]") as Element;
+    expect(getComputedStyle(themed).colorScheme).toBe("dark");
+    expect(getComputedStyle(root.querySelector("[data-hm-theme-scope]") as Element).display).toBe(
+      "contents",
+    );
   });
 });

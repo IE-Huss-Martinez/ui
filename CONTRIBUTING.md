@@ -36,6 +36,7 @@ The git hooks run on their own: a secret scan and lint of staged files on commit
 - **Tests:** unit tests sit next to the code as `*.test.ts`, and browser tests as `*.browser.test.ts`. Test behaviour, not lines of code. Components are tested with the keyboard and with axe.
 - **Public API:** fully typed, with TSDoc on every export. If a change alters the API on purpose, update the reports with `pnpm --filter @hussmartinez/ui api:update` and commit them.
 - **Styles:** plain CSS in the `hm.*` cascade layers, with `hm-` names and values from `--hm-*` tokens. stylelint enforces this. A disable comment needs a description that says why.
+- **Tokens:** edit the source in `packages/ui/src/tokens`, then run `pnpm --filter @hussmartinez/ui tokens` to regenerate `tokens.css` and the token reference. A test fails if they're stale. New semantic tokens and changes to the built-in colours must keep every contrast pair at WCAG 2.2 AA, which the tests check. See [ADR 0001](docs/adr/0001-design-tokens-and-theme-scoping.md).
 - **Accessibility:** WCAG 2.2 AA, with full keyboard support and visible focus. Visible text and accessible names are never hard-coded.
 - **Dependencies:** add one only when it's clearly worth it, and justify it in the pull request.
 - **Docs:** keep the READMEs accurate.

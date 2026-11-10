@@ -4,4 +4,170 @@
 
 ```ts
 
+import { SdkError } from '@hussmartinez/sdk-core';
+
+// @public
+export type BaseTokenName = `${"gray" | "blue" | "red" | "green" | "amber"}-${50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950}` | "white" | "black" | `space-${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12}` | "radius-none" | "radius-sm" | "radius-md" | "radius-lg" | "radius-full" | "border-width-1" | "border-width-2" | "font-sans" | "font-mono" | `font-size-${1 | 2 | 3 | 4 | 5 | 6 | 7}` | "font-weight-400" | "font-weight-500" | "font-weight-600" | "font-weight-700" | "leading-tight" | "leading-normal" | "leading-relaxed" | "duration-fast" | "duration-normal" | "duration-slow" | "easing-standard" | "easing-decelerate" | "easing-accelerate";
+
+// @public
+export function checkContrast(theme: Theme): ContrastReport;
+
+// @public
+export type ColorMode = "light" | "dark" | "system";
+
+// @public
+export interface CompleteThemeInput extends ThemeInputBase {
+    // (undocumented)
+    readonly extends?: undefined;
+    // (undocumented)
+    readonly tokens: CompleteThemeTokens;
+}
+
+// @public
+export type CompleteThemeTokens = ThemeTokens & {
+    readonly [Name in Exclude<SemanticTokenName, "color-scheme">]: string;
+};
+
+// @public
+export interface ComponentTokens {
+}
+
+// @public
+export interface ContrastPair {
+    // (undocumented)
+    readonly background: SemanticTokenName;
+    // (undocumented)
+    readonly foreground: SemanticTokenName;
+    readonly minimum: 4.5 | 3;
+}
+
+// @public
+export const contrastPairs: readonly ContrastPair[];
+
+// @public
+export interface ContrastReport {
+    readonly failures: readonly {
+        readonly foreground: string;
+        readonly background: string;
+        readonly ratio: number;
+        readonly minimum: number;
+    }[];
+    readonly unchecked: readonly {
+        readonly foreground: string;
+        readonly background: string;
+    }[];
+}
+
+// @public
+export function createTheme(input: ThemeInput): Theme;
+
+// @public
+export const darkTheme: Theme;
+
+// @public
+export type Density = "comfortable" | "compact";
+
+// @public
+export type DensityTokenName = "control-height" | "control-height-small" | "control-padding-x" | "control-gap" | "icon-size" | "target-size" | "gap-tight" | "gap-normal" | "gap-loose" | "inset-tight" | "inset-normal" | "inset-loose";
+
+// @public
+export type DensityTokens = {
+    readonly [Name in DensityTokenName]?: string;
+};
+
+// @public
+export interface ExtendingThemeInput extends ThemeInputBase {
+    readonly extends: Theme | "light" | "dark";
+    // (undocumented)
+    readonly tokens?: ThemeTokens;
+}
+
+// @public
+export const lightTheme: Theme;
+
+// @public
+export type SemanticTokenName = "color-scheme" | "color-bg" | "color-surface" | "color-surface-raised" | "color-surface-sunken" | "color-overlay" | "color-text" | "color-text-muted" | "color-text-disabled" | "color-border" | "color-border-strong" | "color-control" | "color-control-hover" | "color-control-active" | "color-accent" | "color-accent-hover" | "color-accent-active" | "color-on-accent" | "color-accent-subtle" | "color-accent-text" | "color-danger" | "color-danger-hover" | "color-on-danger" | "color-danger-subtle" | "color-danger-text" | "color-warning" | "color-on-warning" | "color-warning-subtle" | "color-warning-text" | "color-success" | "color-on-success" | "color-success-subtle" | "color-success-text" | "focus-ring-color" | "focus-ring-width" | "focus-ring-offset" | "focus-ring" | "font-family" | "font-family-mono" | "font-size-small" | "font-size-body" | "font-size-title" | "font-weight-regular" | "font-weight-strong" | "line-height-body" | "line-height-tight" | "letter-spacing" | "control-height" | "control-height-small" | "control-padding-x" | "control-gap" | "icon-size" | "target-size" | "gap-tight" | "gap-normal" | "gap-loose" | "inset-tight" | "inset-normal" | "inset-loose" | "radius-control" | "radius-surface" | "radius-round" | "border-width" | "shadow-raised" | "shadow-overlay" | "motion-duration-feedback" | "motion-duration-enter" | "motion-duration-exit" | "motion-easing-standard" | "motion-easing-enter" | "motion-easing-exit" | "z-raised" | "z-sticky" | "z-overlay" | "opacity-disabled";
+
+// @public
+export interface Theme {
+    readonly coarsePointer: Readonly<Record<string, string>>;
+    // (undocumented)
+    readonly colorScheme: "light" | "dark";
+    readonly compact: Readonly<Record<string, string>>;
+    readonly tokens: Readonly<Record<string, string>>;
+}
+
+// @public
+export type ThemeInput = ExtendingThemeInput | CompleteThemeInput;
+
+// @public
+export interface ThemeInputBase {
+    readonly coarsePointer?: DensityTokens;
+    readonly colorScheme?: "light" | "dark";
+    readonly density?: {
+        readonly compact?: DensityTokens;
+    };
+}
+
+// @public
+export interface ThemePair {
+    // (undocumented)
+    readonly dark: Theme;
+    // (undocumented)
+    readonly light: Theme;
+}
+
+// @public
+export function themeToCss(theme: Theme | ThemePair, selector?: string): string;
+
+// @public
+export type ThemeTokens = {
+    readonly [Name in Exclude<TokenName, "color-scheme">]?: string;
+} & {
+    readonly [Name in keyof ComponentTokens]?: ComponentTokens[Name];
+};
+
+// @public
+export type TokenCategory = "color" | "typography" | "space" | "size" | "shape" | "shadow" | "motion" | "z-index" | "opacity" | "focus";
+
+// @public
+export interface TokenDefinition {
+    // (undocumented)
+    readonly category: TokenCategory;
+    readonly density: boolean;
+    readonly description: string;
+    // (undocumented)
+    readonly level: TokenLevel;
+    readonly name: string;
+    // (undocumented)
+    readonly type: TokenType;
+}
+
+// @public
+export type TokenLevel = "base" | "semantic";
+
+// @public
+export type TokenName = BaseTokenName | SemanticTokenName;
+
+// @public
+export const tokens: readonly TokenDefinition[];
+
+// @public
+export type TokenType = "color" | "length" | "duration" | "easing" | "number" | "integer" | "font-family" | "font-weight" | "shadow" | "outline" | "color-scheme";
+
+// @public
+export class UiError extends SdkError<UiErrorCode> {
+    // (undocumented)
+    readonly name = "UiError";
+}
+
+// @public
+export type UiErrorCode = "INVALID_THEME_TOKEN" | "INVALID_THEME_SELECTOR";
+
+// @public
+export const uiMessages: {
+    readonly "errors.INVALID_THEME_TOKEN": "The theme setting {token} has a value that can't be used.";
+    readonly "errors.INVALID_THEME_SELECTOR": "The theme can't be applied to the selector {selector}.";
+};
+
 ```

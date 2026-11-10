@@ -1,5 +1,17 @@
 import { playwright } from "@vitest/browser-playwright";
 import { defineConfig } from "vitest/config";
+import type { BrowserCommand } from "vitest/node";
+
+/**
+ * Emulates `prefers-color-scheme`, so browser tests can check system mode.
+ * Declared for tests in src/test/browser-commands.d.ts.
+ */
+const setColorScheme: BrowserCommand<[scheme: "light" | "dark"]> = async (context, scheme) => {
+  if (context.provider.name !== "playwright") {
+    throw new Error("setColorScheme needs the Playwright provider");
+  }
+  await context.page.emulateMedia({ colorScheme: scheme });
+};
 
 const ALL_BROWSERS = ["chromium", "firefox", "webkit"] as const;
 
@@ -30,6 +42,7 @@ export default defineConfig(({ mode }) => {
               headless: true,
               provider: playwright(),
               instances: browsers.map((browser) => ({ browser })),
+              commands: { setColorScheme },
             },
           },
         },

@@ -176,6 +176,9 @@ catalogs:
     '@hussmartinez/sdk-config':
       specifier: ^0.1.1
       version: 0.1.1
+    '@hussmartinez/sdk-core':
+      specifier: ^0.1.0
+      version: 0.1.0
     '@microsoft/api-extractor':
       specifier: ^7.60.1
       version: 7.60.1
@@ -264,6 +267,10 @@ importers:
         version: 18.0.0
 
   packages/ui:
+    dependencies:
+      '@hussmartinez/sdk-core':
+        specifier: 'catalog:'
+        version: 0.1.0
     devDependencies:
       '@arethetypeswrong/cli':
         specifier: 'catalog:'
@@ -577,6 +584,9 @@ packages:
         optional: true
       typescript:
         optional: true
+
+  '@hussmartinez/sdk-core@0.1.0':
+    resolution: {integrity: sha512-npMOTFkRLqZPjF9Ivs1ZkJZzdrEWLq4ssNijXXH5l7X8D3YmX4rcuvE57tNOjvR2oG6cM4/U08XUPKMsqpnWfg==}
 
   '@jridgewell/resolve-uri@3.1.2':
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
@@ -2251,6 +2261,8 @@ snapshots:
       secretlint: 13.1.0(supports-color@10.2.2)
       stylelint: 18.0.0
       typescript: 6.0.3
+
+  '@hussmartinez/sdk-core@0.1.0': {}
 
   '@jridgewell/resolve-uri@3.1.2': {}
 
