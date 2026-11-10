@@ -1,0 +1,19 @@
+@layer hm.components {
+  /*
+   * The standard clip pattern: out of sight, but still in the accessibility
+   * tree and in the accessible name of its parent.
+   */
+  .hm-visually-hidden {
+    /* stylelint-disable hm/no-literal-values -- the clip pattern needs a 1px box and no margin, border or padding, whatever the theme. */
+    block-size: 1px;
+    border: 0;
+    clip-path: inset(50%);
+    inline-size: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    /* stylelint-enable hm/no-literal-values */
+  }
+}

@@ -3,7 +3,7 @@ import { defineMessages } from "@hussmartinez/sdk-core";
 /**
  * English text for `@hussmartinez/ui`'s error codes. Applications and SDKs
  * spread it into their catalogue, next to `sdkCoreMessages`, so
- * `messages.error()` can describe a {@link UiError}. Components add their
+ * `messages.error()` can describe a `UiError`. Components add their
  * text here as they arrive.
  *
  * @example
