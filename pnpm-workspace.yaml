@@ -1,10 +1,9 @@
 packages:
   - packages/*
-  # Applications that aren't published: the component catalogue, and the
-  # Next.js and Vite applications for the server-rendering tests.
+  # The component catalogue, which isn't published.
   - apps/*
-  # Applications that consume the built package as hosts do, for the
-  # end-to-end server-rendering tests (ADR 0007).
+  # Next.js and Vite applications that consume the built package as hosts
+  # do, for the end-to-end server-rendering tests (ADR 0007).
   - examples/*
   - e2e
 
