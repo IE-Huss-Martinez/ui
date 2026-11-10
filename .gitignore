@@ -18,3 +18,8 @@ release-assets/
 
 # Storybook build output.
 storybook-static/
+
+# Example application builds.
+.next/
+next-env.d.ts
+dist-server/

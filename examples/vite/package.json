@@ -1,0 +1,24 @@
+{
+  "name": "@hussmartinez/ui-example-vite",
+  "private": true,
+  "description": "A Vite React application, rendered on the server at build time, that uses the built @hussmartinez/ui, for the server-rendering tests.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit && vite build && vite build --ssr src/entry-server.tsx --outDir dist-server && node prerender.js",
+    "start": "vite preview --port 3200 --strictPort"
+  },
+  "dependencies": {
+    "@hussmartinez/ui": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@hussmartinez/sdk-config": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  }
+}
