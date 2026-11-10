@@ -15,7 +15,10 @@ setProjectAnnotations([a11yAnnotations, previewAnnotations]);
 
 type StoryModule = Parameters<typeof composeStories>[0];
 /** What the test needs from a composed story. */
-type RunnableStory = { run: (context: { canvasElement: HTMLElement }) => Promise<void> };
+type RunnableStory = {
+  run: (context: { canvasElement: HTMLElement }) => Promise<void>;
+  parameters?: { visual?: { capture?: string } };
+};
 const modules = import.meta.glob<StoryModule>("../src/**/*.stories.tsx", { eager: true });
 const DENSITIES = ["comfortable", "compact"] as const;
 
@@ -39,10 +42,19 @@ for (const [path, module] of Object.entries(modules)) {
             mounted.push(canvasElement);
             await Story.run({ canvasElement });
             await document.fonts.ready;
+            // Let opening transitions, such as a dialog's, finish first.
+            await Promise.all(document.getAnimations().map((animation) => animation.finished));
             const slug = `${title}--${name}--${theme}--${density}`
               .toLowerCase()
               .replace(/[^a-z0-9-]+/g, "-");
-            await expect.element(page.elementLocator(canvasElement)).toMatchScreenshot(slug);
+            // Stories whose content paints in the top layer, such as modal
+            // dialogs, name the element to capture instead of their canvas.
+            const selector = Story.parameters?.["visual"]?.capture;
+            const capture = selector ? document.querySelector(selector) : canvasElement;
+            if (!capture) {
+              throw new Error(`${name} has no element matching ${selector}`);
+            }
+            await expect.element(page.elementLocator(capture)).toMatchScreenshot(slug);
           });
         }
       }

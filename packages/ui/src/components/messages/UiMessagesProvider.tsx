@@ -56,3 +56,21 @@ export function UiMessagesProvider({ messages, children }: UiMessagesProviderPro
 export function useUiMessages(): UiMessages {
   return useContext(UiMessagesContext) ?? defaultMessages();
 }
+
+/** Keys of `uiMessages` whose English text has no placeholders. */
+type PlainMessageKey = {
+  [Key in keyof typeof uiMessages]: (typeof uiMessages)[Key] extends `${string}{${string}`
+    ? never
+    : Key;
+}[keyof typeof uiMessages];
+
+/**
+ * A component's text for a message without placeholders: from the closest
+ * {@link UiMessagesProvider}, or the English text as it is. Unlike
+ * {@link useUiMessages}, it doesn't create a messages object when there's no
+ * provider, so components using only English don't ship the formatter.
+ */
+export function useUiText(key: PlainMessageKey): string {
+  const messages = useContext(UiMessagesContext);
+  return messages ? messages.t(key) : uiMessages[key];
+}

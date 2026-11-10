@@ -183,6 +183,9 @@ export type SemanticTokenName =
   | "inset-tight"
   | "inset-normal"
   | "inset-loose"
+  | "surface-width-small"
+  | "surface-width-medium"
+  | "surface-width-large"
   | "radius-control"
   | "radius-surface"
   | "radius-round"
@@ -465,6 +468,9 @@ const semantic = {
     type: "length",
     density: true,
   },
+  "surface-width-small": { category: "size", type: "length" },
+  "surface-width-medium": { category: "size", type: "length" },
+  "surface-width-large": { category: "size", type: "length" },
   "radius-control": {
     category: "shape",
     type: "length",
@@ -593,7 +599,19 @@ export type ComponentTokenName =
   | "segmented-control-option-bg-hover"
   | "segmented-control-option-checked-bg"
   | "segmented-control-option-checked-fg"
-  | "segmented-control-option-checked-border-color";
+  | "segmented-control-option-checked-border-color"
+  | "dialog-bg"
+  | "dialog-fg"
+  | "dialog-border-color"
+  | "dialog-radius"
+  | "dialog-shadow"
+  | "dialog-padding"
+  | "dialog-gap"
+  | "dialog-backdrop"
+  | "dialog-title-font-size"
+  | "dialog-small-width"
+  | "dialog-width"
+  | "dialog-large-width";
 
 type ComponentSpec = { readonly fallback: SemanticTokenName };
 
@@ -665,6 +683,18 @@ const component = {
   "segmented-control-option-checked-bg": { fallback: "color-surface-raised" },
   "segmented-control-option-checked-fg": { fallback: "color-text" },
   "segmented-control-option-checked-border-color": { fallback: "color-border-strong" },
+  "dialog-bg": { fallback: "color-surface-raised" },
+  "dialog-fg": { fallback: "color-text" },
+  "dialog-border-color": { fallback: "color-border" },
+  "dialog-radius": { fallback: "radius-surface" },
+  "dialog-shadow": { fallback: "shadow-overlay" },
+  "dialog-padding": { fallback: "inset-loose" },
+  "dialog-gap": { fallback: "gap-loose" },
+  "dialog-backdrop": { fallback: "color-overlay" },
+  "dialog-title-font-size": { fallback: "font-size-title" },
+  "dialog-small-width": { fallback: "surface-width-small" },
+  "dialog-width": { fallback: "surface-width-medium" },
+  "dialog-large-width": { fallback: "surface-width-large" },
 } as const satisfies Record<ComponentTokenName, ComponentSpec>;
 
 function baseDefinitions(): TokenDefinition[] {

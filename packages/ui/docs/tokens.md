@@ -80,6 +80,9 @@ Density tokens change with `data-hm-density`: the Light and Dark columns hold th
 | `--hm-control-height-small` | `1.5rem` | `1.5rem` |  | Height of small controls, such as toolbar icon buttons. |
 | `--hm-icon-size` | `1.25rem` | `1.25rem` | `1rem` | Size of icons in controls. |
 | `--hm-target-size` | `1.5rem` | `1.5rem` |  | Smallest pointer target: 24 px, and 44 px on coarse pointers (ADR 0014). |
+| `--hm-surface-width-small` | `24rem` | `24rem` |  | Width of small dialogs and popovers. |
+| `--hm-surface-width-medium` | `32rem` | `32rem` |  | Width of dialogs and panels. |
+| `--hm-surface-width-large` | `48rem` | `48rem` |  | Width of large dialogs. |
 
 ## Shape
 
@@ -180,6 +183,18 @@ Fine-grained overrides for one component. `ui` never declares them: each compone
 | `--hm-segmented-control-option-checked-bg` | `--hm-color-surface-raised` | Background of the selected option. |
 | `--hm-segmented-control-option-checked-fg` | `--hm-color-text` | Text of the selected option. |
 | `--hm-segmented-control-option-checked-border-color` | `--hm-color-border-strong` | Border of the selected option, so selection shows without colour. |
+| `--hm-dialog-bg` | `--hm-color-surface-raised` | Background of dialogs. |
+| `--hm-dialog-fg` | `--hm-color-text` | Text of dialogs. |
+| `--hm-dialog-border-color` | `--hm-color-border` | Border of dialogs. |
+| `--hm-dialog-radius` | `--hm-radius-surface` | Corner radius of dialogs. |
+| `--hm-dialog-shadow` | `--hm-shadow-overlay` | Shadow of dialogs. |
+| `--hm-dialog-padding` | `--hm-inset-loose` | Padding inside dialogs. |
+| `--hm-dialog-gap` | `--hm-gap-loose` | Gap between a dialog's header, body and footer. |
+| `--hm-dialog-backdrop` | `--hm-color-overlay` | Backdrop behind modal dialogs. |
+| `--hm-dialog-title-font-size` | `--hm-font-size-title` | Size of dialog titles. |
+| `--hm-dialog-small-width` | `--hm-surface-width-small` | Width of small dialogs. |
+| `--hm-dialog-width` | `--hm-surface-width-medium` | Width of dialogs. |
+| `--hm-dialog-large-width` | `--hm-surface-width-large` | Width of large dialogs. |
 
 ## Base tokens
 
