@@ -32,6 +32,9 @@ const shared = {
   "z-sticky": "10",
   "z-overlay": "100",
   "opacity-disabled": "0.5",
+  "surface-width-small": "24rem",
+  "surface-width-medium": "32rem",
+  "surface-width-large": "48rem",
 } as const;
 
 /** Semantic values of the built-in light theme. */

@@ -159,6 +159,9 @@
     --hm-line-height-body: var(--hm-leading-normal);
     --hm-line-height-tight: var(--hm-leading-tight);
     --hm-letter-spacing: 0;
+    --hm-surface-width-small: 24rem;
+    --hm-surface-width-medium: 32rem;
+    --hm-surface-width-large: 48rem;
     --hm-radius-control: var(--hm-radius-md);
     --hm-radius-surface: var(--hm-radius-lg);
     --hm-radius-round: var(--hm-radius-full);
@@ -227,6 +230,9 @@
       --hm-line-height-body: var(--hm-leading-normal);
       --hm-line-height-tight: var(--hm-leading-tight);
       --hm-letter-spacing: 0;
+      --hm-surface-width-small: 24rem;
+      --hm-surface-width-medium: 32rem;
+      --hm-surface-width-large: 48rem;
       --hm-radius-control: var(--hm-radius-md);
       --hm-radius-surface: var(--hm-radius-lg);
       --hm-radius-round: var(--hm-radius-full);
@@ -295,6 +301,9 @@
     --hm-line-height-body: var(--hm-leading-normal);
     --hm-line-height-tight: var(--hm-leading-tight);
     --hm-letter-spacing: 0;
+    --hm-surface-width-small: 24rem;
+    --hm-surface-width-medium: 32rem;
+    --hm-surface-width-large: 48rem;
     --hm-radius-control: var(--hm-radius-md);
     --hm-radius-surface: var(--hm-radius-lg);
     --hm-radius-round: var(--hm-radius-full);
@@ -362,6 +371,9 @@
     --hm-line-height-body: var(--hm-leading-normal);
     --hm-line-height-tight: var(--hm-leading-tight);
     --hm-letter-spacing: 0;
+    --hm-surface-width-small: 24rem;
+    --hm-surface-width-medium: 32rem;
+    --hm-surface-width-large: 48rem;
     --hm-radius-control: var(--hm-radius-md);
     --hm-radius-surface: var(--hm-radius-lg);
     --hm-radius-round: var(--hm-radius-full);
