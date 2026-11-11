@@ -23,6 +23,8 @@ describe("pnpm lint:css", () => {
     "packages/ui/temp/styles.css",
     "packages/ui/coverage/styles.css",
     "apps/catalogue/storybook-static/main.css",
+    "examples/next/.next/static/css/app.css",
+    "examples/vite/dist-server/assets/app.css",
   ])("ignores build and tool output, such as %s", (path) => {
     expect(lintAs(path, LITERAL)).toMatchObject({ status: 0 });
   });
