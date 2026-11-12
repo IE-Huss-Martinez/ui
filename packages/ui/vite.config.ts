@@ -3,6 +3,7 @@ import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 
 const manifest = JSON.parse(readFileSync(new URL("package.json", import.meta.url), "utf8")) as {
+  version: string;
   dependencies?: Record<string, string>;
   peerDependencies?: Record<string, string>;
 };
@@ -34,6 +35,9 @@ const entryFiles = new Set(
 // bundlers can tree-shake and minify them, and one stylesheet that bundles
 // every CSS file it imports. No JavaScript imports CSS.
 export default defineConfig({
+  // ui's version, for the development warning about a second copy of ui
+  // (src/internal/single-copy.ts).
+  define: { __HM_UI_VERSION__: JSON.stringify(manifest.version) },
   // The production JSX runtime, whatever NODE_ENV the build runs with.
   // Otherwise a build under NODE_ENV=development or test ships jsxDEV and
   // the absolute path of every source file.

@@ -1,4 +1,5 @@
 import { createContext, useContext } from "react";
+import { checkSingleCopy } from "../../internal/single-copy.js";
 
 /** What children of a Toolbar need to know. */
 export interface ToolbarContextValue {
@@ -11,5 +12,6 @@ export const ToolbarContext = /* @__PURE__ */ createContext<ToolbarContextValue 
 
 /** The enclosing toolbar, or `undefined` outside one. */
 export function useToolbar(): ToolbarContextValue | undefined {
+  checkSingleCopy();
   return useContext(ToolbarContext);
 }

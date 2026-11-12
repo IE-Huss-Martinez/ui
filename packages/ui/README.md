@@ -187,6 +187,17 @@ const messages = createMessages({ ...sdkCoreMessages, ...uiMessages, ...yourMess
 </UiMessagesProvider>
 ```
 
+## Using ui from an SDK
+
+The `@hussmartinez` SDKs build their editors from ui's components, so an application using an SDK already has ui ([ADR 0036](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0036-ui-as-a-dependency-of-the-sdks.md)).
+
+- **One stylesheet, required.** Import `@hussmartinez/ui/styles.css` once, before the SDKs' stylesheets. The SDKs' stylesheets never include it, so it loads once however many SDKs you use. Don't leave it out: the focus rings and target sizes of the components inside an SDK live there.
+- **One copy of ui.** Each `ui` copy has its own providers, so `UiMessagesProvider`, `ThemeProvider` and `AnnouncerProvider` from one copy don't reach components from another: their text falls back to English, and announcements are lost. If your application uses ui itself, depend on the same minor version as your SDKs; `npm ls @hussmartinez/ui` should list one version. In development, ui warns when a second copy is in use, and names the versions it found.
+- **Providers once, at the root.** One `UiMessagesProvider`, `ThemeProvider` and `AnnouncerProvider` around your application reach ui's components inside every SDK too.
+- **Headless use.** An SDK's `.` entry never loads ui or React. ui is still installed with the SDK, but its `react` and `react-dom` peers are optional, so there are no peer warnings.
+
+**For SDK authors:** list ui in `dependencies` with a caret range on the current minor, such as `^0.2.0`, and import it only from `features/`, `react/` and `element/`. `sdk-config`'s dependency-cruiser preset fails the build when the core, an adapter, a worker or anything the `.` entry reaches imports it.
+
 ## Errors and messages
 
 Errors are `UiError`s, subclasses of sdk-core's `SdkError`, with a stable `code` and `details`. `uiMessages` has English text for each code; spread it into your catalogue next to `sdkCoreMessages`:
