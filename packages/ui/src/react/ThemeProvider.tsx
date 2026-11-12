@@ -1,6 +1,7 @@
 import type { ReactElement, ReactNode } from "react";
 import { useId } from "react";
 import { UiError } from "../errors/ui-error.js";
+import { checkSingleCopy } from "../internal/single-copy.js";
 import { isThemePair } from "../theme/pair.js";
 import { cssWriterOf } from "../theme/registry.js";
 import type { ColorMode, Density, Theme, ThemePair } from "../theme/types.js";
@@ -102,6 +103,7 @@ function cachedCss(theme: Theme | ThemePair, selector: string): string {
  * @public
  */
 export function ThemeProvider(props: ThemeProviderProps): ReactElement {
+  checkSingleCopy();
   const { theme, mode, density, nonce, children } = props;
   // useId keeps server and client markup identical. Its characters vary
   // between React versions, so only selector-safe ones are kept.

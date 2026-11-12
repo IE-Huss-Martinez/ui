@@ -1,4 +1,4 @@
-import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { build as esbuild } from "esbuild";
@@ -64,6 +64,15 @@ describe("the built package", () => {
     const code = files.flatMap((file) => (file.type === "chunk" ? [file.code] : [])).join("\n");
     expect(code).not.toContain("jsx-dev-runtime");
     expect(code).not.toContain(process.cwd());
+  });
+
+  it("writes ui's version into the React entry, for the second-copy warning (ADR 0036)", async () => {
+    const { version } = JSON.parse(
+      await readFile(new URL("package.json", import.meta.url), "utf8"),
+    );
+    const code = files.flatMap((file) => (file.type === "chunk" ? [file.code] : [])).join("\n");
+    expect(code).not.toContain("__HM_UI_VERSION__");
+    expect(chunk("react.js").code).toContain(JSON.stringify(version));
   });
 
   it("never imports CSS from JavaScript (ADR 0004)", () => {

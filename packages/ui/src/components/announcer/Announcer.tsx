@@ -8,7 +8,9 @@ import {
   useRef,
   useState,
 } from "react";
+
 import { warnInDevelopment } from "../../internal/development.js";
+import { checkSingleCopy } from "../../internal/single-copy.js";
 
 /**
  * How urgently a message interrupts: `polite` waits for the screen reader to
@@ -54,6 +56,7 @@ interface Region {
  * @public
  */
 export function AnnouncerProvider({ children }: AnnouncerProviderProps): ReactElement {
+  checkSingleCopy();
   const [polite, setPolite] = useState<Region>({ message: "", count: 0 });
   const [assertive, setAssertive] = useState<Region>({ message: "", count: 0 });
   // One pending frame per region, so announcing in one region never cancels
@@ -120,5 +123,6 @@ function missingProvider(): void {
  * @public
  */
 export function useAnnounce(): Announce {
+  checkSingleCopy();
   return useContext(AnnouncerContext) ?? missingProvider;
 }

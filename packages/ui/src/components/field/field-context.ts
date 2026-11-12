@@ -1,5 +1,6 @@
 import { createContext, useContext } from "react";
 import { warnInDevelopment } from "../../internal/development.js";
+import { checkSingleCopy } from "../../internal/single-copy.js";
 
 /**
  * The props a {@link Field} gives its control, so the label, description
@@ -20,6 +21,7 @@ export const FieldContext = /* @__PURE__ */ createContext<FieldControlProps | un
 
 /** The enclosing field's control props, or `undefined` outside a field. */
 export function useFieldControl(): FieldControlProps | undefined {
+  checkSingleCopy();
   return useContext(FieldContext);
 }
 

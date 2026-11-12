@@ -1,5 +1,6 @@
 import { createMessages, type Messages, sdkCoreMessages } from "@hussmartinez/sdk-core";
 import { createContext, type ReactElement, type ReactNode, useContext } from "react";
+import { checkSingleCopy } from "../../internal/single-copy.js";
 import { uiMessages } from "../../messages/en.js";
 
 /**
@@ -45,6 +46,7 @@ export interface UiMessagesProviderProps {
  * @public
  */
 export function UiMessagesProvider({ messages, children }: UiMessagesProviderProps): ReactElement {
+  checkSingleCopy();
   return <UiMessagesContext.Provider value={messages}>{children}</UiMessagesContext.Provider>;
 }
 
@@ -54,6 +56,7 @@ export function UiMessagesProvider({ messages, children }: UiMessagesProviderPro
  * @public
  */
 export function useUiMessages(): UiMessages {
+  checkSingleCopy();
   return useContext(UiMessagesContext) ?? defaultMessages();
 }
 
@@ -71,6 +74,7 @@ type PlainMessageKey = {
  * provider, so components using only English don't ship the formatter.
  */
 export function useUiText(key: PlainMessageKey): string {
+  checkSingleCopy();
   const messages = useContext(UiMessagesContext);
   return messages ? messages.t(key) : uiMessages[key];
 }
@@ -81,5 +85,6 @@ export function useUiText(key: PlainMessageKey): string {
  * locale don't ship them.
  */
 export function useUiLocale(): string {
+  checkSingleCopy();
   return useContext(UiMessagesContext)?.locale ?? "en";
 }
