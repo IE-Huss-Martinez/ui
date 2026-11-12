@@ -17,6 +17,7 @@
 @import "./tokens/tokens.css";
 @import "./base/base.css";
 @import "./components/visually-hidden/visually-hidden.css";
+@import "./components/icon/icon.css";
 @import "./components/button/button.css";
 @import "./components/toolbar/toolbar.css";
 @import "./components/segmented-control/segmented-control.css";

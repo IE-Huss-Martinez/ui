@@ -280,3 +280,20 @@ describe("development warnings", () => {
     await expectShipped(theme, { includes: [VALIDATOR], excludes: [COLOUR_MATHS] }, "production");
   });
 });
+
+// Path data only one icon has: undo's arrow, and play's triangle.
+const UNDO_PATH = "M9 14 4 9l5-5";
+const PLAY_PATH = "M5 5a2 2 0 0 1 3.008-1.728";
+
+describe("icons", () => {
+  it("ship one at a time: an application keeps only the icons it imports", async () => {
+    await expectShipped('import { UndoIcon } from "./react.js"; export const app = UndoIcon;', {
+      includes: [UNDO_PATH, "hm-icon"],
+      excludes: [PLAY_PATH, "hm-button", ROVING_FOCUS],
+    });
+  });
+
+  it("keep Lucide's licence notice in the built React entry", () => {
+    expect(chunk("react.js").code).toContain("Icons from Lucide (https://lucide.dev), ISC licence");
+  });
+});

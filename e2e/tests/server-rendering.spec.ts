@@ -46,6 +46,7 @@ for (const app of apps) {
         'class="hm-toolbar-group"',
         'class="hm-toolbar-separator"',
         "hm-icon-button",
+        'data-hm-icon="undo"',
         'aria-pressed="false"',
         'class="hm-spinner"',
         "<progress",
