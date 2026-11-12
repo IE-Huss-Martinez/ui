@@ -46,7 +46,7 @@ The set has to fit the family's rules:
 - **Size and direction come from CSS:**
   - `.hm-icon` sizes to `--hm-icon-size` in `hm.components`, and inside a button's icon slot it follows the slot;
   - directional icons, such as undo, redo and arrows that point along the reading order, carry `data-hm-mirror` and flip under `:dir(rtl)`. Media icons, such as play and skip, don't mirror, as platform guidelines advise.
-- **Non-React rendering** isn't needed yet. If the custom elements of [sdk-core's ADR 0036](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0036-ui-as-a-dependency-of-the-sdks.md) need icons without React, the generator can also emit the node data, and a later record adds it.
+- **Non-React rendering** isn't needed yet. If the custom elements of [sdk-core's element ADR, 0040](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0040-editor-element-base.md), need icons without React, the generator can also emit the node data, and a later record adds it.
 
 ### The first set
 
