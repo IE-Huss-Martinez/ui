@@ -1,7 +1,6 @@
-import { SegmentedControl } from "@hussmartinez/ui/react";
+import { PageGridIcon, PageSingleIcon, SegmentedControl } from "@hussmartinez/ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { GridIcon, SinglePageIcon } from "../icons.js";
 
 /**
  * A radio group: one Tab stop on the selected option, and arrow keys move and
@@ -26,10 +25,10 @@ function Example(props: { size?: "small"; icons?: boolean; disabled?: boolean })
           value: "single",
           label: "Single",
           disabled: props.disabled ?? false,
-          ...(props.icons ? { icon: <SinglePageIcon /> } : {}),
+          ...(props.icons ? { icon: <PageSingleIcon /> } : {}),
         },
         { value: "double", label: "Double" },
-        { value: "grid", label: "Grid", ...(props.icons ? { icon: <GridIcon /> } : {}) },
+        { value: "grid", label: "Grid", ...(props.icons ? { icon: <PageGridIcon /> } : {}) },
       ]}
     />
   );
@@ -57,8 +56,8 @@ export const IconsOnly: Story = {
         value={value}
         onValueChange={setValue}
         options={[
-          { value: "single", label: "Single page", icon: <SinglePageIcon />, hideLabel: true },
-          { value: "grid", label: "Grid", icon: <GridIcon />, hideLabel: true },
+          { value: "single", label: "Single page", icon: <PageSingleIcon />, hideLabel: true },
+          { value: "grid", label: "Grid", icon: <PageGridIcon />, hideLabel: true },
         ]}
       />
     );

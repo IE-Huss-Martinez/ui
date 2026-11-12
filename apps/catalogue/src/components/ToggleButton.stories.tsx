@@ -1,7 +1,17 @@
-import { IconButton, ToggleButton, Toolbar, ToolbarSeparator } from "@hussmartinez/ui/react";
+import {
+  HighlighterIcon,
+  IconButton,
+  LoopIcon,
+  PauseIcon,
+  PenIcon,
+  PlayIcon,
+  ToggleButton,
+  Toolbar,
+  ToolbarSeparator,
+} from "@hussmartinez/ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { BoldIcon, HighlighterIcon, LoopIcon, PauseIcon, PenIcon, PlayIcon } from "../icons.js";
+import { BoldIcon } from "../icons.js";
 
 /**
  * A button that turns something on or off, exposed as `aria-pressed`. Its

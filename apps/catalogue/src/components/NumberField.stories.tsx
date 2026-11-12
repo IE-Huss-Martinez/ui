@@ -1,7 +1,13 @@
-import { Field, IconButton, NumberField, Toolbar } from "@hussmartinez/ui/react";
+import {
+  Field,
+  IconButton,
+  NumberField,
+  Toolbar,
+  ZoomInIcon,
+  ZoomOutIcon,
+} from "@hussmartinez/ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { ZoomInIcon, ZoomOutIcon } from "../icons.js";
 
 /**
  * A number input exposed as a spin button. Typing is committed on blur or

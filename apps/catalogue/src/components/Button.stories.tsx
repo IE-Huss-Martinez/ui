@@ -1,7 +1,13 @@
-import { Button, IconButton } from "@hussmartinez/ui/react";
+import {
+  Button,
+  DeleteIcon,
+  DownloadIcon,
+  IconButton,
+  RotateLeftIcon,
+} from "@hussmartinez/ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { BoldIcon, DownloadIcon, RotateIcon, TrashIcon } from "../icons.js";
+import { BoldIcon } from "../icons.js";
 
 const meta = {
   title: "Components/Button",
@@ -43,7 +49,7 @@ export const WithIcons: Story = {
       <Button variant="primary" startIcon={<DownloadIcon />}>
         Download
       </Button>
-      <Button variant="danger" startIcon={<TrashIcon />}>
+      <Button variant="danger" startIcon={<DeleteIcon />}>
         Delete page
       </Button>
     </div>
@@ -87,10 +93,10 @@ export const IconButtons: Story = {
   name: "Icon buttons",
   render: () => (
     <div style={row}>
-      <IconButton label="Rotate" icon={<RotateIcon />} />
+      <IconButton label="Rotate" icon={<RotateLeftIcon />} />
       <IconButton variant="quiet" label="Bold" icon={<BoldIcon />} pressed />
       <IconButton variant="primary" label="Download" icon={<DownloadIcon />} />
-      <IconButton size="small" variant="quiet" label="Delete" icon={<TrashIcon />} />
+      <IconButton size="small" variant="quiet" label="Delete" icon={<DeleteIcon />} />
     </div>
   ),
 };
@@ -100,7 +106,7 @@ export const Unstyled: Story = {
   render: () => (
     <div style={row}>
       <Button unstyled>Unstyled</Button>
-      <IconButton unstyled label="Rotate" icon={<RotateIcon />} />
+      <IconButton unstyled label="Rotate" icon={<RotateLeftIcon />} />
     </div>
   ),
 };

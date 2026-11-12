@@ -165,12 +165,12 @@ Every component follows one contract ([ADR 0003](https://github.com/ie-huss-mart
 | `AnnouncerProvider`, `useAnnounce` | Announcements for screen readers, such as "Saved 1.3 MB": `announce(message, { politeness })`. The provider renders the live regions once, on the server too |
 
 ```tsx
-import { Button, IconButton } from "@hussmartinez/ui/react";
+import { Button, DownloadIcon, IconButton, RotateLeftIcon } from "@hussmartinez/ui/react";
 
 <Button variant="primary" startIcon={<DownloadIcon />} onClick={save}>
   {messages.t("toolbar.download")}
 </Button>
-<IconButton label={messages.t("toolbar.rotate")} icon={<RotateIcon />} onClick={rotate} />
+<IconButton label={messages.t("toolbar.rotate")} icon={<RotateLeftIcon />} onClick={rotate} />
 ```
 
 Pass ui's icons, below, or any element that draws with `currentColor`. Each component costs a few hundred bytes minified and compressed, and a bundler drops the ones you don't import.
