@@ -23,7 +23,9 @@ Please include:
 
 ## Supported versions
 
-The package is pre-1.0. Security fixes go into the latest release only. No version has been published yet.
+The package is pre-1.0, so security fixes go into the latest release only. Upgrade to it to receive them; earlier `0.x` versions get no backports.
+
+Every version is published from this repository's release workflow, with npm provenance. Since 0.1.1, publishing uses npm trusted publishing, with no npm token; 0.1.0 used a short-lived token, now revoked, because npm can only trust a publisher for a package that exists. Each version's GitHub Release attaches the tarball, `SHA256SUMS` and an artifact attestation. To check that an installed version came from this repository, run `npm audit signatures`, or `gh attestation verify <tarball> --repo ie-huss-martinez/ui` for a downloaded tarball.
 
 ## Scope
 
