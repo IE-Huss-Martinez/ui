@@ -635,7 +635,13 @@ export type ComponentTokenName =
   | "slider-thumb-size"
   | "slider-thumb-color"
   | "slider-thumb-color-hover"
-  | "slider-thumb-color-active";
+  | "slider-thumb-color-active"
+  | "field-gap"
+  | "field-label-fg"
+  | "field-label-font-weight"
+  | "field-description-fg"
+  | "field-error-fg"
+  | "field-message-font-size";
 
 type ComponentSpec = { readonly fallback: SemanticTokenName };
 
@@ -739,6 +745,12 @@ const component = {
   "slider-thumb-color": { fallback: "color-accent" },
   "slider-thumb-color-hover": { fallback: "color-accent-hover" },
   "slider-thumb-color-active": { fallback: "color-accent-active" },
+  "field-gap": { fallback: "gap-tight" },
+  "field-label-fg": { fallback: "color-text" },
+  "field-label-font-weight": { fallback: "font-weight-strong" },
+  "field-description-fg": { fallback: "color-text-muted" },
+  "field-error-fg": { fallback: "color-danger-text" },
+  "field-message-font-size": { fallback: "font-size-small" },
 } as const satisfies Record<ComponentTokenName, ComponentSpec>;
 
 function baseDefinitions(): TokenDefinition[] {

@@ -261,4 +261,10 @@ export const tokenDescriptions: Readonly<Record<TokenName, string>> = {
   "slider-thumb-color": "Colour of a slider's thumb. It needs 3:1 contrast with the surface.",
   "slider-thumb-color-hover": "Colour of a slider's thumb under the pointer.",
   "slider-thumb-color-active": "Colour of a slider's thumb while it's dragged.",
+  "field-gap": "Space between a field's label, description, control and error.",
+  "field-label-fg": "Text of a field's label.",
+  "field-label-font-weight": "Weight of a field's label.",
+  "field-description-fg": "Text of a field's description.",
+  "field-error-fg": "Text of a field's error. It needs 4.5:1 contrast with the surface.",
+  "field-message-font-size": "Font size of a field's description and error.",
 };

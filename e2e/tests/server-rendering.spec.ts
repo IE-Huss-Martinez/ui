@@ -50,6 +50,7 @@ for (const app of apps) {
         'class="hm-spinner"',
         "<progress",
         'class="hm-slider"',
+        'class="hm-field"',
         'class="hm-visually-hidden"',
         'role="radiogroup"',
         "<dialog",
@@ -78,6 +79,7 @@ for (const app of apps) {
       await volume.focus();
       await page.keyboard.press("PageUp");
       await expect(volume).toHaveValue("50");
+      await expect(volume).toHaveAccessibleDescription("For playback only");
 
       // The segmented control selects with the arrow keys.
       await page.getByRole("radio", { name: "Single" }).focus();

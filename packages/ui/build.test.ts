@@ -188,6 +188,7 @@ describe("what applications ship", () => {
         "hm-toolbar",
         "hm-toggle-button",
         "hm-slider",
+        "hm-field",
         ROVING_FOCUS,
       ],
     });
@@ -197,7 +198,11 @@ describe("what applications ship", () => {
     );
     await expectShipped('import { Slider } from "./react.js"; export const app = Slider;', {
       includes: ["hm-slider"],
-      excludes: ["hm-button", "hm-toolbar", ROVING_FOCUS],
+      excludes: ["hm-button", "hm-toolbar", "hm-field", ROVING_FOCUS],
+    });
+    await expectShipped('import { Field } from "./react.js"; export const app = Field;', {
+      includes: ["hm-field"],
+      excludes: ["hm-slider", "hm-button", ROVING_FOCUS],
     });
     await expectShipped(
       'import { SegmentedControl } from "./react.js"; export const app = SegmentedControl;',

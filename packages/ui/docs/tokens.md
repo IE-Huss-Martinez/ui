@@ -216,6 +216,12 @@ Fine-grained overrides for one component. `ui` never declares them: each compone
 | `--hm-slider-thumb-color` | `--hm-color-accent` | Colour of a slider's thumb. It needs 3:1 contrast with the surface. |
 | `--hm-slider-thumb-color-hover` | `--hm-color-accent-hover` | Colour of a slider's thumb under the pointer. |
 | `--hm-slider-thumb-color-active` | `--hm-color-accent-active` | Colour of a slider's thumb while it's dragged. |
+| `--hm-field-gap` | `--hm-gap-tight` | Space between a field's label, description, control and error. |
+| `--hm-field-label-fg` | `--hm-color-text` | Text of a field's label. |
+| `--hm-field-label-font-weight` | `--hm-font-weight-strong` | Weight of a field's label. |
+| `--hm-field-description-fg` | `--hm-color-text-muted` | Text of a field's description. |
+| `--hm-field-error-fg` | `--hm-color-danger-text` | Text of a field's error. It needs 4.5:1 contrast with the surface. |
+| `--hm-field-message-font-size` | `--hm-font-size-small` | Font size of a field's description and error. |
 
 ## Base tokens
 

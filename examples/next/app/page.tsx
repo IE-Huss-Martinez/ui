@@ -6,6 +6,7 @@
 import { createTheme, themeToCss, tokens } from "@hussmartinez/ui";
 import {
   Button,
+  Field,
   IconButton,
   ProgressBar,
   Slider,
@@ -46,7 +47,9 @@ export default function Page() {
         </Toolbar>
         <Spinner label="Loading pages" />
         <ProgressBar value={40} label="Exporting" />
-        <Slider label="Volume" defaultValue={40} />
+        <Field label="Volume" description="For playback only">
+          <Slider defaultValue={40} />
+        </Field>
         <VisuallyHidden>Only for screen readers</VisuallyHidden>
         <Interactive />
       </main>
