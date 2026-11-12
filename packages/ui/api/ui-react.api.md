@@ -8,6 +8,7 @@ import { ButtonHTMLAttributes } from 'react';
 import { DialogHTMLAttributes } from 'react';
 import { ForwardRefExoticComponent } from 'react';
 import { HTMLAttributes } from 'react';
+import { InputHTMLAttributes } from 'react';
 import { Messages } from '@hussmartinez/sdk-core';
 import { ProgressHTMLAttributes } from 'react';
 import { ReactElement } from 'react';
@@ -131,6 +132,22 @@ export interface SegmentedControlProps<Value extends string> extends Omit<HTMLAt
     readonly options: readonly SegmentedControlOption<Value>[];
     readonly size?: "medium" | "small" | undefined;
     readonly value: Value;
+}
+
+// @public
+export const Slider: ForwardRefExoticComponent<SliderProps & RefAttributes<HTMLInputElement>>;
+
+// @public
+export interface SliderProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "className" | "type" | "value" | "defaultValue" | "min" | "max" | "step" | "onChange" | "aria-valuetext">, StyleProps<"root"> {
+    readonly defaultValue?: number | undefined;
+    readonly formatValue?: ((value: number) => string) | undefined;
+    readonly label?: string | undefined;
+    readonly largeStep?: number | undefined;
+    readonly max?: number | undefined;
+    readonly min?: number | undefined;
+    readonly onValueChange?: ((value: number) => void) | undefined;
+    readonly step?: number | undefined;
+    readonly value?: number | undefined;
 }
 
 // @public

@@ -209,6 +209,13 @@ Fine-grained overrides for one component. `ui` never declares them: each compone
 | `--hm-progress-track-color` | `--hm-color-surface-sunken` | Background of progress bars. |
 | `--hm-progress-fill-color` | `--hm-color-accent` | Fill of progress bars. |
 | `--hm-progress-duration` | `--hm-motion-duration-loop` | Duration of an indeterminate progress bar's pulse. |
+| `--hm-slider-track-size` | `--hm-track-size` | Thickness of a slider's track. |
+| `--hm-slider-track-color` | `--hm-color-border-strong` | Colour of a slider's track. It needs 3:1 contrast with the surface. |
+| `--hm-slider-radius` | `--hm-radius-round` | Corner radius of a slider's track and thumb. |
+| `--hm-slider-thumb-size` | `--hm-icon-size` | Diameter of a slider's thumb. |
+| `--hm-slider-thumb-color` | `--hm-color-accent` | Colour of a slider's thumb. It needs 3:1 contrast with the surface. |
+| `--hm-slider-thumb-color-hover` | `--hm-color-accent-hover` | Colour of a slider's thumb under the pointer. |
+| `--hm-slider-thumb-color-active` | `--hm-color-accent-active` | Colour of a slider's thumb while it's dragged. |
 
 ## Base tokens
 

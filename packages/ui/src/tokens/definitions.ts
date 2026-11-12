@@ -628,7 +628,14 @@ export type ComponentTokenName =
   | "progress-radius"
   | "progress-track-color"
   | "progress-fill-color"
-  | "progress-duration";
+  | "progress-duration"
+  | "slider-track-size"
+  | "slider-track-color"
+  | "slider-radius"
+  | "slider-thumb-size"
+  | "slider-thumb-color"
+  | "slider-thumb-color-hover"
+  | "slider-thumb-color-active";
 
 type ComponentSpec = { readonly fallback: SemanticTokenName };
 
@@ -725,6 +732,13 @@ const component = {
   "progress-track-color": { fallback: "color-surface-sunken" },
   "progress-fill-color": { fallback: "color-accent" },
   "progress-duration": { fallback: "motion-duration-loop" },
+  "slider-track-size": { fallback: "track-size" },
+  "slider-track-color": { fallback: "color-border-strong" },
+  "slider-radius": { fallback: "radius-round" },
+  "slider-thumb-size": { fallback: "icon-size" },
+  "slider-thumb-color": { fallback: "color-accent" },
+  "slider-thumb-color-hover": { fallback: "color-accent-hover" },
+  "slider-thumb-color-active": { fallback: "color-accent-active" },
 } as const satisfies Record<ComponentTokenName, ComponentSpec>;
 
 function baseDefinitions(): TokenDefinition[] {

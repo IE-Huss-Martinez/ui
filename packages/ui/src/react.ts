@@ -42,6 +42,8 @@ export type {
 } from "./components/segmented-control/SegmentedControl.js";
 export { SegmentedControl } from "./components/segmented-control/SegmentedControl.js";
 export type { ClassNames, StyleProps } from "./components/shared/style-props.js";
+export type { SliderProps } from "./components/slider/Slider.js";
+export { Slider } from "./components/slider/Slider.js";
 export type { SpinnerProps } from "./components/spinner/Spinner.js";
 export { Spinner } from "./components/spinner/Spinner.js";
 export type {

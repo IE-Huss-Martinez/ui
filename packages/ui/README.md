@@ -150,6 +150,7 @@ Every component follows one contract ([ADR 0003](https://github.com/ie-huss-mart
 | `Dialog` | A modal dialog on the native `<dialog>`: focus moves in and is trapped, the page behind is inert, Escape asks to close through `onOpenChange(false)`, and focus returns to the opener. Controlled by `open`; labelled by `title`. Long content scrolls in the body, which becomes keyboard-scrollable when it overflows |
 | `Spinner` | Loading for an unknown time. An indeterminate progress bar to assistive technology, named by `label`; its size follows `--hm-spinner-size` |
 | `ProgressBar` | Progress for a known amount, on the native `<progress>`: `value`, `max`, `label`, `valueText`. Indeterminate without `value`. It needs no inline styles, so it works under a strict Content Security Policy |
+| `Slider` | A value in a range, such as volume or zoom, on the native `<input type="range">`: `value` or `defaultValue`, `onValueChange`, `min`, `max`, `step` and `largeStep`. `formatValue` gives screen readers the value as text, such as "−6 dB". Arrow keys, Page Up and Down, Home and End work the same in every browser, mirrored in right-to-left text. In a `Toolbar`, it keeps the arrow keys, so put it last |
 | `AnnouncerProvider`, `useAnnounce` | Announcements for screen readers, such as "Saved 1.3 MB": `announce(message, { politeness })`. The provider renders the live regions once, on the server too |
 
 ```tsx

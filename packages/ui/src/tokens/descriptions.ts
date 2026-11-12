@@ -254,4 +254,11 @@ export const tokenDescriptions: Readonly<Record<TokenName, string>> = {
   "progress-track-color": "Background of progress bars.",
   "progress-fill-color": "Fill of progress bars.",
   "progress-duration": "Duration of an indeterminate progress bar's pulse.",
+  "slider-track-size": "Thickness of a slider's track.",
+  "slider-track-color": "Colour of a slider's track. It needs 3:1 contrast with the surface.",
+  "slider-radius": "Corner radius of a slider's track and thumb.",
+  "slider-thumb-size": "Diameter of a slider's thumb.",
+  "slider-thumb-color": "Colour of a slider's thumb. It needs 3:1 contrast with the surface.",
+  "slider-thumb-color-hover": "Colour of a slider's thumb under the pointer.",
+  "slider-thumb-color-active": "Colour of a slider's thumb while it's dragged.",
 };
