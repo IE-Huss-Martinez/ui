@@ -99,13 +99,48 @@ export function notationOf(locale: string): Notation {
   };
 }
 
-/** Group separators people type for a locale that uses a space-like one. */
-const SPACES = /[\s  ]/g;
+/** Spaces people type for a locale whose group separator is space-like. */
+const SPACE = /[\s\u00a0\u202f]/;
+
+/** Escapes a separator for use in a regular expression. */
+const escapeRegExp = (text: string): string => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/** Matches the group separators people type for a locale. */
+function groupPattern(group: string): RegExp {
+  if (SPACE.test(group)) {
+    return /[\s\u00a0\u202f]/;
+  }
+  // Swiss German groups with an apostrophe: ' or ’, depending on the
+  // engine's data, and people type either.
+  if (/^['\u2019]$/.test(group)) {
+    return /['\u2019]/;
+  }
+  return new RegExp(escapeRegExp(group));
+}
+
+/**
+ * Whether an integer part's groups are where the locale puts them: 1 to 3
+ * digits, then groups of 2 or 3, ending in a group of 3, as in 1,234,567
+ * or en-IN's 12,34,567. Otherwise a separator is a typo, or another
+ * locale's decimal point, such as "2.5" typed in German, and reading it as
+ * a group would silently multiply the value.
+ */
+function groupsInPlace(groups: readonly string[]): boolean {
+  const last = groups.length - 1;
+  return groups.every((group, index) =>
+    index === 0
+      ? /^\d{1,3}$/.test(group)
+      : index === last
+        ? /^\d{3}$/.test(group)
+        : /^\d{2,3}$/.test(group),
+  );
+}
 
 /**
  * Reads a number the way a locale writes it: its digits, decimal separator
  * and group separators, with an optional minus sign, hyphen or plus. Strict:
- * anything else, such as letters or an exponent, isn't a number.
+ * anything else, such as letters, an exponent or a group separator out of
+ * place, isn't a number.
  */
 export function parseIn(notation: Notation, text: string): number | undefined {
   let normal = "";
@@ -114,21 +149,26 @@ export function parseIn(notation: Notation, text: string): number | undefined {
   for (const character of text.replace(/[\u061c\u200e\u200f]/g, "").trim()) {
     normal += notation.digits.get(character) ?? character;
   }
-  if (/\s/.test(notation.group.replace(SPACES, " "))) {
-    normal = normal.replace(SPACES, "");
-  } else {
-    // Swiss German groups with an apostrophe: ' or ’, depending on the
-    // engine's data, and people type either.
-    const groups = /^['\u2019]$/.test(notation.group) ? ["'", "\u2019"] : [notation.group];
-    for (const group of groups) {
-      normal = normal.split(group).join("");
-    }
+  const sign = /^[-+\u2212]/.exec(normal)?.[0];
+  if (sign !== undefined) {
+    normal = normal.slice(1);
   }
-  normal = normal.split(notation.decimal).join(".").replace(/^[−-]/, "-");
-  if (!/^[-+]?(\d+\.?\d*|\.\d+)$/.test(normal)) {
+  const parts = normal.split(notation.decimal);
+  if (parts.length > 2) {
     return undefined;
   }
-  const value = Number(normal);
+  const groups = (parts[0] ?? "").split(groupPattern(notation.group));
+  if (groups.length > 1 && !groupsInPlace(groups)) {
+    return undefined;
+  }
+  const integer = groups.join("");
+  const fraction = parts[1] ?? "";
+  if (!/^\d*$/.test(integer) || !/^\d*$/.test(fraction) || integer + fraction === "") {
+    return undefined;
+  }
+  const value = Number(
+    `${sign === "+" || sign === undefined ? "" : "-"}${integer || "0"}.${fraction || "0"}`,
+  );
   return Number.isFinite(value) ? value : undefined;
 }
 

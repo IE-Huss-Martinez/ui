@@ -223,6 +223,18 @@ describe("NumberField", () => {
     expect(input.value).toBe("1.234,5");
   });
 
+  it("goes back rather than misread a decimal point typed in German", async () => {
+    const onValueChange = vi.fn();
+    const input = renderField({ locale: "de", defaultValue: 3, step: 0.5, onValueChange });
+    await retype(input, "2.5");
+    await userEvent.keyboard("{Enter}");
+    expect(input.value).toBe("3");
+    await retype(input, "2,5");
+    await userEvent.keyboard("{Enter}");
+    expect(input.value).toBe("2,5");
+    expect(onValueChange.mock.calls).toEqual([[2.5]]);
+  });
+
   it("reads the locale's own digits", async () => {
     const onValueChange = vi.fn();
     const input = renderField({ locale: "ar-EG", defaultValue: 0, onValueChange });
