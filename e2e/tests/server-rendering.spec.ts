@@ -52,6 +52,7 @@ for (const app of apps) {
         'class="hm-slider"',
         'class="hm-field"',
         'role="spinbutton"',
+        'class="hm-file-drop-zone"',
         'class="hm-visually-hidden"',
         'role="radiogroup"',
         "<dialog",
@@ -89,6 +90,27 @@ for (const app of apps) {
       await expect(copies).toHaveValue("99");
       await copies.press("ArrowDown");
       await expect(copies).toHaveAttribute("aria-valuenow", "98");
+
+      // The file drop zone delivers a chosen file, whose name is shown as text.
+      await page.locator('.hm-file-drop-zone input[type="file"]').setInputFiles({
+        name: '<img src=x onerror="window.__pwned=1">.pdf',
+        mimeType: "application/pdf",
+        buffer: Buffer.from("%PDF-1.7"),
+      });
+      await expect(page.getByTestId("received")).toHaveText(
+        'Received <img src=x onerror="window.__pwned=1">.pdf',
+      );
+      expect(await page.evaluate(() => "__pwned" in window)).toBe(false);
+
+      // A file dropped beside the zone is turned away, so the page stays.
+      const strayDrop = await page.evaluate(() => {
+        const data = new DataTransfer();
+        data.items.add(new File(["%PDF-1.7"], "stray.pdf", { type: "application/pdf" }));
+        const drop = new DragEvent("drop", { bubbles: true, cancelable: true, dataTransfer: data });
+        document.body.dispatchEvent(drop);
+        return drop.defaultPrevented;
+      });
+      expect(strayDrop).toBe(true);
 
       // The segmented control selects with the arrow keys.
       await page.getByRole("radio", { name: "Single" }).focus();

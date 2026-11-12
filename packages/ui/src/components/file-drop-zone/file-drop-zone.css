@@ -1,0 +1,55 @@
+@layer hm.components {
+  /* Layout: kept with unstyled. */
+  .hm-file-drop-zone {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--hm-file-drop-zone-gap, var(--hm-gap-normal));
+    justify-content: center;
+    padding: var(--hm-file-drop-zone-padding, var(--hm-inset-loose));
+    text-align: center;
+  }
+
+  /*
+   * Visual styles, dropped with unstyled. The border turns from dashed to
+   * solid while files are over the zone, so the state isn't colour alone.
+   */
+  .hm-file-drop-zone:not([data-hm-unstyled]) {
+    border: var(--hm-border-width) dashed
+      var(--hm-file-drop-zone-border-color, var(--hm-color-border-strong));
+    border-radius: var(--hm-file-drop-zone-radius, var(--hm-radius-surface));
+    color: var(--hm-color-text);
+    font-family: var(--hm-font-family);
+    font-size: var(--hm-font-size-body);
+    line-height: var(--hm-line-height-body);
+    transition-duration: var(--hm-motion-duration-feedback);
+    transition-property: background-color, border-color;
+    transition-timing-function: var(--hm-motion-easing-standard);
+  }
+
+  .hm-file-drop-zone[data-hm-dragging]:not([data-hm-unstyled]) {
+    background: var(--hm-file-drop-zone-dragging-bg, var(--hm-color-accent-subtle));
+    border-color: var(--hm-file-drop-zone-dragging-border-color, var(--hm-color-accent));
+    border-style: solid;
+  }
+
+  .hm-file-drop-zone:not([data-hm-unstyled]) .hm-file-drop-zone-hint {
+    color: var(--hm-file-drop-zone-hint-fg, var(--hm-color-text-muted));
+    font-size: var(--hm-font-size-small);
+  }
+
+  /*
+   * A disabled zone isn't dimmed: its content, such as a title or an error,
+   * must stay readable. The disabled button shows the state.
+   */
+  .hm-file-drop-zone[data-hm-disabled] {
+    cursor: not-allowed;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hm-file-drop-zone:not([data-hm-unstyled]) {
+      transition-duration: 0s;
+    }
+  }
+}

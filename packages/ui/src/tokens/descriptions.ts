@@ -275,4 +275,13 @@ export const tokenDescriptions: Readonly<Record<TokenName, string>> = {
   "number-field-border-color": "Border of a number field. It needs 3:1 contrast with the surface.",
   "number-field-invalid-border-color":
     "Border of a number field marked invalid. It needs 3:1 contrast with the surface.",
+  "file-drop-zone-gap": "Space between a file drop zone's content, button and hint.",
+  "file-drop-zone-padding": "Space inside a file drop zone's border.",
+  "file-drop-zone-radius": "Corner radius of a file drop zone.",
+  "file-drop-zone-border-color":
+    "Dashed border of a file drop zone. It needs 3:1 contrast with the surface.",
+  "file-drop-zone-dragging-border-color":
+    "Solid border of a file drop zone while files are dragged over it. It needs 3:1 contrast with the surface.",
+  "file-drop-zone-dragging-bg": "Background of a file drop zone while files are dragged over it.",
+  "file-drop-zone-hint-fg": "Text of a file drop zone's hint.",
 };

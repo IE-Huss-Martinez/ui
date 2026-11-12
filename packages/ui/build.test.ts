@@ -190,6 +190,7 @@ describe("what applications ship", () => {
         "hm-slider",
         "hm-field",
         "hm-number-field",
+        "hm-file-drop-zone",
         ROVING_FOCUS,
       ],
     });
@@ -205,6 +206,13 @@ describe("what applications ship", () => {
       includes: ["hm-field"],
       excludes: ["hm-slider", "hm-number-field", "hm-button", ROVING_FOCUS],
     });
+    await expectShipped(
+      'import { FileDropZone } from "./react.js"; export const app = FileDropZone;',
+      {
+        includes: ["hm-file-drop-zone", "hm-button"],
+        excludes: ["hm-slider", "hm-number-field", "hm-field-", ROVING_FOCUS],
+      },
+    );
     // The number field reads only the messages' locale, so it doesn't ship
     // ui's English text.
     await expectShipped(

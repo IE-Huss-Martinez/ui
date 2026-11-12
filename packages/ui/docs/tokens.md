@@ -229,6 +229,13 @@ Fine-grained overrides for one component. `ui` never declares them: each compone
 | `--hm-number-field-fg` | `--hm-color-text` | Text of a number field. |
 | `--hm-number-field-border-color` | `--hm-color-border-strong` | Border of a number field. It needs 3:1 contrast with the surface. |
 | `--hm-number-field-invalid-border-color` | `--hm-color-danger-text` | Border of a number field marked invalid. It needs 3:1 contrast with the surface. |
+| `--hm-file-drop-zone-gap` | `--hm-gap-normal` | Space between a file drop zone's content, button and hint. |
+| `--hm-file-drop-zone-padding` | `--hm-inset-loose` | Space inside a file drop zone's border. |
+| `--hm-file-drop-zone-radius` | `--hm-radius-surface` | Corner radius of a file drop zone. |
+| `--hm-file-drop-zone-border-color` | `--hm-color-border-strong` | Dashed border of a file drop zone. It needs 3:1 contrast with the surface. |
+| `--hm-file-drop-zone-dragging-border-color` | `--hm-color-accent` | Solid border of a file drop zone while files are dragged over it. It needs 3:1 contrast with the surface. |
+| `--hm-file-drop-zone-dragging-bg` | `--hm-color-accent-subtle` | Background of a file drop zone while files are dragged over it. |
+| `--hm-file-drop-zone-hint-fg` | `--hm-color-text-muted` | Text of a file drop zone's hint. |
 
 ## Base tokens
 

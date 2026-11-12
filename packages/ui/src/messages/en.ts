@@ -15,6 +15,10 @@ import { defineMessages } from "@hussmartinez/sdk-core";
  */
 export const uiMessages = /* @__PURE__ */ defineMessages({
   "dialog.close": "Close",
+  "fileDropZone.choose": "Choose a file",
+  "fileDropZone.chooseMultiple": "Choose files",
+  "fileDropZone.hint": "or drop it here",
+  "fileDropZone.hintMultiple": "or drop them here",
   "progress.label": "Progress",
   "spinner.label": "Loading",
   "errors.INVALID_THEME_TOKEN": "The theme setting {token} has a value that can't be used.",
