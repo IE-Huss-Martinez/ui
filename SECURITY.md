@@ -6,7 +6,7 @@
 
 **Please don't open a public issue, pull request or discussion.**
 
-Report it through GitHub's private vulnerability reporting: open the repository's **Security** tab and choose **Report a vulnerability**, or go directly to [the advisory form](https://github.com/IE-Huss-Martinez/ui/security/advisories/new). Only the maintainer can see the report.
+Report it through GitHub's private vulnerability reporting: open the repository's **Security** tab and choose **Report a vulnerability**, or go directly to [the advisory form](https://github.com/ie-huss-martinez/ui/security/advisories/new). Only the maintainer can see the report.
 
 Please include:
 
@@ -31,10 +31,10 @@ In scope is everything in this repository: `@hussmartinez/ui`, the workflows tha
 
 - text or props rendered as markup, or anything else that lets content inject HTML or script into the page;
 - theme values, such as those passed to `createTheme` or `themeToCss`, that can break out of their CSS declaration and inject rules or markup;
-- styles that escape their `hm-` scope and change the host page ([ADR 0005](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0005-plain-css-with-cascade-layers.md));
+- styles that escape their `hm-` scope and change the host page ([ADR 0005](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0005-plain-css-with-cascade-layers.md));
 - anything that requires a weaker Content Security Policy than documented, such as `unsafe-eval`;
 - any network request the package makes, including fonts, which are never fetched;
-- weaknesses in the build, release or publishing workflows, such as unpinned actions or excessive permissions ([ADR 0015](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0015-verification-and-releases.md)).
+- weaknesses in the build, release or publishing workflows, such as unpinned actions or excessive permissions ([ADR 0015](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0015-verification-and-releases.md)).
 
 Out of scope:
 
@@ -42,4 +42,4 @@ Out of scope:
 - issues that need an already compromised device, browser or build environment;
 - accessibility defects. They matter just as much, but report them as a public issue so they can be fixed in the open.
 
-Vulnerabilities in a specific SDK, or in the shared runtime, go to that repository's security policy, such as [sdk-core's](https://github.com/IE-Huss-Martinez/sdk-core/security/policy).
+Vulnerabilities in a specific SDK, or in the shared runtime, go to that repository's security policy, such as [sdk-core's](https://github.com/ie-huss-martinez/sdk-core/security/policy).

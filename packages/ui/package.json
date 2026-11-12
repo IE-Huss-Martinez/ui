@@ -5,13 +5,13 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IE-Huss-Martinez/ui.git",
+    "url": "git+https://github.com/ie-huss-martinez/ui.git",
     "directory": "packages/ui"
   },
   "bugs": {
-    "url": "https://github.com/IE-Huss-Martinez/ui/issues"
+    "url": "https://github.com/ie-huss-martinez/ui/issues"
   },
-  "homepage": "https://github.com/IE-Huss-Martinez/ui/tree/main/packages/ui#readme",
+  "homepage": "https://github.com/ie-huss-martinez/ui/tree/main/packages/ui#readme",
   "type": "module",
   "sideEffects": [
     "**/*.css"
