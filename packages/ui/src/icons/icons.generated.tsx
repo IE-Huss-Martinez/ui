@@ -6,52 +6,6 @@ import type { ReactElement } from "react";
 import { type IconProps, renderIcon } from "./create-icon.js";
 
 /**
- * The name of an icon in ui's set, such as `rotate-left`. Tools refer to
- * icons by name (sdk-core ADR 0030), and the SDK maps the names it uses to
- * their components.
- *
- * @public
- */
-export type IconName =
-  | "add"
-  | "check"
-  | "chevron-down"
-  | "chevron-left"
-  | "chevron-right"
-  | "close"
-  | "delete"
-  | "download"
-  | "highlighter"
-  | "info"
-  | "loop"
-  | "menu"
-  | "more"
-  | "muted"
-  | "open"
-  | "page-grid"
-  | "page-single"
-  | "pan"
-  | "pause"
-  | "pen"
-  | "play"
-  | "redo"
-  | "remove"
-  | "rotate-left"
-  | "rotate-right"
-  | "search"
-  | "select"
-  | "skip-back"
-  | "skip-forward"
-  | "split"
-  | "stop"
-  | "undo"
-  | "upload"
-  | "volume"
-  | "warning"
-  | "zoom-in"
-  | "zoom-out";
-
-/**
  * The `add` icon: Lucide's `plus`.
  *
  * @public

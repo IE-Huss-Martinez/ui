@@ -14,18 +14,27 @@ const lucide = {
 };
 
 /** The generated source, formatted as scripts/generate-icons.ts formats it. */
-function formatted(source: string): string {
+function formatted(source: string, path: string): string {
   return execFileSync(
     require.resolve("@biomejs/biome/bin/biome"),
-    ["format", "--stdin-file-path=src/icons/icons.generated.tsx"],
+    ["format", `--stdin-file-path=${path}`],
     { input: source, encoding: "utf8", cwd: new URL("../../", root) },
   );
 }
 
 describe("the generated icons", () => {
   it("match the manifest and the pinned lucide-static: run `pnpm icons` after changing either", async () => {
-    const committed = await readFile(new URL("src/icons/icons.generated.tsx", root), "utf8");
-    expect(committed).toBe(formatted(generateIconsSource(lucide.nodes, lucide.version)));
+    const generated = generateIconsSource(lucide.nodes, lucide.version);
+    for (const [path, source] of Object.entries(generated)) {
+      const committed = await readFile(new URL(path, root), "utf8");
+      expect(committed, path).toBe(formatted(source, path));
+    }
+  });
+
+  it("keep the names in a module with no imports, so the server-safe entry never reaches React", async () => {
+    const names = await readFile(new URL("src/icons/icon-name.generated.ts", root), "utf8");
+    expect(names).not.toMatch(/^\s*import\b/m);
+    expect(names).toContain("export type IconName =");
   });
 
   it("ship Lucide's licence, verbatim, for the pinned version", async () => {
