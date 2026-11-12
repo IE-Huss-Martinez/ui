@@ -641,7 +641,14 @@ export type ComponentTokenName =
   | "field-label-font-weight"
   | "field-description-fg"
   | "field-error-fg"
-  | "field-message-font-size";
+  | "field-message-font-size"
+  | "number-field-height"
+  | "number-field-padding-x"
+  | "number-field-radius"
+  | "number-field-bg"
+  | "number-field-fg"
+  | "number-field-border-color"
+  | "number-field-invalid-border-color";
 
 type ComponentSpec = { readonly fallback: SemanticTokenName };
 
@@ -751,6 +758,13 @@ const component = {
   "field-description-fg": { fallback: "color-text-muted" },
   "field-error-fg": { fallback: "color-danger-text" },
   "field-message-font-size": { fallback: "font-size-small" },
+  "number-field-height": { fallback: "control-height" },
+  "number-field-padding-x": { fallback: "control-padding-x" },
+  "number-field-radius": { fallback: "radius-control" },
+  "number-field-bg": { fallback: "color-surface" },
+  "number-field-fg": { fallback: "color-text" },
+  "number-field-border-color": { fallback: "color-border-strong" },
+  "number-field-invalid-border-color": { fallback: "color-danger-text" },
 } as const satisfies Record<ComponentTokenName, ComponentSpec>;
 
 function baseDefinitions(): TokenDefinition[] {

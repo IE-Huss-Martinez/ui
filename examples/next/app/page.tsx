@@ -8,6 +8,7 @@ import {
   Button,
   Field,
   IconButton,
+  NumberField,
   ProgressBar,
   Slider,
   Spinner,
@@ -49,6 +50,9 @@ export default function Page() {
         <ProgressBar value={40} label="Exporting" />
         <Field label="Volume" description="For playback only">
           <Slider defaultValue={40} />
+        </Field>
+        <Field label="Copies">
+          <NumberField min={1} max={99} defaultValue={1} />
         </Field>
         <VisuallyHidden>Only for screen readers</VisuallyHidden>
         <Interactive />

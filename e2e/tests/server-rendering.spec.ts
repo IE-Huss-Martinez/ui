@@ -51,6 +51,7 @@ for (const app of apps) {
         "<progress",
         'class="hm-slider"',
         'class="hm-field"',
+        'role="spinbutton"',
         'class="hm-visually-hidden"',
         'role="radiogroup"',
         "<dialog",
@@ -80,6 +81,14 @@ for (const app of apps) {
       await page.keyboard.press("PageUp");
       await expect(volume).toHaveValue("50");
       await expect(volume).toHaveAccessibleDescription("For playback only");
+
+      // The number field commits typing on Enter, within its range.
+      const copies = page.getByRole("spinbutton", { name: "Copies" });
+      await copies.fill("250");
+      await copies.press("Enter");
+      await expect(copies).toHaveValue("99");
+      await copies.press("ArrowDown");
+      await expect(copies).toHaveAttribute("aria-valuenow", "98");
 
       // The segmented control selects with the arrow keys.
       await page.getByRole("radio", { name: "Single" }).focus();

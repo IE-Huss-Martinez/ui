@@ -36,6 +36,8 @@ export type {
   UiMessagesProviderProps,
 } from "./components/messages/UiMessagesProvider.js";
 export { UiMessagesProvider, useUiMessages } from "./components/messages/UiMessagesProvider.js";
+export type { NumberFieldProps } from "./components/number-field/NumberField.js";
+export { NumberField } from "./components/number-field/NumberField.js";
 export type { ProgressBarProps } from "./components/progress-bar/ProgressBar.js";
 export { ProgressBar } from "./components/progress-bar/ProgressBar.js";
 export type {

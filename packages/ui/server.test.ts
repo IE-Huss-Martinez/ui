@@ -126,6 +126,7 @@ describe("the built package on a server", () => {
       Dialog: { open: true, onOpenChange: noop, title: "Title", children: "Body" },
       Spinner: {},
       ProgressBar: { value: 40 },
+      NumberField: { label: "Copies", locale: "de", defaultValue: 1234.5, name: "copies" },
       Slider: { label: "Volume", defaultValue: 40 },
     };
     const exportedComponents = Object.keys(react).filter((name) => /^[A-Z]/.test(name));

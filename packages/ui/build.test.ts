@@ -189,6 +189,7 @@ describe("what applications ship", () => {
         "hm-toggle-button",
         "hm-slider",
         "hm-field",
+        "hm-number-field",
         ROVING_FOCUS,
       ],
     });
@@ -202,8 +203,17 @@ describe("what applications ship", () => {
     });
     await expectShipped('import { Field } from "./react.js"; export const app = Field;', {
       includes: ["hm-field"],
-      excludes: ["hm-slider", "hm-button", ROVING_FOCUS],
+      excludes: ["hm-slider", "hm-number-field", "hm-button", ROVING_FOCUS],
     });
+    // The number field reads only the messages' locale, so it doesn't ship
+    // ui's English text.
+    await expectShipped(
+      'import { NumberField } from "./react.js"; export const app = NumberField;',
+      {
+        includes: ["hm-number-field", "spinbutton"],
+        excludes: ["hm-slider", "hm-button", ROVING_FOCUS, "INVALID_THEME_TOKEN", "dialog.close"],
+      },
+    );
     await expectShipped(
       'import { SegmentedControl } from "./react.js"; export const app = SegmentedControl;',
       { includes: ["hm-segmented-control"], excludes: ["hm-button", ROVING_FOCUS] },

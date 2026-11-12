@@ -1,0 +1,54 @@
+@layer hm.components {
+  /*
+   * Layout, focus and target size: kept with unstyled, so the field stays
+   * usable and accessible.
+   */
+  .hm-number-field {
+    box-sizing: border-box;
+    min-block-size: max(
+      var(--hm-number-field-height, var(--hm-control-height)),
+      var(--hm-target-size)
+    );
+    min-inline-size: var(--hm-target-size);
+    padding-block: 0;
+    padding-inline: var(--hm-number-field-padding-x, var(--hm-control-padding-x));
+  }
+
+  .hm-number-field:focus-visible {
+    outline: var(--hm-focus-ring);
+    outline-offset: var(--hm-focus-ring-offset);
+  }
+
+  .hm-number-field:disabled {
+    cursor: not-allowed;
+  }
+
+  /* Visual styles, dropped with unstyled. */
+  .hm-number-field:not([data-hm-unstyled]) {
+    background: var(--hm-number-field-bg, var(--hm-color-surface));
+    border: var(--hm-border-width) solid
+      var(--hm-number-field-border-color, var(--hm-color-border-strong));
+    border-radius: var(--hm-number-field-radius, var(--hm-radius-control));
+    color: var(--hm-number-field-fg, var(--hm-color-text));
+    font-family: var(--hm-font-family);
+    font-size: var(--hm-font-size-body);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: var(--hm-letter-spacing);
+    line-height: var(--hm-line-height-tight);
+    transition: border-color var(--hm-motion-duration-feedback) var(--hm-motion-easing-standard);
+  }
+
+  .hm-number-field[aria-invalid="true"]:not([data-hm-unstyled]) {
+    border-color: var(--hm-number-field-invalid-border-color, var(--hm-color-danger-text));
+  }
+
+  .hm-number-field:not([data-hm-unstyled]):disabled {
+    opacity: var(--hm-opacity-disabled);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hm-number-field:not([data-hm-unstyled]) {
+      transition-duration: 0s;
+    }
+  }
+}
