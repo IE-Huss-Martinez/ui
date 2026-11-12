@@ -1,8 +1,37 @@
 # @hussmartinez/ui
 
+[![npm version of @hussmartinez/ui](https://img.shields.io/npm/v/@hussmartinez/ui)](https://www.npmjs.com/package/@hussmartinez/ui) [![Verify workflow status on main](https://github.com/ie-huss-martinez/ui/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/ie-huss-martinez/ui/actions/workflows/verify.yml?query=branch%3Amain) [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue)](https://github.com/ie-huss-martinez/ui/blob/main/LICENSE)
+
 The design system of the `@hussmartinez` SDK family: design tokens, themes, base styles and accessible React components. Every SDK's editor uses it, and standalone applications can too.
 
-> Status: not published yet. Tokens, theming and the first components are in place; more components are on the way.
+> Status: `0.x`, so the API may still change between minor versions. Tokens, theming and the first components are available; more components are on the way.
+
+## Install
+
+```sh
+npm install @hussmartinez/ui
+```
+
+For the React components, your application also needs `react` and `react-dom` 18.3 or later. They're optional peer dependencies, so the tokens and theme helpers work without them.
+
+## Quick start
+
+Import the stylesheet once, at the root of your application, and use the components:
+
+```tsx
+import "@hussmartinez/ui/styles.css";
+import { Button, ThemeProvider } from "@hussmartinez/ui/react";
+
+export function App() {
+  return (
+    <ThemeProvider mode="system">
+      <Button variant="primary">Save</Button>
+    </ThemeProvider>
+  );
+}
+```
+
+`mode="system"` follows the operating system's light or dark preference, in CSS, so nothing flashes on load. Without `ThemeProvider`, the page follows the system preference too; the provider is for a forced mode, a density or a custom theme.
 
 ## Entry points
 
