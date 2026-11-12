@@ -1,23 +1,21 @@
 import {
   Button,
   IconButton,
+  PageGridIcon,
+  PageSingleIcon,
+  RedoIcon,
+  RotateLeftIcon,
   SegmentedControl,
   Toolbar,
   ToolbarGroup,
   ToolbarSeparator,
-} from "@hussmartinez/ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
-import {
-  BoldIcon,
-  GridIcon,
-  RedoIcon,
-  RotateIcon,
-  SinglePageIcon,
   UndoIcon,
   ZoomInIcon,
   ZoomOutIcon,
-} from "../icons.js";
+} from "@hussmartinez/ui/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useState } from "react";
+import { BoldIcon } from "../icons.js";
 
 /**
  * One Tab stop for the whole toolbar; arrow keys move between items, Home and
@@ -57,7 +55,7 @@ function EditorToolbar() {
         pressed={bold}
         onClick={() => setBold(!bold)}
       />
-      <IconButton variant="quiet" label="Rotate" icon={<RotateIcon />} />
+      <IconButton variant="quiet" label="Rotate" icon={<RotateLeftIcon />} />
       <ToolbarSeparator />
       <SegmentedControl
         label="View"
@@ -65,8 +63,8 @@ function EditorToolbar() {
         value={view}
         onValueChange={setView}
         options={[
-          { value: "single", label: "Single page", icon: <SinglePageIcon />, hideLabel: true },
-          { value: "grid", label: "Grid", icon: <GridIcon />, hideLabel: true },
+          { value: "single", label: "Single page", icon: <PageSingleIcon />, hideLabel: true },
+          { value: "grid", label: "Grid", icon: <PageGridIcon />, hideLabel: true },
         ]}
       />
       <ToolbarSeparator />
@@ -90,7 +88,7 @@ export const Vertical: Story = {
         <IconButton variant="quiet" label="Undo" icon={<UndoIcon />} />
         <IconButton variant="quiet" label="Redo" icon={<RedoIcon />} />
         <ToolbarSeparator />
-        <IconButton variant="quiet" label="Rotate" icon={<RotateIcon />} />
+        <IconButton variant="quiet" label="Rotate" icon={<RotateLeftIcon />} />
       </Toolbar>
     </div>
   ),
@@ -103,7 +101,7 @@ export const Unstyled: Story = {
     <Toolbar label="Tools" unstyled>
       <IconButton variant="quiet" label="Undo" icon={<UndoIcon />} />
       <ToolbarSeparator />
-      <IconButton variant="quiet" label="Rotate" icon={<RotateIcon />} />
+      <IconButton variant="quiet" label="Rotate" icon={<RotateLeftIcon />} />
     </Toolbar>
   ),
 };

@@ -1,7 +1,13 @@
-import { IconButton, Slider, ToggleButton, Toolbar } from "@hussmartinez/ui/react";
+import {
+  IconButton,
+  LoopIcon,
+  PlayIcon,
+  Slider,
+  ToggleButton,
+  Toolbar,
+} from "@hussmartinez/ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useId, useState } from "react";
-import { LoopIcon, PlayIcon } from "../icons.js";
 
 /**
  * A native range input. Arrow keys move by `step`, Page Up and Page Down by

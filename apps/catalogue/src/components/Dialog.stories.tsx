@@ -1,7 +1,6 @@
-import { Button, Dialog } from "@hussmartinez/ui/react";
+import { Button, DeleteIcon, Dialog } from "@hussmartinez/ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { type ReactNode, useState } from "react";
-import { TrashIcon } from "../icons.js";
 
 /**
  * A modal dialog on the native `<dialog>` element: focus moves in and is
@@ -76,7 +75,7 @@ export const Destructive: Story = {
       footer={(close) => (
         <>
           <Button onClick={close}>Keep</Button>
-          <Button variant="danger" startIcon={<TrashIcon />} onClick={close}>
+          <Button variant="danger" startIcon={<DeleteIcon />} onClick={close}>
             Delete
           </Button>
         </>
