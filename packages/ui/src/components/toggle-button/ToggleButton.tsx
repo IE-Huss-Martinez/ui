@@ -3,6 +3,8 @@ import { warnInDevelopment } from "../../internal/development.js";
 import { Button, type ButtonPart, type ButtonProps, type ButtonVariant } from "../button/Button.js";
 import { type ClassNames, cx } from "../shared/style-props.js";
 
+declare const process: { readonly env: { readonly NODE_ENV?: string } };
+
 /**
  * How prominent a toggle button is: `secondary` (the default), or `quiet` for
  * toolbars. There's no `primary` or `danger`: their solid fill would make a
@@ -119,9 +121,11 @@ export const ToggleButton = /* @__PURE__ */ forwardRef<HTMLButtonElement, Toggle
     const pressed = controlled ?? uncontrolled;
     const iconOnly = label !== undefined;
     if (iconOnly && label.trim() === "") {
-      warnInDevelopment(
-        "ToggleButton needs a label when it shows only an icon: it's the button's only accessible name. Pass text from your message catalogue.",
-      );
+      if (typeof process !== "undefined" && process.env.NODE_ENV !== "production") {
+        warnInDevelopment(
+          "ToggleButton needs a label when it shows only an icon: it's the button's only accessible name. Pass text from your message catalogue.",
+        );
+      }
     }
 
     // Button doesn't call onClick while it's disabled but focusable, so a

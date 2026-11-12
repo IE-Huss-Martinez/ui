@@ -10,6 +10,8 @@ import { useFieldProps } from "../field/field-context.js";
 import { decimals, roundTo } from "../shared/number.js";
 import { cx, type StyleProps, unstyledAttribute } from "../shared/style-props.js";
 
+declare const process: { readonly env: { readonly NODE_ENV?: string } };
+
 /**
  * Props of {@link Slider}. Native input props are passed through.
  *
@@ -133,9 +135,11 @@ export const Slider = /* @__PURE__ */ forwardRef<HTMLInputElement, SliderProps>(
     !props["aria-labelledby"] &&
     fieldProps.id === undefined
   ) {
-    warnInDevelopment(
-      "Slider needs an accessible name: pass label, or point a visible <label> at its id. Use text from your message catalogue.",
-    );
+    if (typeof process !== "undefined" && process.env.NODE_ENV !== "production") {
+      warnInDevelopment(
+        "Slider needs an accessible name: pass label, or point a visible <label> at its id. Use text from your message catalogue.",
+      );
+    }
   }
 
   const change = (next: number): void => {

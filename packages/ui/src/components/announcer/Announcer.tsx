@@ -12,6 +12,8 @@ import {
 import { warnInDevelopment } from "../../internal/development.js";
 import { checkSingleCopy } from "../../internal/single-copy.js";
 
+declare const process: { readonly env: { readonly NODE_ENV?: string } };
+
 /**
  * How urgently a message interrupts: `polite` waits for the screen reader to
  * finish, `assertive` interrupts. Use `assertive` only for errors the user
@@ -105,9 +107,11 @@ export function AnnouncerProvider({ children }: AnnouncerProviderProps): ReactEl
 }
 
 function missingProvider(): void {
-  warnInDevelopment(
-    "useAnnounce needs an AnnouncerProvider above it; the message wasn't announced.",
-  );
+  if (typeof process !== "undefined" && process.env.NODE_ENV !== "production") {
+    warnInDevelopment(
+      "useAnnounce needs an AnnouncerProvider above it; the message wasn't announced.",
+    );
+  }
 }
 
 /**

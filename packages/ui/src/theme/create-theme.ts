@@ -1,5 +1,5 @@
 import { UiError } from "../errors/ui-error.js";
-import { isDevelopment, warnInDevelopment } from "../internal/development.js";
+import { warnInDevelopment } from "../internal/development.js";
 import { baseValues } from "../tokens/base.js";
 import { densityTokenNames, tokens, tokensByName } from "../tokens/definitions.js";
 import {
@@ -14,6 +14,8 @@ import { CssValueError, validateValue } from "./css-value.js";
 import { writeThemeCss } from "./css-writer.js";
 import { cssWriterOf, registerTheme } from "./registry.js";
 import type { Theme, ThemeInput } from "./types.js";
+
+declare const process: { readonly env: { readonly NODE_ENV?: string } };
 
 /**
  * Names of component tokens, which `ui` can't list because SDKs add their
@@ -128,13 +130,17 @@ function warnAboutContrast(theme: Theme): void {
     const list = failures
       .map((f) => `${f.foreground} on ${f.background}: ${f.ratio}:1, needs ${f.minimum}:1`)
       .join("; ");
-    warnInDevelopment(`This theme is below WCAG 2.2 AA contrast. ${list}.`);
+    if (typeof process !== "undefined" && process.env.NODE_ENV !== "production") {
+      warnInDevelopment(`This theme is below WCAG 2.2 AA contrast. ${list}.`);
+    }
   }
   if (unchecked.length > 0) {
     const list = unchecked.map((u) => `${u.foreground} on ${u.background}`).join("; ");
-    warnInDevelopment(
-      `These colour pairs couldn't be checked for contrast, so check them by hand: ${list}.`,
-    );
+    if (typeof process !== "undefined" && process.env.NODE_ENV !== "production") {
+      warnInDevelopment(
+        `These colour pairs couldn't be checked for contrast, so check them by hand: ${list}.`,
+      );
+    }
   }
 }
 
@@ -207,7 +213,8 @@ export function createTheme(input: ThemeInput): Theme {
       ...validateTokens(input.coarsePointer, "coarsePointer", DENSITY_TOKENS),
     },
   });
-  if (isDevelopment()) {
+  // Inline, so production bundles drop the contrast check and its colour maths.
+  if (typeof process !== "undefined" && process.env.NODE_ENV !== "production") {
     warnAboutContrast(theme);
   }
   return theme;

@@ -94,13 +94,20 @@ const EXTERNAL = /^(react|react-dom|@hussmartinez\/sdk-core)(\/|$)/;
  * package.json, so the `sideEffects` field doesn't help: only side-effect-free
  * modules are dropped.
  */
-async function bundleImport(source: string): Promise<{ bundler: string; code: string }[]> {
+async function bundleImport(
+  source: string,
+  environment?: "production" | "development",
+): Promise<{ bundler: string; code: string }[]> {
+  // As an application's bundler defines it; left alone when not given.
+  const define =
+    environment === undefined ? {} : { "process.env.NODE_ENV": JSON.stringify(environment) };
   const directory = await temporaryBuild;
   const entry = join(directory, `app-${Math.random().toString(36).slice(2)}.js`);
   await writeFile(entry, source);
   const result = await build({
     configFile: false,
     logLevel: "silent",
+    define,
     build: {
       write: false,
       minify: true,
@@ -120,6 +127,7 @@ async function bundleImport(source: string): Promise<{ bundler: string; code: st
     format: "esm",
     write: false,
     logLevel: "silent",
+    define,
     plugins: [
       {
         name: "external",
@@ -142,8 +150,9 @@ async function bundleImport(source: string): Promise<{ bundler: string; code: st
 async function expectShipped(
   source: string,
   check: { includes: string[]; excludes: string[] },
+  environment?: "production" | "development",
 ): Promise<void> {
-  for (const { bundler, code } of await bundleImport(source)) {
+  for (const { bundler, code } of await bundleImport(source, environment)) {
     for (const text of check.includes) {
       expect(code, `${bundler} should keep "${text}"`).toContain(text);
     }
@@ -242,5 +251,32 @@ describe("what applications ship", () => {
       includes: ["INVALID_THEME_TOKEN"],
       excludes: [VALIDATOR, COLOUR_MATHS, TOKEN_DATA],
     });
+  });
+});
+
+// Texts that only appear in development warnings.
+const WARNINGS = [
+  "IconButton needs a label",
+  "below WCAG 2.2 AA contrast",
+  "copies of @hussmartinez/ui",
+  "[@hussmartinez/ui]",
+];
+
+describe("development warnings", () => {
+  const app =
+    'import { IconButton, ThemeProvider } from "./react.js"; import { createTheme } from "./index.js"; export const app = [IconButton, ThemeProvider, createTheme];';
+
+  it("stay in development bundles", async () => {
+    await expectShipped(app, { includes: WARNINGS, excludes: [] }, "development");
+  });
+
+  it("are dropped from production bundles, text and all", async () => {
+    await expectShipped(app, { includes: ["hm-icon-button"], excludes: WARNINGS }, "production");
+  });
+
+  it("take createTheme's contrast check, and its colour maths, with them in production", async () => {
+    const theme = 'import { createTheme } from "./index.js"; export const app = createTheme;';
+    await expectShipped(theme, { includes: [COLOUR_MATHS], excludes: [] }, "development");
+    await expectShipped(theme, { includes: [VALIDATOR], excludes: [COLOUR_MATHS] }, "production");
   });
 });

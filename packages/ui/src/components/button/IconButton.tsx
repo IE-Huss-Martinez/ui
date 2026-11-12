@@ -3,6 +3,8 @@ import { warnInDevelopment } from "../../internal/development.js";
 import { type ClassNames, cx } from "../shared/style-props.js";
 import { Button, type ButtonProps } from "./Button.js";
 
+declare const process: { readonly env: { readonly NODE_ENV?: string } };
+
 /**
  * Props of {@link IconButton}.
  *
@@ -32,9 +34,11 @@ export interface IconButtonProps
 export const IconButton = /* @__PURE__ */ forwardRef<HTMLButtonElement, IconButtonProps>(
   function IconButton({ label, icon, className, ...props }, ref) {
     if (label.trim() === "") {
-      warnInDevelopment(
-        "IconButton needs a label: it's the button's only accessible name. Pass text from your message catalogue.",
-      );
+      if (typeof process !== "undefined" && process.env.NODE_ENV !== "production") {
+        warnInDevelopment(
+          "IconButton needs a label: it's the button's only accessible name. Pass text from your message catalogue.",
+        );
+      }
     }
     return (
       <Button
