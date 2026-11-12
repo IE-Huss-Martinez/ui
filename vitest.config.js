@@ -1,6 +1,6 @@
 import { defineConfig } from "vitest/config";
 
-// Tests of the repository's own tooling: the release scripts, the Changesets
+// Tests of the repository's own tooling: the Changesets
 // configuration and the CI image. Each package and app has its own Vitest
 // config for its tests.
 export default defineConfig({
