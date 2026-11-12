@@ -648,7 +648,14 @@ export type ComponentTokenName =
   | "number-field-bg"
   | "number-field-fg"
   | "number-field-border-color"
-  | "number-field-invalid-border-color";
+  | "number-field-invalid-border-color"
+  | "file-drop-zone-gap"
+  | "file-drop-zone-padding"
+  | "file-drop-zone-radius"
+  | "file-drop-zone-border-color"
+  | "file-drop-zone-dragging-border-color"
+  | "file-drop-zone-dragging-bg"
+  | "file-drop-zone-hint-fg";
 
 type ComponentSpec = { readonly fallback: SemanticTokenName };
 
@@ -765,6 +772,13 @@ const component = {
   "number-field-fg": { fallback: "color-text" },
   "number-field-border-color": { fallback: "color-border-strong" },
   "number-field-invalid-border-color": { fallback: "color-danger-text" },
+  "file-drop-zone-gap": { fallback: "gap-normal" },
+  "file-drop-zone-padding": { fallback: "inset-loose" },
+  "file-drop-zone-radius": { fallback: "radius-surface" },
+  "file-drop-zone-border-color": { fallback: "color-border-strong" },
+  "file-drop-zone-dragging-border-color": { fallback: "color-accent" },
+  "file-drop-zone-dragging-bg": { fallback: "color-accent-subtle" },
+  "file-drop-zone-hint-fg": { fallback: "color-text-muted" },
 } as const satisfies Record<ComponentTokenName, ComponentSpec>;
 
 function baseDefinitions(): TokenDefinition[] {

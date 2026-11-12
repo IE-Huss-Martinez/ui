@@ -32,6 +32,12 @@ export type { FieldPart, FieldProps } from "./components/field/Field.js";
 export { Field } from "./components/field/Field.js";
 export type { FieldControlProps } from "./components/field/field-context.js";
 export type {
+  FileDropZonePart,
+  FileDropZoneProps,
+  FileRejection,
+} from "./components/file-drop-zone/FileDropZone.js";
+export { FileDropZone } from "./components/file-drop-zone/FileDropZone.js";
+export type {
   UiMessages,
   UiMessagesProviderProps,
 } from "./components/messages/UiMessagesProvider.js";

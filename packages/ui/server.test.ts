@@ -123,6 +123,7 @@ describe("the built package on a server", () => {
         error: "Wrong",
         children: createElement(component("Slider")),
       },
+      FileDropZone: { accept: ".pdf", onFiles: noop, children: "Open a document" },
       Dialog: { open: true, onOpenChange: noop, title: "Title", children: "Body" },
       Spinner: {},
       ProgressBar: { value: 40 },

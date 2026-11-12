@@ -13,6 +13,7 @@ import { Messages } from '@hussmartinez/sdk-core';
 import { ProgressHTMLAttributes } from 'react';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
+import { Ref } from 'react';
 import { RefAttributes } from 'react';
 import { RefObject } from 'react';
 
@@ -102,6 +103,34 @@ export interface FieldProps extends Omit<HTMLAttributes<HTMLDivElement>, "classN
     readonly description?: ReactNode;
     readonly error?: ReactNode;
     readonly label: ReactNode;
+}
+
+// @public
+export const FileDropZone: ForwardRefExoticComponent<FileDropZoneProps & RefAttributes<HTMLDivElement>>;
+
+// @public
+export type FileDropZonePart = "root" | "button" | "hint";
+
+// @public
+export interface FileDropZoneProps extends Omit<HTMLAttributes<HTMLDivElement>, "className" | "onDrop" | "onDragEnter" | "onDragOver" | "onDragLeave">, StyleProps<FileDropZonePart> {
+    readonly accept?: string | undefined;
+    readonly buttonLabel?: ReactNode;
+    readonly buttonRef?: Ref<HTMLButtonElement> | undefined;
+    readonly buttonVariant?: ButtonVariant | undefined;
+    readonly children?: ReactNode;
+    readonly disabled?: boolean | undefined;
+    readonly hint?: ReactNode;
+    readonly multiple?: boolean | undefined;
+    readonly onFiles: (files: File[]) => void;
+    readonly onFilesRejected?: ((rejections: FileRejection[]) => void) | undefined;
+}
+
+// @public
+export interface FileRejection {
+    // (undocumented)
+    readonly file: File;
+    // (undocumented)
+    readonly reason: "type" | "count" | "directory";
 }
 
 // @public
@@ -321,6 +350,10 @@ export type UiMessages = Messages<typeof uiMessages>;
 // @public
 export const uiMessages: {
     readonly "dialog.close": "Close";
+    readonly "fileDropZone.choose": "Choose a file";
+    readonly "fileDropZone.chooseMultiple": "Choose files";
+    readonly "fileDropZone.hint": "or drop it here";
+    readonly "fileDropZone.hintMultiple": "or drop them here";
     readonly "progress.label": "Progress";
     readonly "spinner.label": "Loading";
     readonly "errors.INVALID_THEME_TOKEN": "The theme setting {token} has a value that can't be used.";

@@ -130,6 +130,14 @@ Every component renders on the server and hydrates without warnings; end-to-end 
 
 No styles are evaluated as JavaScript, and nothing needs `unsafe-eval`.
 
+## Files from users
+
+`FileDropZone` hands you `File` objects. Treat each one as untrusted:
+
+- **`accept` is a hint, not a check.** A file's name and type are whatever its sender chose, so the zone's checks only spare people an obvious mistake. Check the contents, and the size, before using a file, as each SDK's file policy does.
+- **Show names as text.** Render `file.name` as a React text child, never through `dangerouslySetInnerHTML` or `innerHTML`. The zone itself never shows a name.
+- **Read in your own code.** The zone never reads a file, so reading, and its limits, stay under your control.
+
 ## Components
 
 Every component follows one contract ([ADR 0003](https://github.com/ie-huss-martinez/ui/blob/main/docs/adr/0003-component-contract.md)):
@@ -147,6 +155,7 @@ Every component follows one contract ([ADR 0003](https://github.com/ie-huss-mart
 | `VisuallyHidden` | Text for assistive technology only |
 | `Toolbar`, `ToolbarGroup`, `ToolbarSeparator` | A row or column of controls with one Tab stop: arrow keys move between items, Home and End jump to the ends. `label` is required on the toolbar and its groups |
 | `SegmentedControl` | A few mutually exclusive choices side by side. A radio group: arrow keys move and select. Inside a `Toolbar`, it joins the toolbar's arrow keys, and Space or Enter selects |
+| `FileDropZone` | Choosing or dropping files, such as a document to open. Its button opens the system's file picker and is the keyboard and screen reader path; the zone around it takes drops from a pointer, with `data-hm-dragging` while files are over it. `accept` and `multiple` are checked by name, type and count, and folders are turned away; `onFiles` gets the rest, and `onFilesRejected` the others, with a reason. It never reads a file or shows its name, and while it's on the page, a file dropped beside it doesn't open in place of the page |
 | `Dialog` | A modal dialog on the native `<dialog>`: focus moves in and is trapped, the page behind is inert, Escape asks to close through `onOpenChange(false)`, and focus returns to the opener. Controlled by `open`; labelled by `title`. Long content scrolls in the body, which becomes keyboard-scrollable when it overflows |
 | `Spinner` | Loading for an unknown time. An indeterminate progress bar to assistive technology, named by `label`; its size follows `--hm-spinner-size` |
 | `ProgressBar` | Progress for a known amount, on the native `<progress>`: `value`, `max`, `label`, `valueText`. Indeterminate without `value`. It needs no inline styles, so it works under a strict Content Security Policy |

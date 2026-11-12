@@ -8,6 +8,7 @@ import {
   AnnouncerProvider,
   Button,
   Dialog,
+  FileDropZone,
   SegmentedControl,
   useAnnounce,
 } from "@hussmartinez/ui/react";
@@ -17,6 +18,7 @@ function Controls() {
   const announce = useAnnounce();
   const [open, setOpen] = useState(false);
   const [view, setView] = useState<"single" | "grid">("single");
+  const [received, setReceived] = useState<string>();
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => setHydrated(true), []);
   return (
@@ -30,6 +32,10 @@ function Controls() {
           { value: "grid", label: "Grid" },
         ]}
       />
+      <FileDropZone accept=".pdf,application/pdf" onFiles={([file]) => setReceived(file?.name)}>
+        {/* The name comes from the file: rendered as text, never as markup. */}
+        {received ? <p data-testid="received">Received {received}</p> : null}
+      </FileDropZone>
       <Button onClick={() => setOpen(true)}>Open dialog</Button>
       <Dialog
         open={open}
