@@ -6,7 +6,7 @@ The design system of the `@hussmartinez` SDK family: design tokens, themes, base
 
 ## Entry points
 
-The package is ESM only ([ADR 0004](https://github.com/hussmartinez/sdk-core/blob/main/docs/adr/0004-entry-points-and-module-format.md)).
+The package is ESM only ([ADR 0004](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0004-entry-points-and-module-format.md)).
 
 | Entry | Contents |
 |---|---|
@@ -14,11 +14,11 @@ The package is ESM only ([ADR 0004](https://github.com/hussmartinez/sdk-core/blo
 | `@hussmartinez/ui/react` | `ThemeProvider`, `UiMessagesProvider` and the components. Starts with `"use client"`. React and React DOM `>=18.3` are optional peer dependencies |
 | `@hussmartinez/ui/styles.css` | All styles: the built-in tokens and base styles, in the cascade layers `hm.tokens` and `hm.base`. Import it once in your application |
 
-JavaScript never imports CSS, so your application decides where the stylesheet loads. Your own unlayered CSS overrides every `hm` layer without `!important` ([ADR 0005](https://github.com/hussmartinez/sdk-core/blob/main/docs/adr/0005-plain-css-with-cascade-layers.md)).
+JavaScript never imports CSS, so your application decides where the stylesheet loads. Your own unlayered CSS overrides every `hm` layer without `!important` ([ADR 0005](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0005-plain-css-with-cascade-layers.md)).
 
 ## Tokens
 
-Every visual value is a CSS custom property, such as `--hm-color-accent` or `--hm-radius-control`. Base tokens are raw scales; semantic tokens name a purpose, and are the ones to use. The [token reference](https://github.com/hussmartinez/ui/blob/main/packages/ui/docs/tokens.md) lists them all, with their light, dark and compact values.
+Every visual value is a CSS custom property, such as `--hm-color-accent` or `--hm-radius-control`. Base tokens are raw scales; semantic tokens name a purpose, and are the ones to use. The [token reference](https://github.com/IE-Huss-Martinez/ui/blob/main/packages/ui/docs/tokens.md) lists them all, with their light, dark and compact values.
 
 ```css
 .my-panel {
@@ -87,7 +87,7 @@ Custom themes always beat the built-in ones, whatever order stylesheets load in.
 
 ## Server rendering and frameworks
 
-Every component renders on the server and hydrates without warnings; end-to-end tests check it in a Next.js App Router application and a server-rendered Vite application ([ADR 0007](https://github.com/hussmartinez/sdk-core/blob/main/docs/adr/0007-server-rendering-and-nextjs.md)). Nothing touches the browser when either entry is imported.
+Every component renders on the server and hydrates without warnings; end-to-end tests check it in a Next.js App Router application and a server-rendered Vite application ([ADR 0007](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0007-server-rendering-and-nextjs.md)). Nothing touches the browser when either entry is imported.
 
 - **Next.js Server Components** can import `@hussmartinez/ui` (tokens, `createTheme`, `themeToCss`) and render components from `@hussmartinez/ui/react` directly, as long as they pass no functions. Put components that need callbacks, such as `Dialog`, in a client component.
 - **Custom themes in Server Components:** a theme passed to a client component is serialised, so `ThemeProvider` can't receive one from a Server Component. Write it as CSS instead, `<style>{themeToCss(theme, ".brand")}</style>`, or create the theme in a client module.
@@ -103,7 +103,7 @@ No styles are evaluated as JavaScript, and nothing needs `unsafe-eval`.
 
 ## Components
 
-Every component follows one contract ([ADR 0003](https://github.com/hussmartinez/ui/blob/main/docs/adr/0003-component-contract.md)):
+Every component follows one contract ([ADR 0003](https://github.com/IE-Huss-Martinez/ui/blob/main/docs/adr/0003-component-contract.md)):
 
 - **Styling:** `className` on the root, `classNames` per named part, and stable `.hm-*` classes to target. `unstyled` drops colours, borders, typography and motion, and keeps layout, focus rings and target sizes.
 - **Theming:** component tokens, such as `--hm-button-radius`, fall back to semantic tokens. Set them on any ancestor.
@@ -159,4 +159,4 @@ messages.error(error); // "The theme setting color-accent has a value that can't
 
 ## License
 
-[Apache-2.0](https://github.com/hussmartinez/ui/blob/main/LICENSE)
+[Apache-2.0](https://github.com/IE-Huss-Martinez/ui/blob/main/LICENSE)
