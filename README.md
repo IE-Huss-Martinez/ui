@@ -4,7 +4,7 @@ The design system of the `@hussmartinez` SDK family: design tokens, themes, base
 
 This repository will publish **`@hussmartinez/ui`**. It follows the family standards in [`sdk-core`'s `STANDARDS.md`](https://github.com/ie-huss-martinez/sdk-core/blob/main/STANDARDS.md), and in particular the decisions on [styling](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0005-plain-css-with-cascade-layers.md), [theming](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0006-design-tokens-and-theming.md) and [accessibility](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0014-accessibility-and-translatable-text.md).
 
-> Status: being bootstrapped. No packages are published yet.
+> Status: `0.x`. [`@hussmartinez/ui`](https://www.npmjs.com/package/@hussmartinez/ui) is published, and its API may still change between minor versions.
 
 ## Development
 
