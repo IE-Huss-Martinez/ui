@@ -109,6 +109,17 @@ describe("Slider", () => {
     ]);
   });
 
+  it("reaches max with End and the arrow keys, with a decimal step", async () => {
+    const input = renderSlider({ min: 0, max: 0.3, step: 0.1, defaultValue: 0 });
+    expect(await press(input, ["{End}", "{Home}", "{ArrowUp}", "{ArrowUp}", "{ArrowUp}"])).toEqual([
+      "0.3",
+      "0",
+      "0.1",
+      "0.2",
+      "0.3",
+    ]);
+  });
+
   it("stops at the ends without calling onValueChange", async () => {
     const onValueChange = vi.fn();
     const input = renderSlider({ defaultValue: 100, onValueChange });

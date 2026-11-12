@@ -70,12 +70,15 @@ function decimals(value: number): number {
 
 /** Keeps a value in range and on a step from `min`, as the native input does. */
 function snap(value: number, min: number, max: number, step: number): number {
+  const precision = Math.max(decimals(min), decimals(step));
+  // Rounds away float error, such as 3 × 0.1 = 0.30000000000000004, before
+  // any comparison, so it can't look like an overshoot.
+  const round = (n: number): number => Number(n.toFixed(precision));
   const upper = Math.max(min, max);
-  const stepped = step > 0 ? min + Math.round((value - min) / step) * step : value;
+  const stepped = round(step > 0 ? min + Math.round((value - min) / step) * step : value);
   // A step that doesn't divide the range can overshoot the top; step back.
-  const inRange = stepped > upper && step > 0 ? stepped - step : stepped;
-  const clamped = Math.min(Math.max(inRange, min), upper);
-  return Number(clamped.toFixed(Math.max(decimals(min), decimals(step))));
+  const inRange = stepped > upper && step > 0 ? round(stepped - step) : stepped;
+  return Math.min(Math.max(inRange, min), upper);
 }
 
 /**

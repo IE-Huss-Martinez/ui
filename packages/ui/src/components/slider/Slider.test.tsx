@@ -37,6 +37,15 @@ describe("Slider on the server", () => {
     expect(
       renderedValue(renderToString(<Slider label="Gain" max={1} step={0.1} value={0.1 + 0.2} />)),
     ).toBe("0.3");
+    // Float error at the top isn't mistaken for an overshoot.
+    const top = (min: number, max: number, step: number, value: number) =>
+      renderedValue(
+        renderToString(<Slider label="Gain" min={min} max={max} step={step} value={value} />),
+      );
+    expect(top(0, 0.3, 0.1, 0.3)).toBe("0.3");
+    expect(top(0, 0.7, 0.1, 0.7)).toBe("0.7");
+    expect(top(-0.7, -0.1, 0.1, -0.1)).toBe("-0.1");
+    expect(top(0.2, 2.3, 0.3, 2.3)).toBe("2.3");
     // A step that doesn't divide the range stops at the last whole step.
     expect(renderedValue(renderToString(<Slider label="Zoom" step={30} value={100} />))).toBe("90");
   });
