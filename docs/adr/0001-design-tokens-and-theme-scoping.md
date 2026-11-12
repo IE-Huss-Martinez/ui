@@ -5,7 +5,7 @@
 
 ## Context
 
-[ADR 0006](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0006-design-tokens-and-theming.md) decides that `ui` defines three levels of design tokens in one TypeScript source, with built-in light and dark themes, `system` mode in pure CSS, `data-hm-theme` and `data-hm-density` attributes, and `createTheme`, `ThemeProvider` and `themeToCss` for custom themes. [ADR 0005](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0005-plain-css-with-cascade-layers.md) fixes the cascade layers `hm.tokens`, `hm.base`, `hm.components` and `hm.sdk`. Implementing them raised questions those records leave open:
+[ADR 0006](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0006-design-tokens-and-theming.md) decides that `ui` defines three levels of design tokens in one TypeScript source, with built-in light and dark themes, `system` mode in pure CSS, `data-hm-theme` and `data-hm-density` attributes, and `createTheme`, `ThemeProvider` and `themeToCss` for custom themes. [ADR 0005](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0005-plain-css-with-cascade-layers.md) fixes the cascade layers `hm.tokens`, `hm.base`, `hm.components` and `hm.sdk`. Implementing them raised questions those records leave open:
 
 - **Custom properties resolve where they're declared.** If `:root` declares `--hm-color-text: var(--hm-gray-900)`, a subtree that changes `--hm-gray-900` still inherits the old `--hm-color-text`. The same trap catches component tokens that `ui` declares on a component's own element: a theme setting them higher up is ignored.
 - **Custom themes and built-in themes compete.** Both set the same properties with selectors of similar specificity, so without a rule the order stylesheets load in decides which wins.
@@ -21,7 +21,7 @@
 - **Semantic tokens** are named by purpose: `color-text`, `radius-control`, `motion-duration-enter`. Components use only these and component tokens. [`packages/ui/docs/tokens.md`](../../packages/ui/docs/tokens.md) lists them all.
 - **Component tokens** follow `--hm-<component>[-<variant>][-<part>]-<property>[-<state>]`, such as `--hm-button-primary-bg-hover`, with SDKs adding their kind: `--hm-pdf-thumb-radius`. **`ui` never declares them.** Component CSS reads each one with its semantic fallback, `var(--hm-button-radius, var(--hm-radius-control))`, so a theme or host can set it on any ancestor.
 - **Density tokens** (control sizes, gaps and insets) are set by `data-hm-density`, never by the colour mode, so a dark subtree inside a compact one stays compact.
-- **Coarse pointers** get 44 px targets in every density ([ADR 0014](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0014-accessibility-and-translatable-text.md)). Every theme carries its own coarse-pointer values, set with `createTheme`'s `coarsePointer` option and defaulting to 44 px. Without them, a custom theme that sets `control-height` would silently undo the touch targets inside its subtree, because the theme's own declaration beats the inherited built-in one.
+- **Coarse pointers** get 44 px targets in every density ([ADR 0014](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0014-accessibility-and-translatable-text.md)). Every theme carries its own coarse-pointer values, set with `createTheme`'s `coarsePointer` option and defaulting to 44 px. Without them, a custom theme that sets `control-height` would silently undo the touch targets inside its subtree, because the theme's own declaration beats the inherited built-in one.
 
 ### One source, generated outputs
 
@@ -48,7 +48,7 @@ ADR 0006 lists `light` and `dark`. `system` is a third value: it makes a subtree
 - **Every block re-declares every token,** base tokens included, so references resolve again on the themed element.
 - **`themeToCss(theme, selector)` wraps its rules in `@scope (selector)`.** When themes nest, `@scope` proximity makes the closest one win, whatever the source order.
 - **`ThemeProvider`** renders a `display: contents` wrapper with `data-hm-theme-scope` set from `useId`, and a `<style>` element scoped to it.
-- **Browser support:** `@scope` is within [ADR 0013](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0013-browser-and-react-support.md)'s support of the last two major versions. According to MDN's compatibility data, Chrome and Edge added it in 118, Safari in 17.4 and Firefox in 146.
+- **Browser support:** `@scope` is within [ADR 0013](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0013-browser-and-react-support.md)'s support of the last two major versions. According to MDN's compatibility data, Chrome and Edge added it in 118, Safari in 17.4 and Firefox in 146.
   - **Safari 26.0 to 26.3** don't apply rules inside `@scope` to `<input>` and `<textarea>` elements; 26.4 fixed it. Themes are unaffected, because their rules match the scope root and `data-hm-*` elements, and form controls inherit the tokens. Component CSS must not style form controls from inside `@scope`.
   - **Verified:** proximity, with the outer theme's rules placed last in the source, in Chromium 158, Firefox 159 and WebKit 27.2, the engines of Playwright 1.65. The browser tests check it on every run.
 

@@ -62,7 +62,7 @@ function tokensMarkdown(): string {
     "",
     `<!-- ${HEADER} -->`,
     "",
-    "Every design token of `@hussmartinez/ui`. Use them in CSS as `var(--hm-<name>)`. Components use only semantic and component tokens; base tokens are the raw scales semantic tokens are built from ([ADR 0006](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0006-design-tokens-and-theming.md)).",
+    "Every design token of `@hussmartinez/ui`. Use them in CSS as `var(--hm-<name>)`. Components use only semantic and component tokens; base tokens are the raw scales semantic tokens are built from ([ADR 0006](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0006-design-tokens-and-theming.md)).",
     "",
     "Density tokens change with `data-hm-density`: the Light and Dark columns hold their comfortable values. On coarse pointers, `control-height`, `control-height-small` and `target-size` are 44 px in every density.",
     "",

@@ -5,7 +5,7 @@
 
 ## Context
 
-[ADR 0022](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0022-storybook-for-the-component-catalogue.md) chooses Storybook for the catalogue, and requires visual regression in all three themes and both densities ([ADR 0006](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0006-design-tokens-and-theming.md)). Screenshots depend on more than the code: fonts, font rendering, graphics libraries and browser builds differ between machines and operating systems. Baselines taken on one machine fail on another, so either every check needs the same environment, or the check can't be part of `pnpm verify` and reviewers can't run it.
+[ADR 0022](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0022-storybook-for-the-component-catalogue.md) chooses Storybook for the catalogue, and requires visual regression in all three themes and both densities ([ADR 0006](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0006-design-tokens-and-theming.md)). Screenshots depend on more than the code: fonts, font rendering, graphics libraries and browser builds differ between machines and operating systems. Baselines taken on one machine fail on another, so either every check needs the same environment, or the check can't be part of `pnpm verify` and reviewers can't run it.
 
 ## Decision
 

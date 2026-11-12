@@ -1,6 +1,6 @@
 # Catalogue
 
-The component catalogue of `@hussmartinez/ui`, built with Storybook ([ADR 0022](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0022-storybook-for-the-component-catalogue.md)). It isn't published.
+The component catalogue of `@hussmartinez/ui`, built with Storybook ([ADR 0022](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0022-storybook-for-the-component-catalogue.md)). It isn't published.
 
 ```sh
 pnpm --filter @hussmartinez/ui-catalogue dev     # http://localhost:6006

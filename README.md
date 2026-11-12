@@ -2,7 +2,7 @@
 
 The design system of the `@hussmartinez` SDK family: design tokens, themes, base styles and accessible React components. It's used by every SDK's editor and by standalone applications. Everything is fully themable, server-rendering safe and namespaced with `hm-`.
 
-This repository will publish **`@hussmartinez/ui`**. It follows the family standards in [`sdk-core`'s `STANDARDS.md`](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/STANDARDS.md), and in particular the decisions on [styling](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0005-plain-css-with-cascade-layers.md), [theming](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0006-design-tokens-and-theming.md) and [accessibility](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0014-accessibility-and-translatable-text.md).
+This repository will publish **`@hussmartinez/ui`**. It follows the family standards in [`sdk-core`'s `STANDARDS.md`](https://github.com/ie-huss-martinez/sdk-core/blob/main/STANDARDS.md), and in particular the decisions on [styling](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0005-plain-css-with-cascade-layers.md), [theming](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0006-design-tokens-and-theming.md) and [accessibility](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0014-accessibility-and-translatable-text.md).
 
 > Status: being bootstrapped. No packages are published yet.
 
@@ -35,7 +35,7 @@ pnpm verify:fast   # the subset the pre-push hook runs
 | API reports | `check:api` | api-extractor, one report per entry point in `packages/ui/api` |
 | Package checks | `check:package` | publint and Are the Types Wrong? |
 
-The configuration extends the shared presets in [`@hussmartinez/sdk-config`](https://www.npmjs.com/package/@hussmartinez/sdk-config). The git hooks ([ADR 0016](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0016-git-hooks-and-merge-guards.md)) run automatically: a secret scan and lint of staged files on commit, a Conventional Commits check of the message, and `pnpm verify:fast` on push.
+The configuration extends the shared presets in [`@hussmartinez/sdk-config`](https://www.npmjs.com/package/@hussmartinez/sdk-config). The git hooks ([ADR 0016](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0016-git-hooks-and-merge-guards.md)) run automatically: a secret scan and lint of staged files on commit, a Conventional Commits check of the message, and `pnpm verify:fast` on push.
 
 When a change alters the public API on purpose, update the reports with `pnpm --filter @hussmartinez/ui api:update` and commit them.
 
