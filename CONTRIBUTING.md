@@ -59,7 +59,7 @@ The git hooks run on their own: a secret scan and lint of staged files on commit
 - **Title:** a Conventional Commit of at most 65 characters, because it becomes the commit title on `main`, followed by ` (#NNN)`, and that must fit in 72. Put explanations in the description. The `pr-title` check enforces both.
 - **Description:** fill in the template: what changed, why, and how you tested it, including the result of `pnpm verify`. Be as detailed as is useful; the description doesn't go into git history.
 - **Changeset:** add one if the pull request changes what the package publishes. See [Changesets](#changesets).
-- **Checks:** the required checks must pass, and the branch must be up to date with `main`.
+- **Checks:** `verify`, `changeset` and `pr-title` must pass, and the branch must be up to date with `main`.
 
 Mark the pull request ready once `pnpm verify` passes locally. CI is the final gate, not a substitute for running it yourself.
 
@@ -115,6 +115,45 @@ It asks how the package changed, then writes the file. Commit it with your chang
 - **Name the API they'll see:** component, prop, token or CSS class. Describe the behaviour, not the implementation.
 - **Explain the migration** for anything breaking: what to change in their code, with a short example.
 - **Keep it short.** One or two sentences is typical, with a list for several related changes. The pull request holds the detail.
+
+## How releases happen
+
+Nobody publishes by hand ([ADR 0021](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0021-version-and-release-with-changesets.md), [ADR 0023](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0023-verify-releases-in-an-unprivileged-job.md)).
+
+1. **The version pull request.** When changesets reach `main`, the release workflow opens or updates a **`chore: version packages`** pull request. It applies the changesets: it bumps the version, writes the changelog and deletes the changeset files.
+2. **Merging it.** The version pull request is reviewed and merged like any other.
+3. **Publishing.** Once it's merged, the same workflow:
+   - runs `pnpm verify` in the browser test image, in a job with read-only permissions;
+   - publishes the new version to npm through trusted publishing, with provenance and no npm token, only if that verification passed;
+   - creates a tag such as `@hussmartinez/ui@0.2.0` and a GitHub Release with the changelog entry;
+   - attaches the tarball and `SHA256SUMS`, with artifact attestations.
+
+**If a release partly fails,** the workflow run fails, and anything that did publish still gets its tarball, `SHA256SUMS` and attestation. After fixing the cause, re-run the workflow or push to `main` again. Every run checks the package's current version against npm and its GitHub Release, publishes what's missing, and repairs a release without its files, using the tarball downloaded from npm and verified against the registry's integrity. A complete release is left alone.
+
+**npm can take several minutes** to serve a version it has just accepted. The workflow waits up to 10 minutes from the publish, and logs a "Visible on npm" notice with the time it took. If the version still isn't visible by then, the run fails; re-run the failed job once npm shows the version, and it repairs the release from npm.
+
+## Setting up releases
+
+These are one-time steps for the maintainer.
+
+### The GitHub App for the version pull request
+
+The App and its credentials are shared by the `ie-huss-martinez` organisation's repositories, and set up once for the organisation, as described in [sdk-core's contributing guide](https://github.com/ie-huss-martinez/sdk-core/blob/main/CONTRIBUTING.md#setting-up-releases): the variable `RELEASE_APP_CLIENT_ID` and the secret `RELEASE_APP_PRIVATE_KEY`, with access only for the repositories that release. Make sure this repository has access to both.
+
+In this repository, **create a `release` environment** under Settings → Environments, restricted to `main`, so the `version` job only runs there. It needs no secrets. The `version` job fails with these instructions until the App's credentials are available.
+
+### npm
+
+1. **Create an `npm` environment,** restricted to `main`. Add yourself as a required reviewer if you want to approve each publish.
+2. **Bootstrap the first publish.** npm can only configure a trusted publisher for a package that already exists, so the first version needs a token:
+   1. Create a granular access token that can publish only `@hussmartinez/ui`, with an expiry of a few days. Store it only as the secret `NPM_TOKEN` in the `npm` environment.
+   2. Merge the first version pull request. The publish job uses the token, logs a warning that it did, and still attaches provenance.
+   3. **Straight away,** configure the trusted publisher for `@hussmartinez/ui`: Package settings → Trusted Publisher → GitHub Actions, with organisation `ie-huss-martinez`, repository `ui`, workflow `release.yml`, environment `npm`, and direct `npm publish` allowed. npm expires a configuration that hasn't published within two days, which is why this comes right after the bootstrap.
+   4. Delete the `NPM_TOKEN` secret, revoke the token on npm, and turn on "Require two-factor authentication and disallow tokens" for the package, under Settings → Publishing access.
+
+From then on, publishing uses trusted publishing only, with no token anywhere.
+
+**If the repository moves to another owner,** update the package's trusted publisher to the new owner before the next release. npm rejects a publish from an owner its trusted publisher doesn't name, and provenance rejects one whose `repository.url` doesn't match the repository the workflow runs in.
 
 ## Licence
 

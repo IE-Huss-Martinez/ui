@@ -38,5 +38,5 @@ These follow from the standards; they're repeated here because they apply to alm
 
 - **Hooks:** they run automatically: linting and a secret scan on commit, commit message checks, and `pnpm verify:fast` on push. Never use `--no-verify`. If a hook is wrong or too slow, fix it in its own pull request.
 - **Before marking a pull request ready,** run the full `pnpm verify` locally and report its results in the description.
-- **CI:** it runs `pnpm verify` on Chromium, Firefox and WebKit, and checks the pull request title. Both checks must pass before merging. CI is the final gate, not a substitute for local verification.
+- **CI:** it runs `pnpm verify` on Chromium, Firefox and WebKit, checks the pull request title, and checks for a changeset when the published package changes. All three must pass before merging. CI is the final gate, not a substitute for local verification.
 - **Never weaken a check to make it pass.** That includes lint rules, size budgets, the API report, accessibility and contrast checks, and visual baselines. Fix the cause, or propose the change in its own pull request with an ADR if the rule itself is wrong.
