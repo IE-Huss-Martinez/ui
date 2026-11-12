@@ -2,6 +2,8 @@ import { createContext, useContext } from "react";
 import { warnInDevelopment } from "../../internal/development.js";
 import { checkSingleCopy } from "../../internal/single-copy.js";
 
+declare const process: { readonly env: { readonly NODE_ENV?: string } };
+
 /**
  * The props a {@link Field} gives its control, so the label, description
  * and error reach assistive technology.
@@ -59,14 +61,18 @@ export function useFieldProps(
   // An aria-label replaces the visible label's text as the name, which
   // breaks WCAG 2.5.3, Label in Name, when the two differ.
   if (label !== undefined || own["aria-label"] !== undefined) {
-    warnInDevelopment(
-      "A control inside Field has its own label or aria-label, which replaces the field's visible label for screen readers. Leave it out, and set Field's label instead.",
-    );
+    if (typeof process !== "undefined" && process.env.NODE_ENV !== "production") {
+      warnInDevelopment(
+        "A control inside Field has its own label or aria-label, which replaces the field's visible label for screen readers. Leave it out, and set Field's label instead.",
+      );
+    }
   }
   if (own.id !== undefined && own.id !== field.id) {
-    warnInDevelopment(
-      "A control inside Field has its own id, so the field's label doesn't point at it. Pass the id to Field's controlId instead.",
-    );
+    if (typeof process !== "undefined" && process.env.NODE_ENV !== "production") {
+      warnInDevelopment(
+        "A control inside Field has its own id, so the field's label doesn't point at it. Pass the id to Field's controlId instead.",
+      );
+    }
   }
   return {
     id: own.id ?? field.id,

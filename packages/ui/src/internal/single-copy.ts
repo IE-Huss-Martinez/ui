@@ -1,4 +1,6 @@
-import { isDevelopment, warnInDevelopment } from "./development.js";
+import { warnInDevelopment } from "./development.js";
+
+declare const process: { readonly env: { readonly NODE_ENV?: string } };
 
 /**
  * ui's version, written in by the library build. Pipelines that compile the
@@ -29,7 +31,8 @@ function ownVersion(): string {
  * so importing ui stays free of side effects. It does nothing in production.
  */
 export function checkSingleCopy(): void {
-  if (checked || !isDevelopment()) {
+  // Inline, so production bundles drop the whole check.
+  if (checked || !(typeof process !== "undefined" && process.env.NODE_ENV !== "production")) {
     return;
   }
   checked = true;
@@ -38,8 +41,10 @@ export function checkSingleCopy(): void {
   global[REGISTRY] = copies;
   copies.set(THIS_COPY, ownVersion());
   if (copies.size > 1) {
-    warnInDevelopment(
-      `${copies.size} copies of @hussmartinez/ui are in use (${[...copies.values()].join(", ")}). Providers from one copy don't reach components from another, so text falls back to English and announcements are lost. Install a single version: \`npm ls @hussmartinez/ui\` shows where each comes from, and every SDK and your application should use the same minor version.`,
-    );
+    if (typeof process !== "undefined" && process.env.NODE_ENV !== "production") {
+      warnInDevelopment(
+        `${copies.size} copies of @hussmartinez/ui are in use (${[...copies.values()].join(", ")}). Providers from one copy don't reach components from another, so text falls back to English and announcements are lost. Install a single version: \`npm ls @hussmartinez/ui\` shows where each comes from, and every SDK and your application should use the same minor version.`,
+      );
+    }
   }
 }

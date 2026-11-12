@@ -14,6 +14,8 @@ import { useUiLocale } from "../messages/UiMessagesProvider.js";
 import { decimals, roundTo } from "../shared/number.js";
 import { cx, type StyleProps, unstyledAttribute } from "../shared/style-props.js";
 
+declare const process: { readonly env: { readonly NODE_ENV?: string } };
+
 /**
  * Props of {@link NumberField}. Native input props are passed through.
  *
@@ -261,9 +263,11 @@ export const NumberField = /* @__PURE__ */ forwardRef<HTMLInputElement, NumberFi
       !props["aria-labelledby"] &&
       fieldProps.id === undefined
     ) {
-      warnInDevelopment(
-        "NumberField needs an accessible name: pass label, or put it in a Field. Use text from your message catalogue.",
-      );
+      if (typeof process !== "undefined" && process.env.NODE_ENV !== "production") {
+        warnInDevelopment(
+          "NumberField needs an accessible name: pass label, or put it in a Field. Use text from your message catalogue.",
+        );
+      }
     }
 
     const commit = (next: number): void => {
