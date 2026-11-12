@@ -141,8 +141,9 @@ Every component follows one contract ([ADR 0003](https://github.com/ie-huss-mart
 
 | Component | Use it for |
 |---|---|
-| `Button` | Actions. `variant` is `primary`, `secondary` (default), `quiet` or `danger`; `size` is `medium` or `small`; `pressed` makes a toggle button; `startIcon` and `endIcon` take icons |
+| `Button` | Actions. `variant` is `primary`, `secondary` (default), `quiet` or `danger`; `size` is `medium` or `small`; `pressed` shows a toggle state you control, as `ToggleButton` does; `startIcon` and `endIcon` take icons |
 | `IconButton` | Icon-only actions. `label` is required: it's the accessible name |
+| `ToggleButton` | Turning something on or off, such as loop or the active tool, exposed as `aria-pressed`. `variant` is `secondary` (default) or `quiet`. Controlled with `pressed` and `onPressedChange`, or uncontrolled from `defaultPressed`. Text children, or `icon` with a required `label`. The label stays the same in both states, so a button whose label changes, such as play and pause, is an `IconButton` that swaps its `label` |
 | `VisuallyHidden` | Text for assistive technology only |
 | `Toolbar`, `ToolbarGroup`, `ToolbarSeparator` | A row or column of controls with one Tab stop: arrow keys move between items, Home and End jump to the ends. `label` is required on the toolbar and its groups |
 | `SegmentedControl` | A few mutually exclusive choices side by side. A radio group: arrow keys move and select. Inside a `Toolbar`, it joins the toolbar's arrow keys, and Space or Enter selects |

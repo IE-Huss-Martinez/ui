@@ -208,6 +208,8 @@ export const tokenDescriptions: Readonly<Record<TokenName, string>> = {
   "button-danger-bg-hover": "Background of danger buttons under the pointer.",
   "button-danger-fg": "Text of danger buttons.",
   "button-pressed-bg": "Background of toggle buttons that are on.",
+  "button-pressed-border-color":
+    "Border of toggle buttons that are on, so the state doesn't rest on colour alone.",
   "button-pressed-fg": "Text of toggle buttons that are on.",
   "toolbar-bg": "Background of toolbars.",
   "toolbar-border-color": "Border of toolbars.",

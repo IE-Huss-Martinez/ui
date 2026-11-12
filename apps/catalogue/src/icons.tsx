@@ -95,3 +95,43 @@ export function GridIcon() {
     </svg>
   );
 }
+
+export function PlayIcon() {
+  return (
+    <svg {...base} aria-hidden="true">
+      <path d="M7 4.5v15L19 12z" />
+    </svg>
+  );
+}
+
+export function PauseIcon() {
+  return (
+    <svg {...base} aria-hidden="true">
+      <path d="M8 5v14M16 5v14" />
+    </svg>
+  );
+}
+
+export function LoopIcon() {
+  return (
+    <svg {...base} aria-hidden="true">
+      <path d="M17 3l3 3-3 3M4 11V9a3 3 0 0 1 3-3h13M7 21l-3-3 3-3M20 13v2a3 3 0 0 1-3 3H4" />
+    </svg>
+  );
+}
+
+export function PenIcon() {
+  return (
+    <svg {...base} aria-hidden="true">
+      <path d="M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4" />
+    </svg>
+  );
+}
+
+export function HighlighterIcon() {
+  return (
+    <svg {...base} aria-hidden="true">
+      <path d="M9 15 4 20h5l2-2M9 15l7-11 4 3-7 11zM9 15l4 3" />
+    </svg>
+  );
+}

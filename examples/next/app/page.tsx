@@ -10,6 +10,7 @@ import {
   ProgressBar,
   Spinner,
   ThemeProvider,
+  ToggleButton,
   Toolbar,
   ToolbarGroup,
   ToolbarSeparator,
@@ -37,6 +38,8 @@ export default function Page() {
             <IconButton variant="quiet" label="Undo" icon={<UndoIcon />} />
             <Button variant="quiet">Redo</Button>
           </ToolbarGroup>
+          <ToolbarSeparator />
+          <ToggleButton variant="quiet">Loop</ToggleButton>
           <ToolbarSeparator />
           <Button variant="primary">Export</Button>
         </Toolbar>

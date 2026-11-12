@@ -182,8 +182,18 @@ describe("what applications ship", () => {
   it("drops the components an application doesn't import", async () => {
     await expectShipped('import { Button } from "./react.js"; export const app = Button;', {
       includes: ["hm-button"],
-      excludes: ["data-hm-theme-scope", "hm-visually-hidden", "hm-toolbar", ROVING_FOCUS],
+      excludes: [
+        "data-hm-theme-scope",
+        "hm-visually-hidden",
+        "hm-toolbar",
+        "hm-toggle-button",
+        ROVING_FOCUS,
+      ],
     });
+    await expectShipped(
+      'import { ToggleButton } from "./react.js"; export const app = ToggleButton;',
+      { includes: ["hm-toggle-button", "hm-button"], excludes: ["hm-toolbar", ROVING_FOCUS] },
+    );
     await expectShipped(
       'import { SegmentedControl } from "./react.js"; export const app = SegmentedControl;',
       { includes: ["hm-segmented-control"], excludes: ["hm-button", ROVING_FOCUS] },
