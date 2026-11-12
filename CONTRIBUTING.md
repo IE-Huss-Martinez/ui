@@ -7,7 +7,7 @@ By taking part, you agree to follow the [code of conduct](CODE_OF_CONDUCT.md). T
 ## Before you start
 
 - **Open an issue first** for anything bigger than a small fix, so we can agree on the approach before you spend time on it. New components and changes to tokens or theming are public API, so they always start with an issue.
-- **Read [`STANDARDS.md`](https://github.com/hussmartinez/sdk-core/blob/main/STANDARDS.md)** in `sdk-core`. It's binding for every repository in the family. The reasoning behind each rule is in the [family's architecture decision records](https://github.com/hussmartinez/sdk-core/tree/main/docs/adr), and decisions specific to this repository go in `docs/adr`.
+- **Read [`STANDARDS.md`](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/STANDARDS.md)** in `sdk-core`. It's binding for every repository in the family. The reasoning behind each rule is in the [family's architecture decision records](https://github.com/IE-Huss-Martinez/sdk-core/tree/main/docs/adr), and decisions specific to this repository go in `docs/adr`.
 - **Coding agents** also start with [`AGENTS.md`](AGENTS.md).
 
 ## Set up
@@ -94,7 +94,7 @@ follows any theme without extra CSS.
 
 ## Changesets
 
-Versions and release notes come from changesets ([ADR 0021](https://github.com/hussmartinez/sdk-core/blob/main/docs/adr/0021-version-and-release-with-changesets.md)), not from commit messages. A changeset is a small Markdown file in `.changeset/` that names the version bump a pull request needs and a note for the people who use the package.
+Versions and release notes come from changesets ([ADR 0021](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0021-version-and-release-with-changesets.md)), not from commit messages. A changeset is a small Markdown file in `.changeset/` that names the version bump a pull request needs and a note for the people who use the package.
 
 ```sh
 pnpm changeset

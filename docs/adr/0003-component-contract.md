@@ -5,7 +5,7 @@
 
 ## Context
 
-`ui`'s components are used inside every SDK's editor and directly by applications ([ADR 0002 in sdk-core](https://github.com/hussmartinez/sdk-core/blob/main/docs/adr/0002-one-repository-per-sdk.md)). `STANDARDS.md` lists what every component accepts (`className`, `classNames`, `unstyled`, refs, translatable text), and ADRs 0003, 0005, 0006, 0007 and 0014 constrain naming, styling, theming, server rendering and accessibility. They don't say how those are implemented, and every component should implement them the same way.
+`ui`'s components are used inside every SDK's editor and directly by applications ([ADR 0002 in sdk-core](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0002-one-repository-per-sdk.md)). `STANDARDS.md` lists what every component accepts (`className`, `classNames`, `unstyled`, refs, translatable text), and ADRs 0003, 0005, 0006, 0007 and 0014 constrain naming, styling, theming, server rendering and accessibility. They don't say how those are implemented, and every component should implement them the same way.
 
 ## Decision
 
@@ -15,7 +15,7 @@
 - **Component tokens** are listed in the token source with their semantic fallback, and read as `var(--hm-<token>, var(--hm-<fallback>))`, never declared ([ADR 0001](0001-design-tokens-and-theme-scoping.md)). Component CSS uses no base tokens. A test checks both, and that every component's CSS is imported by `styles.css`.
 - **Text:** no inline text. Components take explicit text props, which fall back to `UiMessagesProvider`: an sdk-core `Messages` object whose catalogue includes `uiMessages`, so SDKs pass their catalogue once. Without a provider, text is English. Accessible names that only the host can know, such as an `IconButton`'s `label`, are required props.
 - **Icons:** slots of type `ReactNode` that draw with `currentColor`. `ui` ships no icon set; where a component needs an icon of its own, such as a dialog's close button, it ships one inline SVG that a prop replaces.
-- **React:** `forwardRef` to the root element, native props passed through, IDs from `useId`, nothing read from the browser during render, and no React 19-only APIs ([ADR 0013](https://github.com/hussmartinez/sdk-core/blob/main/docs/adr/0013-browser-and-react-support.md)).
+- **React:** `forwardRef` to the root element, native props passed through, IDs from `useId`, nothing read from the browser during render, and no React 19-only APIs ([ADR 0013](https://github.com/IE-Huss-Martinez/sdk-core/blob/main/docs/adr/0013-browser-and-react-support.md)).
 - **Applications ship only what they use:** module-scope calls such as `forwardRef(…)` and `createContext(…)` are annotated `/* @__PURE__ */`, so a bundler drops unused components. A test bundles single components from the built package and checks.
 - **Files:** `src/components/<name>/` holds `<Name>.tsx`, `<name>.css`, unit tests (`*.test.tsx`) and browser tests (`*.browser.test.tsx`). Stories live in `apps/catalogue/src/components/`, and cover every state; each runs with axe on three engines, and in three themes and two densities in the visual tests ([ADR 0002](0002-visual-regression-in-a-pinned-container.md)).
 
