@@ -29,7 +29,8 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "dist"
+    "dist",
+    "THIRD_PARTY_NOTICES.md"
   ],
   "scripts": {
     "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.test.json",
@@ -41,7 +42,8 @@
     "check:api": "tsc -p tsconfig.build.json && api-extractor run && api-extractor run -c api-extractor.react.json",
     "check:package": "publint run --pack pnpm --strict && attw --pack . --profile esm-only --exclude-entrypoints ./styles.css",
     "api:update": "tsc -p tsconfig.build.json && api-extractor run --local && api-extractor run -c api-extractor.react.json --local",
-    "tokens": "node scripts/generate-tokens.ts"
+    "tokens": "node scripts/generate-tokens.ts",
+    "icons": "node scripts/generate-icons.ts"
   },
   "dependencies": {
     "@hussmartinez/sdk-core": "catalog:"
@@ -68,6 +70,7 @@
     "@types/react-dom": "catalog:",
     "@vitest/browser-playwright": "catalog:",
     "esbuild": "catalog:",
+    "lucide-static": "catalog:",
     "playwright": "catalog:",
     "publint": "catalog:",
     "react": "catalog:",

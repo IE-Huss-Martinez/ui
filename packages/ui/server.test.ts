@@ -130,6 +130,12 @@ describe("the built package on a server", () => {
       NumberField: { label: "Copies", locale: "de", defaultValue: 1234.5, name: "copies" },
       Slider: { label: "Volume", defaultValue: 40 },
     };
+    // Icons take no required props, so each renders on its own (docs/adr/0005).
+    const icons = Object.keys(react).filter((name) => /^[A-Z]\w*Icon$/.test(name));
+    expect(icons.length).toBeGreaterThan(0);
+    for (const name of icons) {
+      rendered[name] = {};
+    }
     const exportedComponents = Object.keys(react).filter((name) => /^[A-Z]/.test(name));
     expect(exportedComponents.sort()).toEqual(Object.keys(rendered).sort());
     for (const [name, props] of Object.entries(rendered)) {

@@ -173,7 +173,35 @@ import { Button, IconButton } from "@hussmartinez/ui/react";
 <IconButton label={messages.t("toolbar.rotate")} icon={<RotateIcon />} onClick={rotate} />
 ```
 
-Icons are yours: pass any element that draws with `currentColor`. Each component costs a few hundred bytes minified and compressed, and a bundler drops the ones you don't import.
+Pass ui's icons, below, or any element that draws with `currentColor`. Each component costs a few hundred bytes minified and compressed, and a bundler drops the ones you don't import.
+
+### Icons
+
+ui has its own icon set, generated from [Lucide](https://lucide.dev) ([ADR 0005](https://github.com/ie-huss-martinez/ui/blob/main/docs/adr/0005-icon-set.md)). Each icon is a component named after its use in the SDK family, such as `UndoIcon`, `RotateLeftIcon`, `PlayIcon` or `PageGridIcon`; the catalogue shows them all.
+
+```tsx
+import { IconButton, RotateLeftIcon } from "@hussmartinez/ui/react";
+
+<IconButton label={messages.t("toolbar.rotateLeft")} icon={<RotateLeftIcon />} />;
+```
+
+- **Size and colour:** icons draw with `currentColor` and size to `--hm-icon-size`; in a button's icon slot, the slot sets the size.
+- **Accessibility:** icons are decorative and hidden from assistive technology, as they should be inside a labelled button. For an icon that means something on its own, pass `label`, from your message catalogue, and it becomes a named image.
+- **Right to left:** icons that point along the reading direction, such as undo and redo, mirror in right-to-left text.
+- **Only what you import ships:** each icon is its own export, about 140 bytes compressed.
+- **Icons by name:** tools refer to icons by their `IconName`, such as `"rotate-left"` (sdk-core ADR 0030). ui has no name-to-component registry, which would ship every icon, so map the names your tools use:
+
+  ```tsx
+  import type { IconComponent, IconName } from "@hussmartinez/ui/react";
+  import { RotateLeftIcon, UndoIcon } from "@hussmartinez/ui/react";
+
+  const toolIcons: Partial<Record<IconName, IconComponent>> = {
+    undo: UndoIcon,
+    "rotate-left": RotateLeftIcon,
+  };
+  ```
+
+- **Licence:** Lucide's ISC licence, and the MIT licence of its icons derived from Feather, are in `THIRD_PARTY_NOTICES.md` in the package.
 
 ### Text
 

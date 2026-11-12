@@ -16,6 +16,10 @@ import { ReactNode } from 'react';
 import { Ref } from 'react';
 import { RefAttributes } from 'react';
 import { RefObject } from 'react';
+import type { SVGProps } from 'react';
+
+// @public
+export function AddIcon(props: IconProps): ReactElement;
 
 // @public
 export type Announce = (message: string, options?: {
@@ -54,12 +58,30 @@ export type ButtonSize = "medium" | "small";
 export type ButtonVariant = "primary" | "secondary" | "quiet" | "danger";
 
 // @public
+export function CheckIcon(props: IconProps): ReactElement;
+
+// @public
+export function ChevronDownIcon(props: IconProps): ReactElement;
+
+// @public
+export function ChevronLeftIcon(props: IconProps): ReactElement;
+
+// @public
+export function ChevronRightIcon(props: IconProps): ReactElement;
+
+// @public
 export type ClassNames<Part extends string> = {
     readonly [Name in Part]?: string;
 };
 
 // @public
+export function CloseIcon(props: IconProps): ReactElement;
+
+// @public
 export type ColorMode = "light" | "dark" | "system";
+
+// @public
+export function DeleteIcon(props: IconProps): ReactElement;
 
 // @public
 export type Density = "comfortable" | "compact";
@@ -82,6 +104,9 @@ export interface DialogProps extends Omit<DialogHTMLAttributes<HTMLDialogElement
     readonly size?: "small" | "medium" | "large" | undefined;
     readonly title: ReactNode;
 }
+
+// @public
+export function DownloadIcon(props: IconProps): ReactElement;
 
 // @public
 export const Field: ForwardRefExoticComponent<FieldProps & RefAttributes<HTMLDivElement>>;
@@ -135,6 +160,9 @@ export interface FileRejection {
 }
 
 // @public
+export function HighlighterIcon(props: IconProps): ReactElement;
+
+// @public
 export const IconButton: ForwardRefExoticComponent<IconButtonProps & RefAttributes<HTMLButtonElement>>;
 
 // @public
@@ -143,6 +171,32 @@ export interface IconButtonProps extends Omit<ButtonProps, "startIcon" | "endIco
     readonly icon: ReactNode;
     readonly label: string;
 }
+
+// @public
+export type IconComponent = (props: IconProps) => ReactElement;
+
+// @public
+export type IconName = "add" | "check" | "chevron-down" | "chevron-left" | "chevron-right" | "close" | "delete" | "download" | "highlighter" | "info" | "loop" | "menu" | "more" | "muted" | "open" | "page-grid" | "page-single" | "pan" | "pause" | "pen" | "play" | "redo" | "remove" | "rotate-left" | "rotate-right" | "search" | "select" | "skip-back" | "skip-forward" | "split" | "stop" | "undo" | "upload" | "volume" | "warning" | "zoom-in" | "zoom-out";
+
+// @public
+export interface IconProps extends Omit<SVGProps<SVGSVGElement>, "children" | "dangerouslySetInnerHTML" | "ref"> {
+    readonly label?: string | undefined;
+}
+
+// @public
+export function InfoIcon(props: IconProps): ReactElement;
+
+// @public
+export function LoopIcon(props: IconProps): ReactElement;
+
+// @public
+export function MenuIcon(props: IconProps): ReactElement;
+
+// @public
+export function MoreIcon(props: IconProps): ReactElement;
+
+// @public
+export function MutedIcon(props: IconProps): ReactElement;
 
 // @public
 export const NumberField: ForwardRefExoticComponent<NumberFieldProps & RefAttributes<HTMLInputElement>>;
@@ -163,6 +217,27 @@ export interface NumberFieldProps extends Omit<InputHTMLAttributes<HTMLInputElem
 }
 
 // @public
+export function OpenIcon(props: IconProps): ReactElement;
+
+// @public
+export function PageGridIcon(props: IconProps): ReactElement;
+
+// @public
+export function PageSingleIcon(props: IconProps): ReactElement;
+
+// @public
+export function PanIcon(props: IconProps): ReactElement;
+
+// @public
+export function PauseIcon(props: IconProps): ReactElement;
+
+// @public
+export function PenIcon(props: IconProps): ReactElement;
+
+// @public
+export function PlayIcon(props: IconProps): ReactElement;
+
+// @public
 export type Politeness = "polite" | "assertive";
 
 // @public
@@ -175,6 +250,21 @@ export interface ProgressBarProps extends Omit<ProgressHTMLAttributes<HTMLProgre
     readonly value?: number | undefined;
     readonly valueText?: string | undefined;
 }
+
+// @public
+export function RedoIcon(props: IconProps): ReactElement;
+
+// @public
+export function RemoveIcon(props: IconProps): ReactElement;
+
+// @public
+export function RotateLeftIcon(props: IconProps): ReactElement;
+
+// @public
+export function RotateRightIcon(props: IconProps): ReactElement;
+
+// @public
+export function SearchIcon(props: IconProps): ReactElement;
 
 // @public
 export const SegmentedControl: <Value extends string>(props: SegmentedControlProps<Value> & RefAttributes<HTMLDivElement>) => ReactElement;
@@ -205,6 +295,15 @@ export interface SegmentedControlProps<Value extends string> extends Omit<HTMLAt
 }
 
 // @public
+export function SelectIcon(props: IconProps): ReactElement;
+
+// @public
+export function SkipBackIcon(props: IconProps): ReactElement;
+
+// @public
+export function SkipForwardIcon(props: IconProps): ReactElement;
+
+// @public
 export const Slider: ForwardRefExoticComponent<SliderProps & RefAttributes<HTMLInputElement>>;
 
 // @public
@@ -227,6 +326,12 @@ export const Spinner: ForwardRefExoticComponent<SpinnerProps & RefAttributes<HTM
 export interface SpinnerProps extends Omit<HTMLAttributes<HTMLSpanElement>, "className" | "role" | "children">, StyleProps<"root"> {
     readonly label?: string | undefined;
 }
+
+// @public
+export function SplitIcon(props: IconProps): ReactElement;
+
+// @public
+export function StopIcon(props: IconProps): ReactElement;
 
 // @public
 export interface StyleProps<Part extends string> {
@@ -372,6 +477,12 @@ export interface UiMessagesProviderProps {
 }
 
 // @public
+export function UndoIcon(props: IconProps): ReactElement;
+
+// @public
+export function UploadIcon(props: IconProps): ReactElement;
+
+// @public
 export function useAnnounce(): Announce;
 
 // @public
@@ -384,5 +495,17 @@ export const VisuallyHidden: ForwardRefExoticComponent<VisuallyHiddenProps & Ref
 export interface VisuallyHiddenProps extends HTMLAttributes<HTMLElement> {
     readonly as?: "span" | "div";
 }
+
+// @public
+export function VolumeIcon(props: IconProps): ReactElement;
+
+// @public
+export function WarningIcon(props: IconProps): ReactElement;
+
+// @public
+export function ZoomInIcon(props: IconProps): ReactElement;
+
+// @public
+export function ZoomOutIcon(props: IconProps): ReactElement;
 
 ```

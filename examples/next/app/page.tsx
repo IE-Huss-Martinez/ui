@@ -17,10 +17,10 @@ import {
   Toolbar,
   ToolbarGroup,
   ToolbarSeparator,
+  UndoIcon,
   VisuallyHidden,
 } from "@hussmartinez/ui/react";
 import { Interactive } from "./Interactive";
-import { UndoIcon } from "./icons";
 
 // Created on the server. A theme passed to a client component as a prop is
 // serialised, so on the server it's written as CSS instead.

@@ -86,6 +86,9 @@ export interface ExtendingThemeInput extends ThemeInputBase {
 }
 
 // @public
+export type IconName = "add" | "check" | "chevron-down" | "chevron-left" | "chevron-right" | "close" | "delete" | "download" | "highlighter" | "info" | "loop" | "menu" | "more" | "muted" | "open" | "page-grid" | "page-single" | "pan" | "pause" | "pen" | "play" | "redo" | "remove" | "rotate-left" | "rotate-right" | "search" | "select" | "skip-back" | "skip-forward" | "split" | "stop" | "undo" | "upload" | "volume" | "warning" | "zoom-in" | "zoom-out";
+
+// @public
 export const lightTheme: Theme;
 
 // @public

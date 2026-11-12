@@ -236,6 +236,9 @@ catalogs:
     lint-staged:
       specifier: ^17.6.0
       version: 17.6.0
+    lucide-static:
+      specifier: 1.72.0
+      version: 1.72.0
     next:
       specifier: ^16.4.0
       version: 16.4.5
@@ -483,6 +486,9 @@ importers:
       esbuild:
         specifier: 'catalog:'
         version: 0.28.2
+      lucide-static:
+        specifier: 'catalog:'
+        version: 1.72.0
       playwright:
         specifier: 'catalog:'
         version: 1.65.0
@@ -2761,6 +2767,9 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
+
+  lucide-static@1.72.0:
+    resolution: {integrity: sha512-QhdZ60O7Zcs/e8gw40uMfEn055xZTHBZoNi0xb+/1R2dTd0v4FXS46VL6rKSwC+V92tLBiqsAbCcijy7Wy4j4w==}
 
   lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
@@ -5555,6 +5564,8 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
+
+  lucide-static@1.72.0: {}
 
   lz-string@1.5.0: {}
 
