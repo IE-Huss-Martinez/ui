@@ -1,6 +1,6 @@
 # 0002. Visual regression in a pinned container
 
-- **Status:** Accepted
+- **Status:** Accepted; the image's location is superseded by [0004](0004-one-browser-test-image.md)
 - **Date:** 2026-11-10
 
 ## Context

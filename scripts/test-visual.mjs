@@ -1,6 +1,6 @@
 /**
  * Runs the catalogue's visual regression tests inside the pinned Playwright
- * image (apps/catalogue/visual/Dockerfile), locally and in CI, so screenshots
+ * image (ci/Dockerfile), locally and in CI, so screenshots
  * match pixel for pixel on any machine.
  *
  *   node scripts/test-visual.mjs            compare with the baselines
@@ -54,7 +54,7 @@ if (docker.error || docker.status !== 0) {
 
 const run = (args) => spawnSync("docker", args, { cwd: root, stdio: "inherit" }).status ?? 1;
 
-if (run(["build", "--quiet", "--tag", image, "apps/catalogue/visual"]) !== 0) {
+if (run(["build", "--quiet", "--tag", image, "ci"]) !== 0) {
   fail("the visual test image didn't build.");
 }
 

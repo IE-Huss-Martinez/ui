@@ -17,17 +17,20 @@ updates:
       github-actions:
         patterns: ["*"]
 
-  # The pinned Playwright image for visual tests. Its tag must move together
-  # with the playwright package; a unit test in apps/catalogue fails until
-  # both match.
+  # The pinned Playwright image of the browser tests, read by CI's verify job
+  # and the visual tests from one place (docs/adr/0004). Its tag must move
+  # together with the playwright package; a unit test in apps/catalogue fails
+  # until both match. The short directory keeps titles such as "ci: bump
+  # playwright from v1.65.0-noble to v1.66.0-noble in /ci" within the
+  # 65-character limit, as Dependabot always appends "in /<directory>".
   - package-ecosystem: docker
-    directory: /apps/catalogue/visual
+    directory: /ci
     schedule:
       interval: weekly
     cooldown:
       default-days: 7
     commit-message:
-      prefix: test
+      prefix: ci
 
   # Workspace dependencies, including the pnpm catalog in pnpm-workspace.yaml.
   - package-ecosystem: npm
