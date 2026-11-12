@@ -2,6 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-11-12
+- **Amended:** 2026-11-12, after the set was built. Each icon is a plain module-level function, such as `function UndoIcon(props)`, calling a shared `renderIcon`, rather than a `createIcon()` factory with a pure annotation. Biome rejects component factories, and function declarations tree-shake without any annotation. `IconName` is generated into its own module with no imports, `icon-name.generated.ts`, so the server-safe entry exports it without reaching React, even as types, as sdk-core's `entry-no-react` rule requires
 
 ## Context
 

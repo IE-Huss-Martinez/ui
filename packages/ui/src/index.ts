@@ -11,7 +11,7 @@
 export type { UiErrorCode } from "./errors/ui-error.js";
 export { UiError } from "./errors/ui-error.js";
 // Types only: headless tool definitions name their icons (sdk-core ADR 0030).
-export type { IconName } from "./icons/icons.generated.js";
+export type { IconName } from "./icons/icon-name.generated.js";
 export { uiMessages } from "./messages/en.js";
 export type { ContrastReport } from "./theme/contrast-check.js";
 export { checkContrast } from "./theme/contrast-check.js";

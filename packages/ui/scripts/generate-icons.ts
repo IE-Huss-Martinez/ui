@@ -1,5 +1,6 @@
 /**
- * Writes src/icons/icons.generated.tsx from lucide-static's icon data and
+ * Writes src/icons/icon-name.generated.ts and src/icons/icons.generated.tsx
+ * from lucide-static's icon data and
  * src/icons/manifest.ts (docs/adr/0005). Vite's module runner loads the
  * TypeScript source, as for the tokens. A unit test fails when the committed
  * file is stale, and generation stops on any shape or attribute outside the
@@ -21,13 +22,14 @@ const { module } = await runnerImport<typeof import("../src/icons/generate.js")>
 );
 const { version } = (await read("lucide-static/package.json")) as { version: string };
 const nodes = (await read("lucide-static/icon-nodes.json")) as Record<string, unknown>;
-const path = "src/icons/icons.generated.tsx";
-// Formatted as the repository formats it, so the committed file passes Biome
-// and the staleness test can compare it exactly.
-const formatted = execFileSync(
-  require.resolve("@biomejs/biome/bin/biome"),
-  ["format", `--stdin-file-path=${path}`],
-  { input: module.generateIconsSource(nodes, version), encoding: "utf8" },
-);
-await writeFile(new URL(path, root), formatted);
-process.stdout.write(`Wrote ${path} from lucide-static ${version}\n`);
+// Formatted as the repository formats it, so the committed files pass Biome
+// and the staleness test can compare them exactly.
+for (const [path, source] of Object.entries(module.generateIconsSource(nodes, version))) {
+  const formatted = execFileSync(
+    require.resolve("@biomejs/biome/bin/biome"),
+    ["format", `--stdin-file-path=${path}`],
+    { input: source, encoding: "utf8" },
+  );
+  await writeFile(new URL(path, root), formatted);
+  process.stdout.write(`Wrote ${path} from lucide-static ${version}\n`);
+}

@@ -74,6 +74,7 @@ export { ToolbarSeparator } from "./components/toolbar/ToolbarSeparator.js";
 export type { VisuallyHiddenProps } from "./components/visually-hidden/VisuallyHidden.js";
 export { VisuallyHidden } from "./components/visually-hidden/VisuallyHidden.js";
 export type { IconComponent, IconProps } from "./icons/create-icon.js";
+export type { IconName } from "./icons/icon-name.generated.js";
 // One module-level function per icon, so bundlers keep only those imported
 // (docs/adr/0005).
 export * from "./icons/icons.generated.js";
