@@ -585,6 +585,7 @@ export type ComponentTokenName =
   | "button-danger-bg-hover"
   | "button-danger-fg"
   | "button-pressed-bg"
+  | "button-pressed-border-color"
   | "button-pressed-fg"
   | "toolbar-bg"
   | "toolbar-border-color"
@@ -675,6 +676,9 @@ const component = {
   "button-danger-fg": { fallback: "color-on-danger" },
   "button-pressed-bg": {
     fallback: "color-accent-subtle",
+  },
+  "button-pressed-border-color": {
+    fallback: "color-accent",
   },
   "button-pressed-fg": {
     fallback: "color-text",

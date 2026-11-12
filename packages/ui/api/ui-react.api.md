@@ -194,6 +194,48 @@ export interface ThemeProviderSingleProps extends ThemeProviderBaseProps {
 }
 
 // @public
+export const ToggleButton: ForwardRefExoticComponent<ToggleButtonProps & RefAttributes<HTMLButtonElement>>;
+
+// @public
+export interface ToggleButtonBaseProps extends Omit<ButtonProps, "variant" | "pressed" | "aria-pressed" | "children" | "startIcon" | "endIcon" | "classNames"> {
+    readonly defaultPressed?: boolean | undefined;
+    readonly onPressedChange?: ((pressed: boolean) => void) | undefined;
+    readonly pressed?: boolean | undefined;
+    readonly variant?: ToggleButtonVariant | undefined;
+}
+
+// @public
+export interface ToggleButtonIconProps extends ToggleButtonBaseProps {
+    // (undocumented)
+    readonly children?: undefined;
+    readonly classNames?: ClassNames<"root" | "icon"> | undefined;
+    // (undocumented)
+    readonly endIcon?: undefined;
+    readonly icon: ReactNode;
+    readonly label: string;
+    // (undocumented)
+    readonly startIcon?: undefined;
+}
+
+// @public
+export type ToggleButtonProps = ToggleButtonTextProps | ToggleButtonIconProps;
+
+// @public
+export interface ToggleButtonTextProps extends ToggleButtonBaseProps {
+    readonly children: ReactNode;
+    readonly classNames?: ClassNames<ButtonPart> | undefined;
+    readonly endIcon?: ReactNode;
+    // (undocumented)
+    readonly icon?: undefined;
+    // (undocumented)
+    readonly label?: undefined;
+    readonly startIcon?: ReactNode;
+}
+
+// @public
+export type ToggleButtonVariant = Extract<ButtonVariant, "secondary" | "quiet">;
+
+// @public
 export const Toolbar: ForwardRefExoticComponent<ToolbarProps & RefAttributes<HTMLDivElement>>;
 
 // @public

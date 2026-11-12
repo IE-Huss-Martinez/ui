@@ -101,6 +101,11 @@
 
   .hm-button[aria-pressed="true"]:not([data-hm-unstyled]) {
     background: var(--hm-button-pressed-bg, var(--hm-color-accent-subtle));
+    /*
+     * The border carries the state at 3:1 against the surface (WCAG 1.4.11),
+     * so it doesn't rest on the background colour alone.
+     */
+    border-color: var(--hm-button-pressed-border-color, var(--hm-color-accent));
     color: var(--hm-button-pressed-fg, var(--hm-color-text));
   }
 

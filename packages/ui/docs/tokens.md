@@ -165,6 +165,7 @@ Fine-grained overrides for one component. `ui` never declares them: each compone
 | `--hm-button-danger-bg-hover` | `--hm-color-danger-hover` | Background of danger buttons under the pointer. |
 | `--hm-button-danger-fg` | `--hm-color-on-danger` | Text of danger buttons. |
 | `--hm-button-pressed-bg` | `--hm-color-accent-subtle` | Background of toggle buttons that are on. |
+| `--hm-button-pressed-border-color` | `--hm-color-accent` | Border of toggle buttons that are on, so the state doesn't rest on colour alone. |
 | `--hm-button-pressed-fg` | `--hm-color-text` | Text of toggle buttons that are on. |
 | `--hm-toolbar-bg` | `--hm-color-surface` | Background of toolbars. |
 | `--hm-toolbar-border-color` | `--hm-color-border` | Border of toolbars. |

@@ -7,6 +7,7 @@ import {
   SegmentedControl,
   Spinner,
   ThemeProvider,
+  ToggleButton,
   Toolbar,
   ToolbarGroup,
   ToolbarSeparator,
@@ -74,6 +75,8 @@ export function App() {
             <IconButton variant="quiet" label="Undo" icon={<UndoIcon />} />
             <Button variant="quiet">Redo</Button>
           </ToolbarGroup>
+          <ToolbarSeparator />
+          <ToggleButton variant="quiet">Loop</ToggleButton>
           <ToolbarSeparator />
           <Button variant="primary">Export</Button>
         </Toolbar>

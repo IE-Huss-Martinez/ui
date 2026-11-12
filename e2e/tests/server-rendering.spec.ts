@@ -46,6 +46,7 @@ for (const app of apps) {
         'class="hm-toolbar-group"',
         'class="hm-toolbar-separator"',
         "hm-icon-button",
+        'aria-pressed="false"',
         'class="hm-spinner"',
         "<progress",
         'class="hm-visually-hidden"',
@@ -65,6 +66,11 @@ for (const app of apps) {
 
       // The toolbar has exactly one Tab stop after hydration.
       await expect(page.locator('[role="toolbar"] [tabindex="0"]')).toHaveCount(1);
+
+      // A toggle button keeps its own state, even from a Server Component.
+      const loop = page.getByRole("button", { name: "Loop" });
+      await loop.click();
+      await expect(loop).toHaveAttribute("aria-pressed", "true");
 
       // The segmented control selects with the arrow keys.
       await page.getByRole("radio", { name: "Single" }).focus();

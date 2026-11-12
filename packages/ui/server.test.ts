@@ -103,6 +103,7 @@ describe("the built package on a server", () => {
       AnnouncerProvider: {},
       Button: { children: "Save", startIcon: icon },
       IconButton: { label: "Rotate", icon },
+      ToggleButton: { label: "Loop", icon, defaultPressed: true },
       VisuallyHidden: { children: "Hidden" },
       Toolbar: { label: "Tools", children: createElement(component("ToolbarSeparator")) },
       ToolbarGroup: { label: "Group" },

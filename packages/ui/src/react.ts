@@ -44,6 +44,14 @@ export { SegmentedControl } from "./components/segmented-control/SegmentedContro
 export type { ClassNames, StyleProps } from "./components/shared/style-props.js";
 export type { SpinnerProps } from "./components/spinner/Spinner.js";
 export { Spinner } from "./components/spinner/Spinner.js";
+export type {
+  ToggleButtonBaseProps,
+  ToggleButtonIconProps,
+  ToggleButtonProps,
+  ToggleButtonTextProps,
+  ToggleButtonVariant,
+} from "./components/toggle-button/ToggleButton.js";
+export { ToggleButton } from "./components/toggle-button/ToggleButton.js";
 export type { ToolbarProps } from "./components/toolbar/Toolbar.js";
 export { Toolbar } from "./components/toolbar/Toolbar.js";
 export type { ToolbarGroupProps } from "./components/toolbar/ToolbarGroup.js";
