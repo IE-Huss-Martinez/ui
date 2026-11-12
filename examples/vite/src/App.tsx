@@ -2,6 +2,7 @@ import {
   AnnouncerProvider,
   Button,
   Dialog,
+  Field,
   IconButton,
   ProgressBar,
   SegmentedControl,
@@ -83,7 +84,9 @@ export function App() {
         </Toolbar>
         <Spinner label="Loading pages" />
         <ProgressBar value={40} label="Exporting" />
-        <Slider label="Volume" defaultValue={40} />
+        <Field label="Volume" description="For playback only">
+          <Slider defaultValue={40} />
+        </Field>
         <VisuallyHidden>Only for screen readers</VisuallyHidden>
         <AnnouncerProvider>
           <Controls />

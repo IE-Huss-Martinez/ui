@@ -83,6 +83,28 @@ export interface DialogProps extends Omit<DialogHTMLAttributes<HTMLDialogElement
 }
 
 // @public
+export const Field: ForwardRefExoticComponent<FieldProps & RefAttributes<HTMLDivElement>>;
+
+// @public
+export interface FieldControlProps {
+    readonly "aria-describedby": string | undefined;
+    readonly "aria-invalid": true | undefined;
+    readonly id: string;
+}
+
+// @public
+export type FieldPart = "root" | "label" | "description" | "error";
+
+// @public
+export interface FieldProps extends Omit<HTMLAttributes<HTMLDivElement>, "className" | "children">, StyleProps<FieldPart> {
+    readonly children: ReactNode | ((control: FieldControlProps) => ReactNode);
+    readonly controlId?: string | undefined;
+    readonly description?: ReactNode;
+    readonly error?: ReactNode;
+    readonly label: ReactNode;
+}
+
+// @public
 export const IconButton: ForwardRefExoticComponent<IconButtonProps & RefAttributes<HTMLButtonElement>>;
 
 // @public

@@ -1,0 +1,40 @@
+@layer hm.components {
+  /* Layout: kept with unstyled. */
+  .hm-field {
+    display: grid;
+    gap: var(--hm-field-gap, var(--hm-gap-tight));
+    justify-items: start;
+    min-inline-size: 0;
+  }
+
+  /* The control fills the field, except for those with their own size. */
+  .hm-field > :not(.hm-field-label, .hm-field-description, .hm-field-error) {
+    justify-self: stretch;
+  }
+
+  /* Visual styles, dropped with unstyled. */
+  .hm-field:not([data-hm-unstyled]) .hm-field-label {
+    color: var(--hm-field-label-fg, var(--hm-color-text));
+    font-family: var(--hm-font-family);
+    font-size: var(--hm-font-size-body);
+    font-weight: var(--hm-field-label-font-weight, var(--hm-font-weight-strong));
+    letter-spacing: var(--hm-letter-spacing);
+    line-height: var(--hm-line-height-body);
+  }
+
+  .hm-field:not([data-hm-unstyled]) .hm-field-description,
+  .hm-field:not([data-hm-unstyled]) .hm-field-error {
+    font-family: var(--hm-font-family);
+    font-size: var(--hm-field-message-font-size, var(--hm-font-size-small));
+    letter-spacing: var(--hm-letter-spacing);
+    line-height: var(--hm-line-height-body);
+  }
+
+  .hm-field:not([data-hm-unstyled]) .hm-field-description {
+    color: var(--hm-field-description-fg, var(--hm-color-text-muted));
+  }
+
+  .hm-field:not([data-hm-unstyled]) .hm-field-error {
+    color: var(--hm-field-error-fg, var(--hm-color-danger-text));
+  }
+}

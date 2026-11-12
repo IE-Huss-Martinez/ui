@@ -117,6 +117,12 @@ describe("the built package on a server", () => {
           { value: "b", label: "B" },
         ],
       },
+      Field: {
+        label: "Volume",
+        description: "Help",
+        error: "Wrong",
+        children: createElement(component("Slider")),
+      },
       Dialog: { open: true, onOpenChange: noop, title: "Title", children: "Body" },
       Spinner: {},
       ProgressBar: { value: 40 },

@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import { warnInDevelopment } from "../../internal/development.js";
+import { useFieldProps } from "../field/field-context.js";
 import { cx, type StyleProps, unstyledAttribute } from "../shared/style-props.js";
 
 /**
@@ -51,8 +52,9 @@ export interface SliderProps
    */
   readonly formatValue?: ((value: number) => string) | undefined;
   /**
-   * The accessible name, such as "Volume". Leave it out only when a visible
-   * `<label>` points at the slider's `id`, or `aria-labelledby` names it.
+   * The accessible name, such as "Volume". Leave it out inside a `Field`,
+   * or when a visible `<label>` points at the slider's `id`, or
+   * `aria-labelledby` names it.
    */
   readonly label?: string | undefined;
 }
@@ -133,7 +135,14 @@ export const Slider = /* @__PURE__ */ forwardRef<HTMLInputElement, SliderProps>(
   const [uncontrolled, setUncontrolled] = useState(() => snap(defaultValue ?? min, min, max, step));
   const value = snap(controlled ?? uncontrolled, min, max, step);
 
-  if (label === undefined && !props["aria-label"] && !props["aria-labelledby"] && !props.id) {
+  const fieldProps = useFieldProps(props);
+
+  if (
+    label === undefined &&
+    !props["aria-label"] &&
+    !props["aria-labelledby"] &&
+    fieldProps.id === undefined
+  ) {
     warnInDevelopment(
       "Slider needs an accessible name: pass label, or point a visible <label> at its id. Use text from your message catalogue.",
     );
@@ -186,6 +195,7 @@ export const Slider = /* @__PURE__ */ forwardRef<HTMLInputElement, SliderProps>(
   return (
     <input
       {...props}
+      {...fieldProps}
       ref={ref}
       type="range"
       min={min}

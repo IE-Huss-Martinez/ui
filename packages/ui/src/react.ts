@@ -28,6 +28,9 @@ export type { IconButtonProps } from "./components/button/IconButton.js";
 export { IconButton } from "./components/button/IconButton.js";
 export type { DialogPart, DialogProps } from "./components/dialog/Dialog.js";
 export { Dialog } from "./components/dialog/Dialog.js";
+export type { FieldPart, FieldProps } from "./components/field/Field.js";
+export { Field } from "./components/field/Field.js";
+export type { FieldControlProps } from "./components/field/field-context.js";
 export type {
   UiMessages,
   UiMessagesProviderProps,
