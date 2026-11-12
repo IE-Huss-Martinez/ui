@@ -9,5 +9,6 @@ Use [`template.md`](template.md) for new records. Name files `NNNN-short-title.m
 | # | Decision | Status |
 |---|---|---|
 | [0001](0001-design-tokens-and-theme-scoping.md) | Design tokens, theme layers and theme scoping | Accepted |
-| [0002](0002-visual-regression-in-a-pinned-container.md) | Visual regression in a pinned container | Accepted |
+| [0002](0002-visual-regression-in-a-pinned-container.md) | Visual regression in a pinned container | Accepted; image location superseded by [0004](0004-one-browser-test-image.md) |
 | [0003](0003-component-contract.md) | The component contract | Accepted |
+| [0004](0004-one-browser-test-image.md) | One browser test image, in one place | Accepted |

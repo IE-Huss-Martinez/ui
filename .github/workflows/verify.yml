@@ -17,18 +17,48 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  # Reads the browser test image from ci/Dockerfile, so one Dependabot bump
+  # updates CI and the visual tests together (docs/adr/0004).
+  image:
+    name: image
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    outputs:
+      ref: ${{ steps.read.outputs.ref }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: ci
+
+      # Exactly one FROM line: Microsoft's Playwright image, pinned by tag and
+      # digest. Anything else fails here, before a container is pulled.
+      - name: Read the image
+        id: read
+        run: |
+          refs=$(sed -n 's/^FROM //p' ci/Dockerfile)
+          pattern='^mcr\.microsoft\.com/playwright:v[0-9]+\.[0-9]+\.[0-9]+-noble@sha256:[0-9a-f]{64}$'
+          if [ "$(printf '%s\n' "$refs" | grep -c .)" -ne 1 ] || ! printf '%s' "$refs" | grep -Eq "$pattern"; then
+            echo "::error file=ci/Dockerfile::ci/Dockerfile needs exactly one FROM line: mcr.microsoft.com/playwright:<tag>-noble@sha256:<digest>."
+            exit 1
+          fi
+          echo "ref=$refs" >> "$GITHUB_OUTPUT"
+
   verify:
     name: verify
+    needs: image
+    # A job whose dependency failed is skipped, and a skipped required check
+    # counts as passing. So verify still runs then, and fails on the
+    # fallback image name below, which can't be pulled.
+    if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    # The pinned Playwright image of apps/catalogue/visual/Dockerfile, with the
-    # browsers and their system libraries preinstalled, so nothing is
-    # downloaded or installed with apt. Visual tests run directly in it. A
-    # unit test in apps/catalogue keeps the image identical to the
-    # Dockerfile's. User 1001 owns the runner's workspace, and Firefox won't
-    # start as root with a home directory owned by another user.
+    # The browser test image from ci/Dockerfile, with the browsers and their
+    # system libraries preinstalled, so nothing is installed with apt. Visual
+    # tests run directly in it. User 1001 owns the runner's workspace, and
+    # Firefox won't start as root with a home directory owned by another user.
     container:
-      image: mcr.microsoft.com/playwright:v1.65.0-noble@sha256:9beb546099e11f52d62e505537914870e01a67e0e6b00ae41da4775324e73dbe
+      image: ${{ needs.image.outputs.ref || 'the-image-job-failed' }}
       options: --user 1001 --ipc=host --init
     env:
       HM_VISUAL_CONTAINER: "1"
