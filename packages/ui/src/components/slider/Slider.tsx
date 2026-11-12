@@ -7,6 +7,7 @@ import {
 } from "react";
 import { warnInDevelopment } from "../../internal/development.js";
 import { useFieldProps } from "../field/field-context.js";
+import { decimals, roundTo } from "../shared/number.js";
 import { cx, type StyleProps, unstyledAttribute } from "../shared/style-props.js";
 
 /**
@@ -59,23 +60,12 @@ export interface SliderProps
   readonly label?: string | undefined;
 }
 
-/** The number of decimals in a number, so steps don't drift: 0.1 + 0.2 is 0.3. */
-function decimals(value: number): number {
-  const text = String(value);
-  const exponent = /e-(\d+)$/.exec(text);
-  if (exponent) {
-    return Number(exponent[1]);
-  }
-  const point = text.indexOf(".");
-  return point === -1 ? 0 : text.length - point - 1;
-}
-
 /** Keeps a value in range and on a step from `min`, as the native input does. */
 function snap(value: number, min: number, max: number, step: number): number {
   const precision = Math.max(decimals(min), decimals(step));
   // Rounds away float error, such as 3 × 0.1 = 0.30000000000000004, before
   // any comparison, so it can't look like an overshoot.
-  const round = (n: number): number => Number(n.toFixed(precision));
+  const round = (n: number): number => roundTo(n, precision);
   const upper = Math.max(min, max);
   const stepped = round(step > 0 ? min + Math.round((value - min) / step) * step : value);
   // A step that doesn't divide the range can overshoot the top; step back.
@@ -135,7 +125,7 @@ export const Slider = /* @__PURE__ */ forwardRef<HTMLInputElement, SliderProps>(
   const [uncontrolled, setUncontrolled] = useState(() => snap(defaultValue ?? min, min, max, step));
   const value = snap(controlled ?? uncontrolled, min, max, step);
 
-  const fieldProps = useFieldProps(props);
+  const fieldProps = useFieldProps(props, label);
 
   if (
     label === undefined &&

@@ -91,6 +91,22 @@ describe("Field on the server", () => {
     expect(warn).toHaveBeenCalledWith(expect.stringMatching(/Pass the id to Field's controlId/));
   });
 
+  it("warns in development when a control's own name would replace the visible label", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    renderToString(
+      <Field label="Gain">
+        <Slider label="Volume" />
+      </Field>,
+    );
+    renderToString(
+      <Field label="Gain">
+        <Slider aria-label="Volume" />
+      </Field>,
+    );
+    expect(warn).toHaveBeenCalledTimes(2);
+    expect(warn).toHaveBeenCalledWith(expect.stringMatching(/set Field's label instead/));
+  });
+
   it("adds className and classNames per part, and marks unstyled", () => {
     const html = renderToString(
       <Field

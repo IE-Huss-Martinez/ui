@@ -267,4 +267,12 @@ export const tokenDescriptions: Readonly<Record<TokenName, string>> = {
   "field-description-fg": "Text of a field's description.",
   "field-error-fg": "Text of a field's error. It needs 4.5:1 contrast with the surface.",
   "field-message-font-size": "Font size of a field's description and error.",
+  "number-field-height": "Height of a number field.",
+  "number-field-padding-x": "Space at the start and end of a number field's text.",
+  "number-field-radius": "Corner radius of a number field.",
+  "number-field-bg": "Background of a number field.",
+  "number-field-fg": "Text of a number field.",
+  "number-field-border-color": "Border of a number field. It needs 3:1 contrast with the surface.",
+  "number-field-invalid-border-color":
+    "Border of a number field marked invalid. It needs 3:1 contrast with the surface.",
 };

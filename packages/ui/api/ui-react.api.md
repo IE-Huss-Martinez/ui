@@ -115,6 +115,24 @@ export interface IconButtonProps extends Omit<ButtonProps, "startIcon" | "endIco
 }
 
 // @public
+export const NumberField: ForwardRefExoticComponent<NumberFieldProps & RefAttributes<HTMLInputElement>>;
+
+// @public
+export interface NumberFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "className" | "type" | "value" | "defaultValue" | "min" | "max" | "step" | "onChange" | "role" | "aria-valuenow" | "aria-valuemin" | "aria-valuemax" | "aria-valuetext">, StyleProps<"root"> {
+    readonly defaultValue?: number | undefined;
+    readonly format?: ((value: number) => string) | undefined;
+    readonly label?: string | undefined;
+    readonly largeStep?: number | undefined;
+    readonly locale?: string | undefined;
+    readonly max?: number | undefined;
+    readonly min?: number | undefined;
+    readonly onValueChange?: ((value: number) => void) | undefined;
+    readonly parse?: ((text: string) => number | undefined) | undefined;
+    readonly step?: number | undefined;
+    readonly value?: number | undefined;
+}
+
+// @public
 export type Politeness = "polite" | "assertive";
 
 // @public

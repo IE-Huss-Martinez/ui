@@ -39,9 +39,13 @@ interface OwnControlProps {
 /**
  * Merges the enclosing field's props into a control's own: the field's id
  * unless the control has one, both description lists, and the field's
- * invalid state unless the control sets its own.
+ * invalid state unless the control sets its own. Inside a field, it warns in
+ * development about a control's own `label` or `aria-label`, and its own id.
  */
-export function useFieldProps(own: OwnControlProps): OwnControlProps {
+export function useFieldProps(
+  own: OwnControlProps & { readonly "aria-label"?: string | undefined },
+  label?: string,
+): OwnControlProps {
   const field = useFieldControl();
   if (!field) {
     return {
@@ -49,6 +53,13 @@ export function useFieldProps(own: OwnControlProps): OwnControlProps {
       "aria-describedby": own["aria-describedby"],
       "aria-invalid": own["aria-invalid"],
     };
+  }
+  // An aria-label replaces the visible label's text as the name, which
+  // breaks WCAG 2.5.3, Label in Name, when the two differ.
+  if (label !== undefined || own["aria-label"] !== undefined) {
+    warnInDevelopment(
+      "A control inside Field has its own label or aria-label, which replaces the field's visible label for screen readers. Leave it out, and set Field's label instead.",
+    );
   }
   if (own.id !== undefined && own.id !== field.id) {
     warnInDevelopment(

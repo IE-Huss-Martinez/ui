@@ -74,3 +74,12 @@ export function useUiText(key: PlainMessageKey): string {
   const messages = useContext(UiMessagesContext);
   return messages ? messages.t(key) : uiMessages[key];
 }
+
+/**
+ * The locale of the enclosing `UiMessagesProvider`, or `"en"` without one.
+ * It doesn't create the default messages, so components that only need the
+ * locale don't ship them.
+ */
+export function useUiLocale(): string {
+  return useContext(UiMessagesContext)?.locale ?? "en";
+}

@@ -222,6 +222,13 @@ Fine-grained overrides for one component. `ui` never declares them: each compone
 | `--hm-field-description-fg` | `--hm-color-text-muted` | Text of a field's description. |
 | `--hm-field-error-fg` | `--hm-color-danger-text` | Text of a field's error. It needs 4.5:1 contrast with the surface. |
 | `--hm-field-message-font-size` | `--hm-font-size-small` | Font size of a field's description and error. |
+| `--hm-number-field-height` | `--hm-control-height` | Height of a number field. |
+| `--hm-number-field-padding-x` | `--hm-control-padding-x` | Space at the start and end of a number field's text. |
+| `--hm-number-field-radius` | `--hm-radius-control` | Corner radius of a number field. |
+| `--hm-number-field-bg` | `--hm-color-surface` | Background of a number field. |
+| `--hm-number-field-fg` | `--hm-color-text` | Text of a number field. |
+| `--hm-number-field-border-color` | `--hm-color-border-strong` | Border of a number field. It needs 3:1 contrast with the surface. |
+| `--hm-number-field-invalid-border-color` | `--hm-color-danger-text` | Border of a number field marked invalid. It needs 3:1 contrast with the surface. |
 
 ## Base tokens
 
