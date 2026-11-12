@@ -1,5 +1,11 @@
 # @hussmartinez/ui
 
+## 0.1.1
+
+### Patch Changes
+
+- [#22](https://github.com/ie-huss-martinez/ui/pull/22) [`a29a6c6`](https://github.com/ie-huss-martinez/ui/commit/a29a6c6ade511d50129649050aa7630ff7380bfa) Thanks [@hussmartinez](https://github.com/hussmartinez)! - The README now shows how to install the package, which peer dependencies the React components need, and a quick start with the stylesheet, `ThemeProvider` and a `Button`. It no longer says the package isn't published.
+
 ## 0.1.0
 
 ### Minor Changes
