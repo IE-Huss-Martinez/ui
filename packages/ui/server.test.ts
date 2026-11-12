@@ -120,6 +120,7 @@ describe("the built package on a server", () => {
       Dialog: { open: true, onOpenChange: noop, title: "Title", children: "Body" },
       Spinner: {},
       ProgressBar: { value: 40 },
+      Slider: { label: "Volume", defaultValue: 40 },
     };
     const exportedComponents = Object.keys(react).filter((name) => /^[A-Z]/.test(name));
     expect(exportedComponents.sort()).toEqual(Object.keys(rendered).sort());

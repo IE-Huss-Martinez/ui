@@ -1,0 +1,129 @@
+@layer hm.components {
+  /*
+   * Layout, focus and target size: kept with unstyled, so the native slider
+   * stays usable and accessible.
+   */
+  .hm-slider {
+    block-size: max(var(--hm-slider-thumb-size, var(--hm-icon-size)), var(--hm-target-size));
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    inline-size: 100%;
+    margin: 0;
+    min-inline-size: var(--hm-target-size);
+  }
+
+  .hm-slider:disabled {
+    cursor: not-allowed;
+  }
+
+  .hm-slider:focus-visible {
+    outline: var(--hm-focus-ring);
+    outline-offset: var(--hm-focus-ring-offset);
+  }
+
+  /*
+   * Visual styles, dropped with unstyled. The track and thumb are restyled
+   * through each engine's pseudo-elements. Their borders are transparent,
+   * so forced-colours mode draws them.
+   */
+  .hm-slider:not([data-hm-unstyled]) {
+    appearance: none;
+    background: transparent;
+  }
+
+  /* The focus ring goes round the thumb, where the keyboard acts. */
+  .hm-slider:not([data-hm-unstyled]):focus-visible {
+    outline: none;
+  }
+
+  .hm-slider:not([data-hm-unstyled])::-webkit-slider-runnable-track {
+    background: var(--hm-slider-track-color, var(--hm-color-border-strong));
+    block-size: var(--hm-slider-track-size, var(--hm-track-size));
+    border: var(--hm-border-width) solid transparent;
+    border-radius: var(--hm-slider-radius, var(--hm-radius-round));
+    box-sizing: border-box;
+  }
+
+  .hm-slider:not([data-hm-unstyled])::-moz-range-track {
+    background: var(--hm-slider-track-color, var(--hm-color-border-strong));
+    block-size: var(--hm-slider-track-size, var(--hm-track-size));
+    border: var(--hm-border-width) solid transparent;
+    border-radius: var(--hm-slider-radius, var(--hm-radius-round));
+    box-sizing: border-box;
+  }
+
+  .hm-slider:not([data-hm-unstyled])::-webkit-slider-thumb {
+    appearance: none;
+    background: var(--hm-slider-thumb-color, var(--hm-color-accent));
+    block-size: var(--hm-slider-thumb-size, var(--hm-icon-size));
+    border: var(--hm-border-width) solid transparent;
+    border-radius: var(--hm-slider-radius, var(--hm-radius-round));
+    box-sizing: border-box;
+    inline-size: var(--hm-slider-thumb-size, var(--hm-icon-size));
+    /* WebKit and Blink put the thumb at the top of the track's content box. */
+    margin-block-start: calc(
+      (
+        var(--hm-slider-track-size, var(--hm-track-size)) -
+        2 *
+        var(--hm-border-width) -
+        var(--hm-slider-thumb-size, var(--hm-icon-size))
+      ) /
+      2
+    );
+    transition: background-color var(--hm-motion-duration-feedback) var(--hm-motion-easing-standard);
+  }
+
+  .hm-slider:not([data-hm-unstyled])::-moz-range-thumb {
+    background: var(--hm-slider-thumb-color, var(--hm-color-accent));
+    block-size: var(--hm-slider-thumb-size, var(--hm-icon-size));
+    border: var(--hm-border-width) solid transparent;
+    border-radius: var(--hm-slider-radius, var(--hm-radius-round));
+    box-sizing: border-box;
+    inline-size: var(--hm-slider-thumb-size, var(--hm-icon-size));
+    transition: background-color var(--hm-motion-duration-feedback) var(--hm-motion-easing-standard);
+  }
+
+  .hm-slider:not([data-hm-unstyled]):focus-visible::-webkit-slider-thumb {
+    outline: var(--hm-focus-ring);
+    outline-offset: var(--hm-focus-ring-offset);
+  }
+
+  .hm-slider:not([data-hm-unstyled]):focus-visible::-moz-range-thumb {
+    outline: var(--hm-focus-ring);
+    outline-offset: var(--hm-focus-ring-offset);
+  }
+
+  /* Hover only where there's a real pointer, so touch doesn't leave it stuck. */
+  @media (hover: hover) {
+    .hm-slider:not([data-hm-unstyled], :disabled):hover::-webkit-slider-thumb {
+      background: var(--hm-slider-thumb-color-hover, var(--hm-color-accent-hover));
+    }
+
+    .hm-slider:not([data-hm-unstyled], :disabled):hover::-moz-range-thumb {
+      background: var(--hm-slider-thumb-color-hover, var(--hm-color-accent-hover));
+    }
+  }
+
+  .hm-slider:not([data-hm-unstyled], :disabled):active::-webkit-slider-thumb {
+    background: var(--hm-slider-thumb-color-active, var(--hm-color-accent-active));
+  }
+
+  .hm-slider:not([data-hm-unstyled], :disabled):active::-moz-range-thumb {
+    background: var(--hm-slider-thumb-color-active, var(--hm-color-accent-active));
+  }
+
+  .hm-slider:not([data-hm-unstyled]):disabled {
+    opacity: var(--hm-opacity-disabled);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hm-slider:not([data-hm-unstyled])::-webkit-slider-thumb {
+      transition: none;
+    }
+
+    .hm-slider:not([data-hm-unstyled])::-moz-range-thumb {
+      transition: none;
+    }
+  }
+}

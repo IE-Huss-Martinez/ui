@@ -187,6 +187,7 @@ describe("what applications ship", () => {
         "hm-visually-hidden",
         "hm-toolbar",
         "hm-toggle-button",
+        "hm-slider",
         ROVING_FOCUS,
       ],
     });
@@ -194,6 +195,10 @@ describe("what applications ship", () => {
       'import { ToggleButton } from "./react.js"; export const app = ToggleButton;',
       { includes: ["hm-toggle-button", "hm-button"], excludes: ["hm-toolbar", ROVING_FOCUS] },
     );
+    await expectShipped('import { Slider } from "./react.js"; export const app = Slider;', {
+      includes: ["hm-slider"],
+      excludes: ["hm-button", "hm-toolbar", ROVING_FOCUS],
+    });
     await expectShipped(
       'import { SegmentedControl } from "./react.js"; export const app = SegmentedControl;',
       { includes: ["hm-segmented-control"], excludes: ["hm-button", ROVING_FOCUS] },

@@ -49,6 +49,7 @@ for (const app of apps) {
         'aria-pressed="false"',
         'class="hm-spinner"',
         "<progress",
+        'class="hm-slider"',
         'class="hm-visually-hidden"',
         'role="radiogroup"',
         "<dialog",
@@ -71,6 +72,12 @@ for (const app of apps) {
       const loop = page.getByRole("button", { name: "Loop" });
       await loop.click();
       await expect(loop).toHaveAttribute("aria-pressed", "true");
+
+      // The slider keeps its own value and moves with the keyboard.
+      const volume = page.getByRole("slider", { name: "Volume" });
+      await volume.focus();
+      await page.keyboard.press("PageUp");
+      await expect(volume).toHaveValue("50");
 
       // The segmented control selects with the arrow keys.
       await page.getByRole("radio", { name: "Single" }).focus();

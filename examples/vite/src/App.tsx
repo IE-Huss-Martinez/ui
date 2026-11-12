@@ -5,6 +5,7 @@ import {
   IconButton,
   ProgressBar,
   SegmentedControl,
+  Slider,
   Spinner,
   ThemeProvider,
   ToggleButton,
@@ -82,6 +83,7 @@ export function App() {
         </Toolbar>
         <Spinner label="Loading pages" />
         <ProgressBar value={40} label="Exporting" />
+        <Slider label="Volume" defaultValue={40} />
         <VisuallyHidden>Only for screen readers</VisuallyHidden>
         <AnnouncerProvider>
           <Controls />

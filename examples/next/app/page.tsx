@@ -8,6 +8,7 @@ import {
   Button,
   IconButton,
   ProgressBar,
+  Slider,
   Spinner,
   ThemeProvider,
   ToggleButton,
@@ -45,6 +46,7 @@ export default function Page() {
         </Toolbar>
         <Spinner label="Loading pages" />
         <ProgressBar value={40} label="Exporting" />
+        <Slider label="Volume" defaultValue={40} />
         <VisuallyHidden>Only for screen readers</VisuallyHidden>
         <Interactive />
       </main>
