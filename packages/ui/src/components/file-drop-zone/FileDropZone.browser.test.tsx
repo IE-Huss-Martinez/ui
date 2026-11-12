@@ -254,6 +254,34 @@ describe("FileDropZone", () => {
     expect(drag(document.body, "dragover", transfer(pdf())).defaultPrevented).toBe(false);
   });
 
+  it("adds no window listener with preventStrayDrops off, and still takes its own drops", () => {
+    const added = vi.spyOn(window, "addEventListener");
+    const { zone, onFiles } = renderZone({ preventStrayDrops: false });
+    const types = added.mock.calls.map(([type]) => type);
+    expect(types).not.toContain("dragover");
+    expect(types).not.toContain("drop");
+    expect(drag(document.body, "dragover", transfer(pdf())).defaultPrevented).toBe(false);
+    expect(drag(document.body, "drop", transfer(pdf())).defaultPrevented).toBe(false);
+    const file = pdf();
+    expect(drag(zone, "drop", transfer(file)).defaultPrevented).toBe(true);
+    expect(onFiles).toHaveBeenCalledWith([file]);
+  });
+
+  it("adds and removes the window listeners as preventStrayDrops changes", () => {
+    const onFiles = vi.fn();
+    const removed = vi.spyOn(window, "removeEventListener");
+    const container = render(<FileDropZone onFiles={onFiles} />);
+    expect(drag(document.body, "drop", transfer(pdf())).defaultPrevented).toBe(true);
+    act(() => root?.render(<FileDropZone onFiles={onFiles} preventStrayDrops={false} />));
+    expect(removed.mock.calls.map(([type]) => type)).toEqual(
+      expect.arrayContaining(["dragover", "drop"]),
+    );
+    expect(drag(document.body, "drop", transfer(pdf())).defaultPrevented).toBe(false);
+    act(() => root?.render(<FileDropZone onFiles={onFiles} />));
+    expect(drag(document.body, "drop", transfer(pdf())).defaultPrevented).toBe(true);
+    expect(container.querySelector(".hm-file-drop-zone")).not.toBeNull();
+  });
+
   it("ignores drops and shows no drag state while disabled", () => {
     const { zone, onFiles } = renderZone({ disabled: true });
     const data = transfer(pdf());

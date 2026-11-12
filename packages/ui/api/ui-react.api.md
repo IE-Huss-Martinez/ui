@@ -123,6 +123,7 @@ export interface FileDropZoneProps extends Omit<HTMLAttributes<HTMLDivElement>, 
     readonly multiple?: boolean | undefined;
     readonly onFiles: (files: File[]) => void;
     readonly onFilesRejected?: ((rejections: FileRejection[]) => void) | undefined;
+    readonly preventStrayDrops?: boolean | undefined;
 }
 
 // @public

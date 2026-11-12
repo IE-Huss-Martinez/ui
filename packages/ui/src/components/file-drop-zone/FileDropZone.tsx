@@ -62,6 +62,13 @@ export interface FileDropZoneProps
   readonly accept?: string | undefined;
   /** Takes several files at once. Defaults to `false`. */
   readonly multiple?: boolean | undefined;
+  /**
+   * Turns away files dropped anywhere else on the page while the zone is
+   * mounted, so a near miss doesn't open the file in place of the page.
+   * Defaults to `true`. Turn it off when the host handles stray drops
+   * itself, or embeds the zone in a page whose drag and drop it doesn't own.
+   */
+  readonly preventStrayDrops?: boolean | undefined;
   /** Turns the button off, and ignores drops. */
   readonly disabled?: boolean | undefined;
   /**
@@ -155,7 +162,8 @@ function refuseStrayDrop(event: globalThis.DragEvent): void {
  * before using them, and show their names as text.
  *
  * While a zone is on the page, files dropped elsewhere on the page are
- * turned away, so a near miss doesn't navigate away from it.
+ * turned away, so a near miss doesn't navigate away from it. Hosts that
+ * handle that themselves turn it off with `preventStrayDrops={false}`.
  *
  * @example
  * ```tsx
@@ -174,6 +182,7 @@ export const FileDropZone = /* @__PURE__ */ forwardRef<HTMLDivElement, FileDropZ
       accept,
       multiple = false,
       disabled = false,
+      preventStrayDrops = true,
       buttonLabel,
       buttonVariant = "primary",
       buttonRef,
@@ -199,13 +208,16 @@ export const FileDropZone = /* @__PURE__ */ forwardRef<HTMLDivElement, FileDropZ
     const defaultHint = useUiText(multiple ? "fileDropZone.hintMultiple" : "fileDropZone.hint");
 
     useEffect(() => {
+      if (!preventStrayDrops) {
+        return;
+      }
       window.addEventListener("dragover", refuseStrayDrop);
       window.addEventListener("drop", refuseStrayDrop);
       return () => {
         window.removeEventListener("dragover", refuseStrayDrop);
         window.removeEventListener("drop", refuseStrayDrop);
       };
-    }, []);
+    }, [preventStrayDrops]);
 
     useEffect(() => {
       if (disabled) {
