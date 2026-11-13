@@ -119,6 +119,11 @@ type TriggerProps = ComponentPropsWithRef<"button">;
  * - The pointer can move onto it without it closing, and it stays until the
  *   pointer and focus leave. Escape closes it without moving focus, and
  *   doesn't close a surrounding dialog.
+ * - **While it's open, the first Escape belongs to the tooltip.** It calls
+ *   `preventDefault()`, so an editor's own Escape action, such as cancelling
+ *   a crop, runs on the second press. sdk-core's shortcut registry already
+ *   skips handled events; a handler of your own should check
+ *   `event.defaultPrevented` too.
  * - It's in the top layer, through the Popover API, so no stacking context
  *   can hide it, and it's placed above the trigger, or below when there's no
  *   room, without a positioning library (docs/adr/0006).
