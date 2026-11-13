@@ -86,4 +86,5 @@ export type {
   ThemeProviderSingleProps,
 } from "./react/ThemeProvider.js";
 export { ThemeProvider } from "./react/ThemeProvider.js";
+export { usePlatform } from "./react/use-platform.js";
 export type { ColorMode, Density, Theme, ThemePair } from "./theme/types.js";
