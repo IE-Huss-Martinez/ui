@@ -1,5 +1,23 @@
 # @hussmartinez/ui
 
+## 0.3.0
+
+### Minor Changes
+
+- [#33](https://github.com/ie-huss-martinez/ui/pull/33) [`2af380d`](https://github.com/ie-huss-martinez/ui/commit/2af380d5b7b0a3e6de14a036da244346601905d7) Thanks [@hussmartinez](https://github.com/hussmartinez)! - `FileDropZone` takes `preventStrayDrops`. It defaults to `true`, which keeps today's behaviour: while the zone is mounted, files dropped elsewhere on the page are turned away rather than opened in place of the page. Set it to `false` when your application handles stray drops itself, or embeds the zone in a page whose drag and drop it doesn't own; the zone then adds no listeners to `window`.
+
+- [#38](https://github.com/ie-huss-martinez/ui/pull/38) [`e36a6f2`](https://github.com/ie-huss-martinez/ui/commit/e36a6f2035b39469a608e35e6e91d295470d5d60) Thanks [@hussmartinez](https://github.com/hussmartinez)! - Add ui's icon set: 37 icons generated from Lucide, each a component named after its use in the SDK family, such as `UndoIcon`, `RotateLeftIcon`, `PlayIcon`, `LoopIcon` and `PageGridIcon`. Icons draw with `currentColor`, size to `--hm-icon-size` or to a button's icon slot, are decorative unless given a `label`, and mirror in right-to-left text when they point along the reading direction. Each is its own export, so applications ship only the icons they import. The `IconName` type, exported from both entries, names them for tools; map the names you use to components with `Partial<Record<IconName, IconComponent>>`. Lucide's licences are in the package's `THIRD_PARTY_NOTICES.md`.
+
+- [#35](https://github.com/ie-huss-martinez/ui/pull/35) [`40591a2`](https://github.com/ie-huss-martinez/ui/commit/40591a2585e9cb3d12ee373baa9e50825b046bd8) Thanks [@hussmartinez](https://github.com/hussmartinez)! - ui now warns in development when a second copy of it is in use on the page, naming the versions it found. Two copies don't share providers, so components from one copy miss the other's `UiMessagesProvider` and `AnnouncerProvider`: their text falls back to English, and announcements are lost. Make your application and your SDKs use the same minor version of ui; `npm ls @hussmartinez/ui` shows where each copy comes from. The check runs on first use, never on import, and is skipped in production. The README has a new "Using ui from an SDK" section.
+
+### Patch Changes
+
+- [#37](https://github.com/ie-huss-martinez/ui/pull/37) [`3810f9a`](https://github.com/ie-huss-martinez/ui/commit/3810f9a77126326b4474e8e77eca28823a70902c) Thanks [@hussmartinez](https://github.com/hussmartinez)! - Production bundles no longer carry ui's development-only code: the text of its warnings, the check for a second copy of ui, and `createTheme`'s contrast check with its colour maths. Each is now guarded inline by `process.env.NODE_ENV`, which bundlers replace and fold away. An application that calls `createTheme` ships about 1.5 kB less, compressed, and one using a few components about 0.4 to 0.5 kB less. Behaviour is unchanged: warnings still print in development and never in production, and `checkContrast` still works when you call it.
+
+- [#41](https://github.com/ie-huss-martinez/ui/pull/41) [`454fad6`](https://github.com/ie-huss-martinez/ui/commit/454fad62ab435e222a56dead2a88f9ebda9f920a) Thanks [@hussmartinez](https://github.com/hussmartinez)! - 0.1.0, 0.1.1 and 0.2.0 were published without their built files (`dist/`), so importing them failed. This release is built and checked before publishing: every file that `package.json` points to must be in the tarball. If you're on one of those versions, upgrade.
+
+- [#44](https://github.com/ie-huss-martinez/ui/pull/44) [`737efc6`](https://github.com/ie-huss-martinez/ui/commit/737efc64babecdae1bea30680856556798751949) Thanks [@hussmartinez](https://github.com/hussmartinez)! - ui now requires `@hussmartinez/sdk-core` 0.3.0 or a later 0.3 release. Earlier ui versions accepted sdk-core 0.1, which resolves to 0.1.3: that version, like 0.2.0, was published without its built files, so importing it failed. If your application depends on sdk-core directly, upgrade it to 0.3 too, so there's one copy.
+
 ## 0.2.0
 
 ### Minor Changes
