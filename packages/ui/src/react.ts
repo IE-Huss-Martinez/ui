@@ -57,6 +57,8 @@ export type { SliderProps } from "./components/slider/Slider.js";
 export { Slider } from "./components/slider/Slider.js";
 export type { SpinnerProps } from "./components/spinner/Spinner.js";
 export { Spinner } from "./components/spinner/Spinner.js";
+export type { TextFieldProps, TextFieldType } from "./components/text-field/TextField.js";
+export { TextField } from "./components/text-field/TextField.js";
 export type {
   ToggleButtonBaseProps,
   ToggleButtonIconProps,
@@ -65,7 +67,6 @@ export type {
   ToggleButtonVariant,
 } from "./components/toggle-button/ToggleButton.js";
 export { ToggleButton } from "./components/toggle-button/ToggleButton.js";
-
 export type { ToolbarProps } from "./components/toolbar/Toolbar.js";
 export { Toolbar } from "./components/toolbar/Toolbar.js";
 export type { ToolbarGroupProps } from "./components/toolbar/ToolbarGroup.js";

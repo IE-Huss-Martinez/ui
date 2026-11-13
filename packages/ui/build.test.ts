@@ -281,6 +281,15 @@ describe("development warnings", () => {
   });
 });
 
+describe("TextField", () => {
+  it("ships without the other fields", async () => {
+    await expectShipped('import { TextField } from "./react.js"; export const app = TextField;', {
+      includes: ["hm-text-field"],
+      excludes: ["hm-number-field", "hm-slider", "hm-tooltip", ROVING_FOCUS],
+    });
+  });
+});
+
 describe("Tooltip", () => {
   it("ships without the components it isn't given", async () => {
     await expectShipped('import { Tooltip } from "./react.js"; export const app = Tooltip;', {

@@ -48,6 +48,7 @@ for (const app of apps) {
         "hm-icon-button",
         'data-hm-icon="undo"',
         'role="tooltip"',
+        'class="hm-text-field"',
         'aria-pressed="false"',
         'class="hm-spinner"',
         "<progress",
@@ -93,6 +94,11 @@ for (const app of apps) {
       await page.keyboard.press("PageUp");
       await expect(volume).toHaveValue("50");
       await expect(volume).toHaveAccessibleDescription("For playback only");
+
+      // The text field is named by its Field and takes typing.
+      const fileName = page.getByRole("textbox", { name: "File name" });
+      await fileName.fill("final");
+      await expect(fileName).toHaveValue("final");
 
       // The number field commits typing on Enter, within its range.
       const copies = page.getByRole("spinbutton", { name: "Copies" });

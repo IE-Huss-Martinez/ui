@@ -104,6 +104,7 @@ describe("the built package on a server", () => {
       Button: { children: "Save", startIcon: icon },
       IconButton: { label: "Rotate", icon },
       ToggleButton: { label: "Loop", icon, defaultPressed: true },
+      TextField: { label: "File name", defaultValue: "report" },
       Tooltip: {
         content: "Rotate",
         type: "label",
