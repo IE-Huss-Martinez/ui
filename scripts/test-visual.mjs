@@ -10,13 +10,16 @@
  * directly: a unit test keeps the workflow's image identical to the
  * Dockerfile's.
  *
- * The container gets its own node_modules volumes, so binaries installed for
- * the host never mix with the container's, and its own pnpm store volume, so
- * installs after the first are fast. Files it writes are handed back to the
- * calling user.
+ * The container gets its own node_modules volumes, for the root and for every
+ * workspace package, so its install never writes into the checkout and
+ * binaries installed for the host never mix with the container's. Its own
+ * pnpm store volume makes installs after the first fast. It runs as root, so
+ * afterwards every root-owned file in the checkout, such as screenshots and
+ * Vitest's attachments, is handed back to the calling user.
  */
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { workspacePackageDirs } from "./workspace-packages.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const update = process.argv.includes("--update");
@@ -75,8 +78,11 @@ const status = run([
   "--volume",
   `${root}:/work`,
   ...volume("root-modules", "node_modules"),
-  ...volume("ui-modules", "packages/ui/node_modules"),
-  ...volume("catalogue-modules", "apps/catalogue/node_modules"),
+  // One per package: pnpm installs into each, and a package left out would
+  // get root-owned node_modules in the host's checkout.
+  ...workspacePackageDirs(root).flatMap((dir) =>
+    volume(`${dir.replaceAll("/", "-")}-modules`, `${dir}/node_modules`),
+  ),
   "--volume",
   "hm-ui-visual-store:/pnpm-store",
   "--workdir",
@@ -87,7 +93,9 @@ const status = run([
   [
     "pnpm install --frozen-lockfile --store-dir /pnpm-store --reporter=silent",
     `${vitest}; status=$?`,
-    `chown -R ${owner} apps/catalogue/visual/__screenshots__ 2>/dev/null`,
+    // -xdev stays on the checkout's filesystem, out of the volumes. It never
+    // fails the run: the tests' status is what counts.
+    `{ find /work -xdev -user 0 -exec chown ${owner} {} + 2>/dev/null || true; }`,
     "exit $status",
   ].join(" && "),
 ]);
