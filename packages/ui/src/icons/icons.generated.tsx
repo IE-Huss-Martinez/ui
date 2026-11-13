@@ -76,6 +76,23 @@ export function CloseIcon(props: IconProps): ReactElement {
 }
 
 /**
+ * The `crop` icon: Lucide's `crop`.
+ *
+ * @public
+ */
+export function CropIcon(props: IconProps): ReactElement {
+  return renderIcon(
+    "crop",
+    [
+      ["path", { d: "M6 2v14a2 2 0 0 0 2 2h14" }],
+      ["path", { d: "M18 22V8a2 2 0 0 0-2-2H2" }],
+    ],
+    false,
+    props,
+  );
+}
+
+/**
  * The `delete` icon: Lucide's `trash`.
  *
  * @public
@@ -107,6 +124,117 @@ export function DownloadIcon(props: IconProps): ReactElement {
       ["path", { d: "M12 15V3" }],
       ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" }],
       ["path", { d: "m7 10 5 5 5-5" }],
+    ],
+    false,
+    props,
+  );
+}
+
+/**
+ * The `fade-in` icon: Lucide's `chart-no-axes-column-increasing`.
+ *
+ * @public
+ */
+export function FadeInIcon(props: IconProps): ReactElement {
+  return renderIcon(
+    "fade-in",
+    [
+      ["path", { d: "M5 21v-6" }],
+      ["path", { d: "M12 21V9" }],
+      ["path", { d: "M19 21V3" }],
+    ],
+    false,
+    props,
+  );
+}
+
+/**
+ * The `fade-out` icon: Lucide's `chart-no-axes-column-decreasing`.
+ *
+ * @public
+ */
+export function FadeOutIcon(props: IconProps): ReactElement {
+  return renderIcon(
+    "fade-out",
+    [
+      ["path", { d: "M5 21V3" }],
+      ["path", { d: "M12 21V9" }],
+      ["path", { d: "M19 21v-6" }],
+    ],
+    false,
+    props,
+  );
+}
+
+/**
+ * The `fit` icon: Lucide's `scan`.
+ *
+ * @public
+ */
+export function FitIcon(props: IconProps): ReactElement {
+  return renderIcon(
+    "fit",
+    [
+      ["path", { d: "M3 7V5a2 2 0 0 1 2-2h2" }],
+      ["path", { d: "M17 3h2a2 2 0 0 1 2 2v2" }],
+      ["path", { d: "M21 17v2a2 2 0 0 1-2 2h-2" }],
+      ["path", { d: "M7 21H5a2 2 0 0 1-2-2v-2" }],
+    ],
+    false,
+    props,
+  );
+}
+
+/**
+ * The `flip-horizontal` icon: Lucide's `triangles-centerline-dashed-vertical`.
+ *
+ * @public
+ */
+export function FlipHorizontalIcon(props: IconProps): ReactElement {
+  return renderIcon(
+    "flip-horizontal",
+    [
+      ["path", { d: "M12 14v2" }],
+      ["path", { d: "M12 20v2" }],
+      ["path", { d: "M12 2v2" }],
+      ["path", { d: "M12 8v2" }],
+      [
+        "path",
+        {
+          d: "M20.288 16.703A1 1 0 0022 16V8a1 1 0 00-1.712-.703l-3.99 3.991a1 1 0 00-.001 1.424z",
+        },
+      ],
+      [
+        "path",
+        { d: "M3.712 16.703A1 1 0 012 16V8a1 1 0 011.712-.703l3.99 3.991a1 1 0 01.001 1.424z" },
+      ],
+    ],
+    false,
+    props,
+  );
+}
+
+/**
+ * The `flip-vertical` icon: Lucide's `triangles-centerline-dashed-horizontal`.
+ *
+ * @public
+ */
+export function FlipVerticalIcon(props: IconProps): ReactElement {
+  return renderIcon(
+    "flip-vertical",
+    [
+      ["path", { d: "M10 12H8" }],
+      ["path", { d: "M16 12h-2" }],
+      ["path", { d: "M22 12h-2" }],
+      ["path", { d: "M4 12H2" }],
+      [
+        "path",
+        { d: "M7.298 20.288A1 1 0 008 22h8a1 1 0 00.703-1.712l-3.991-3.99a1 1 0 00-1.424-.001z" },
+      ],
+      [
+        "path",
+        { d: "M7.298 3.712A1 1 0 018 2h8a1 1 0 01.703 1.712l-3.991 3.99a1 1 0 01-1.424.001z" },
+      ],
     ],
     false,
     props,
@@ -511,6 +639,29 @@ export function SkipForwardIcon(props: IconProps): ReactElement {
 }
 
 /**
+ * The `snap` icon: Lucide's `magnet`.
+ *
+ * @public
+ */
+export function SnapIcon(props: IconProps): ReactElement {
+  return renderIcon(
+    "snap",
+    [
+      ["path", { d: "m12 15 4 4" }],
+      [
+        "path",
+        {
+          d: "M2.352 10.648a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l6.029-6.029a1 1 0 1 1 3 3l-6.029 6.029a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l6.365-6.367A1 1 0 0 0 8.716 4.282z",
+        },
+      ],
+      ["path", { d: "m5 8 4 4" }],
+    ],
+    false,
+    props,
+  );
+}
+
+/**
  * The `split` icon: Lucide's `scissors`.
  *
  * @public
@@ -539,6 +690,42 @@ export function StopIcon(props: IconProps): ReactElement {
   return renderIcon(
     "stop",
     [["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2" }]],
+    false,
+    props,
+  );
+}
+
+/**
+ * The `trim-end` icon: Lucide's `arrow-left-from-line`.
+ *
+ * @public
+ */
+export function TrimEndIcon(props: IconProps): ReactElement {
+  return renderIcon(
+    "trim-end",
+    [
+      ["path", { d: "m9 6-6 6 6 6" }],
+      ["path", { d: "M3 12h14" }],
+      ["path", { d: "M21 19V5" }],
+    ],
+    false,
+    props,
+  );
+}
+
+/**
+ * The `trim-start` icon: Lucide's `arrow-right-from-line`.
+ *
+ * @public
+ */
+export function TrimStartIcon(props: IconProps): ReactElement {
+  return renderIcon(
+    "trim-start",
+    [
+      ["path", { d: "M3 5v14" }],
+      ["path", { d: "M21 12H7" }],
+      ["path", { d: "m15 18 6-6-6-6" }],
+    ],
     false,
     props,
   );

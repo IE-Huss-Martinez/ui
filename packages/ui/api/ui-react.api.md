@@ -81,6 +81,9 @@ export function CloseIcon(props: IconProps): ReactElement;
 export type ColorMode = "light" | "dark" | "system";
 
 // @public
+export function CropIcon(props: IconProps): ReactElement;
+
+// @public
 export function DeleteIcon(props: IconProps): ReactElement;
 
 // @public
@@ -107,6 +110,12 @@ export interface DialogProps extends Omit<DialogHTMLAttributes<HTMLDialogElement
 
 // @public
 export function DownloadIcon(props: IconProps): ReactElement;
+
+// @public
+export function FadeInIcon(props: IconProps): ReactElement;
+
+// @public
+export function FadeOutIcon(props: IconProps): ReactElement;
 
 // @public
 export const Field: ForwardRefExoticComponent<FieldProps & RefAttributes<HTMLDivElement>>;
@@ -160,6 +169,15 @@ export interface FileRejection {
 }
 
 // @public
+export function FitIcon(props: IconProps): ReactElement;
+
+// @public
+export function FlipHorizontalIcon(props: IconProps): ReactElement;
+
+// @public
+export function FlipVerticalIcon(props: IconProps): ReactElement;
+
+// @public
 export function HighlighterIcon(props: IconProps): ReactElement;
 
 // @public
@@ -176,7 +194,7 @@ export interface IconButtonProps extends Omit<ButtonProps, "startIcon" | "endIco
 export type IconComponent = (props: IconProps) => ReactElement;
 
 // @public
-export type IconName = "add" | "check" | "chevron-down" | "chevron-left" | "chevron-right" | "close" | "delete" | "download" | "highlighter" | "info" | "loop" | "menu" | "more" | "muted" | "open" | "page-grid" | "page-single" | "pan" | "pause" | "pen" | "play" | "redo" | "remove" | "rotate-left" | "rotate-right" | "search" | "select" | "skip-back" | "skip-forward" | "split" | "stop" | "undo" | "upload" | "volume" | "warning" | "zoom-in" | "zoom-out";
+export type IconName = "add" | "check" | "chevron-down" | "chevron-left" | "chevron-right" | "close" | "crop" | "delete" | "download" | "fade-in" | "fade-out" | "fit" | "flip-horizontal" | "flip-vertical" | "highlighter" | "info" | "loop" | "menu" | "more" | "muted" | "open" | "page-grid" | "page-single" | "pan" | "pause" | "pen" | "play" | "redo" | "remove" | "rotate-left" | "rotate-right" | "search" | "select" | "skip-back" | "skip-forward" | "snap" | "split" | "stop" | "trim-end" | "trim-start" | "undo" | "upload" | "volume" | "warning" | "zoom-in" | "zoom-out";
 
 // @public
 export interface IconProps extends Omit<SVGProps<SVGSVGElement>, "children" | "dangerouslySetInnerHTML" | "ref"> {
@@ -320,6 +338,9 @@ export interface SliderProps extends Omit<InputHTMLAttributes<HTMLInputElement>,
 }
 
 // @public
+export function SnapIcon(props: IconProps): ReactElement;
+
+// @public
 export const Spinner: ForwardRefExoticComponent<SpinnerProps & RefAttributes<HTMLSpanElement>>;
 
 // @public
@@ -449,6 +470,12 @@ export const ToolbarSeparator: ForwardRefExoticComponent<ToolbarSeparatorProps &
 
 // @public
 export type ToolbarSeparatorProps = Omit<HTMLAttributes<HTMLHRElement>, "children">;
+
+// @public
+export function TrimEndIcon(props: IconProps): ReactElement;
+
+// @public
+export function TrimStartIcon(props: IconProps): ReactElement;
 
 // @public
 export type UiMessages = Messages<typeof uiMessages>;
