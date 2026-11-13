@@ -10,6 +10,7 @@ import { ForwardRefExoticComponent } from 'react';
 import { HTMLAttributes } from 'react';
 import { InputHTMLAttributes } from 'react';
 import { Messages } from '@hussmartinez/sdk-core';
+import { Platform } from '@hussmartinez/sdk-core';
 import { ProgressHTMLAttributes } from 'react';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
@@ -511,6 +512,9 @@ export function UploadIcon(props: IconProps): ReactElement;
 
 // @public
 export function useAnnounce(): Announce;
+
+// @public
+export function usePlatform(): Platform;
 
 // @public
 export function useUiMessages(): UiMessages;
