@@ -293,4 +293,14 @@ export const tokenDescriptions: Readonly<Record<TokenName, string>> = {
   "tooltip-shadow": "Shadow under a tooltip.",
   "tooltip-max-width": "Widest a tooltip grows before its text wraps.",
   "tooltip-offset": "Space between a tooltip and its trigger.",
+  "text-field-height": "Height of a text field.",
+  "text-field-padding-x": "Space at the start and end of a text field's text.",
+  "text-field-radius": "Corner radius of a text field.",
+  "text-field-bg": "Background of a text field.",
+  "text-field-fg": "Text of a text field.",
+  "text-field-placeholder-fg":
+    "Placeholder text of a text field. It needs 4.5:1 contrast with the field's background.",
+  "text-field-border-color": "Border of a text field. It needs 3:1 contrast with the surface.",
+  "text-field-invalid-border-color":
+    "Border of a text field marked invalid. It needs 3:1 contrast with the surface.",
 };

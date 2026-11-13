@@ -244,6 +244,14 @@ Fine-grained overrides for one component. `ui` never declares them: each compone
 | `--hm-tooltip-shadow` | `--hm-shadow-raised` | Shadow under a tooltip. |
 | `--hm-tooltip-max-width` | `--hm-surface-width-small` | Widest a tooltip grows before its text wraps. |
 | `--hm-tooltip-offset` | `--hm-gap-tight` | Space between a tooltip and its trigger. |
+| `--hm-text-field-height` | `--hm-control-height` | Height of a text field. |
+| `--hm-text-field-padding-x` | `--hm-control-padding-x` | Space at the start and end of a text field's text. |
+| `--hm-text-field-radius` | `--hm-radius-control` | Corner radius of a text field. |
+| `--hm-text-field-bg` | `--hm-color-surface` | Background of a text field. |
+| `--hm-text-field-fg` | `--hm-color-text` | Text of a text field. |
+| `--hm-text-field-placeholder-fg` | `--hm-color-text-muted` | Placeholder text of a text field. It needs 4.5:1 contrast with the field's background. |
+| `--hm-text-field-border-color` | `--hm-color-border-strong` | Border of a text field. It needs 3:1 contrast with the surface. |
+| `--hm-text-field-invalid-border-color` | `--hm-color-danger-text` | Border of a text field marked invalid. It needs 3:1 contrast with the surface. |
 
 ## Base tokens
 

@@ -12,6 +12,7 @@ import {
   ProgressBar,
   Slider,
   Spinner,
+  TextField,
   ThemeProvider,
   ToggleButton,
   Toolbar,
@@ -53,6 +54,9 @@ export default function Page() {
         <ProgressBar value={40} label="Exporting" />
         <Field label="Volume" description="For playback only">
           <Slider defaultValue={40} />
+        </Field>
+        <Field label="File name">
+          <TextField defaultValue="report" />
         </Field>
         <Field label="Copies">
           <NumberField min={1} max={99} defaultValue={1} />

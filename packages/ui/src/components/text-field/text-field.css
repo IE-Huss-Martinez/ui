@@ -1,0 +1,58 @@
+@layer hm.components {
+  /*
+   * Layout, focus and target size: kept with unstyled, so the field stays
+   * usable and accessible.
+   */
+  .hm-text-field {
+    box-sizing: border-box;
+    min-block-size: max(
+      var(--hm-text-field-height, var(--hm-control-height)),
+      var(--hm-target-size)
+    );
+    min-inline-size: var(--hm-target-size);
+    padding-block: 0;
+    padding-inline: var(--hm-text-field-padding-x, var(--hm-control-padding-x));
+  }
+
+  .hm-text-field:focus-visible {
+    outline: var(--hm-focus-ring);
+    outline-offset: var(--hm-focus-ring-offset);
+  }
+
+  .hm-text-field:disabled {
+    cursor: not-allowed;
+  }
+
+  /* Visual styles, dropped with unstyled. */
+  .hm-text-field:not([data-hm-unstyled]) {
+    background: var(--hm-text-field-bg, var(--hm-color-surface));
+    border: var(--hm-border-width) solid
+      var(--hm-text-field-border-color, var(--hm-color-border-strong));
+    border-radius: var(--hm-text-field-radius, var(--hm-radius-control));
+    color: var(--hm-text-field-fg, var(--hm-color-text));
+    font-family: var(--hm-font-family);
+    font-size: var(--hm-font-size-body);
+    letter-spacing: var(--hm-letter-spacing);
+    line-height: var(--hm-line-height-tight);
+    transition: border-color var(--hm-motion-duration-feedback) var(--hm-motion-easing-standard);
+  }
+
+  .hm-text-field:not([data-hm-unstyled])::placeholder {
+    color: var(--hm-text-field-placeholder-fg, var(--hm-color-text-muted));
+    opacity: 1;
+  }
+
+  .hm-text-field[aria-invalid="true"]:not([data-hm-unstyled]) {
+    border-color: var(--hm-text-field-invalid-border-color, var(--hm-color-danger-text));
+  }
+
+  .hm-text-field:not([data-hm-unstyled]):disabled {
+    opacity: var(--hm-opacity-disabled);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hm-text-field:not([data-hm-unstyled]) {
+      transition-duration: 0s;
+    }
+  }
+}

@@ -663,7 +663,15 @@ export type ComponentTokenName =
   | "tooltip-font-size"
   | "tooltip-shadow"
   | "tooltip-max-width"
-  | "tooltip-offset";
+  | "tooltip-offset"
+  | "text-field-height"
+  | "text-field-padding-x"
+  | "text-field-radius"
+  | "text-field-bg"
+  | "text-field-fg"
+  | "text-field-placeholder-fg"
+  | "text-field-border-color"
+  | "text-field-invalid-border-color";
 
 type ComponentSpec = { readonly fallback: SemanticTokenName };
 
@@ -795,6 +803,14 @@ const component = {
   "tooltip-shadow": { fallback: "shadow-raised" },
   "tooltip-max-width": { fallback: "surface-width-small" },
   "tooltip-offset": { fallback: "gap-tight" },
+  "text-field-height": { fallback: "control-height" },
+  "text-field-padding-x": { fallback: "control-padding-x" },
+  "text-field-radius": { fallback: "radius-control" },
+  "text-field-bg": { fallback: "color-surface" },
+  "text-field-fg": { fallback: "color-text" },
+  "text-field-placeholder-fg": { fallback: "color-text-muted" },
+  "text-field-border-color": { fallback: "color-border-strong" },
+  "text-field-invalid-border-color": { fallback: "color-danger-text" },
 } as const satisfies Record<ComponentTokenName, ComponentSpec>;
 
 function baseDefinitions(): TokenDefinition[] {

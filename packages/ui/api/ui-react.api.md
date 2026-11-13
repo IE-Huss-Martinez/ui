@@ -364,6 +364,19 @@ export interface StyleProps<Part extends string> {
 }
 
 // @public
+export const TextField: ForwardRefExoticComponent<TextFieldProps & RefAttributes<HTMLInputElement>>;
+
+// @public
+export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "className" | "type">, StyleProps<"root"> {
+    readonly label?: string | undefined;
+    readonly onValueChange?: ((value: string) => void) | undefined;
+    readonly type?: TextFieldType | undefined;
+}
+
+// @public
+export type TextFieldType = "text" | "search" | "email" | "url" | "tel" | "password";
+
+// @public
 export interface Theme {
     readonly coarsePointer: Readonly<Record<string, string>>;
     // (undocumented)
