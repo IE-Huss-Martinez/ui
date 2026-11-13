@@ -183,8 +183,8 @@ catalogs:
       specifier: ^21.2.4
       version: 21.2.4
     '@hussmartinez/sdk-config':
-      specifier: ^0.2.1
-      version: 0.2.1
+      specifier: ^0.3.0
+      version: 0.3.0
     '@hussmartinez/sdk-core':
       specifier: ^0.3.0
       version: 0.3.0
@@ -298,7 +298,7 @@ importers:
         version: 21.2.4(conventional-commits-parser@7.1.4)(typescript@6.0.3)
       '@hussmartinez/sdk-config':
         specifier: 'catalog:'
-        version: 0.2.1(@biomejs/biome@2.6.6)(@commitlint/cli@21.2.4(conventional-commits-parser@7.1.4)(typescript@6.0.3))(@microsoft/api-extractor@7.60.1(@types/node@24.19.2))(dependency-cruiser@18.7.2)(lint-staged@17.6.0)(secretlint@13.1.0(supports-color@10.2.2))(stylelint@18.0.0)(typescript@6.0.3)
+        version: 0.3.0(@biomejs/biome@2.6.6)(@commitlint/cli@21.2.4(conventional-commits-parser@7.1.4)(typescript@6.0.3))(@microsoft/api-extractor@7.60.1(@types/node@24.19.2))(dependency-cruiser@18.7.2)(lint-staged@17.6.0)(secretlint@13.1.0(supports-color@10.2.2))(stylelint@18.0.0)(typescript@6.0.3)
       dependency-cruiser:
         specifier: 'catalog:'
         version: 18.7.2
@@ -332,7 +332,7 @@ importers:
     devDependencies:
       '@hussmartinez/sdk-config':
         specifier: 'catalog:'
-        version: 0.2.1(@biomejs/biome@2.6.6)(@commitlint/cli@21.2.4(conventional-commits-parser@7.1.4)(typescript@6.0.3))(@microsoft/api-extractor@7.60.1(@types/node@24.19.2))(dependency-cruiser@18.7.2)(lint-staged@17.6.0)(secretlint@13.1.0(supports-color@10.2.2))(stylelint@18.0.0)(typescript@6.0.3)
+        version: 0.3.0(@biomejs/biome@2.6.6)(@commitlint/cli@21.2.4(conventional-commits-parser@7.1.4)(typescript@6.0.3))(@microsoft/api-extractor@7.60.1(@types/node@24.19.2))(dependency-cruiser@18.7.2)(lint-staged@17.6.0)(secretlint@13.1.0(supports-color@10.2.2))(stylelint@18.0.0)(typescript@6.0.3)
       '@storybook/addon-a11y':
         specifier: 'catalog:'
         version: 10.6.6(storybook@10.6.6(@types/react@19.3.0)(react@19.3.1))
@@ -383,7 +383,7 @@ importers:
         version: 4.14.0(playwright-core@1.65.0)
       '@hussmartinez/sdk-config':
         specifier: 'catalog:'
-        version: 0.2.1(@biomejs/biome@2.6.6)(@commitlint/cli@21.2.4(conventional-commits-parser@7.1.4)(typescript@6.0.3))(@microsoft/api-extractor@7.60.1(@types/node@24.19.2))(dependency-cruiser@18.7.2)(lint-staged@17.6.0)(secretlint@13.1.0(supports-color@10.2.2))(stylelint@18.0.0)(typescript@6.0.3)
+        version: 0.3.0(@biomejs/biome@2.6.6)(@commitlint/cli@21.2.4(conventional-commits-parser@7.1.4)(typescript@6.0.3))(@microsoft/api-extractor@7.60.1(@types/node@24.19.2))(dependency-cruiser@18.7.2)(lint-staged@17.6.0)(secretlint@13.1.0(supports-color@10.2.2))(stylelint@18.0.0)(typescript@6.0.3)
       '@playwright/test':
         specifier: 'catalog:'
         version: 1.65.0
@@ -436,7 +436,7 @@ importers:
     devDependencies:
       '@hussmartinez/sdk-config':
         specifier: 'catalog:'
-        version: 0.2.1(@biomejs/biome@2.6.6)(@commitlint/cli@21.2.4(conventional-commits-parser@7.1.4)(typescript@6.0.3))(@microsoft/api-extractor@7.60.1(@types/node@24.19.2))(dependency-cruiser@18.7.2)(lint-staged@17.6.0)(secretlint@13.1.0(supports-color@10.2.2))(stylelint@18.0.0)(typescript@6.0.3)
+        version: 0.3.0(@biomejs/biome@2.6.6)(@commitlint/cli@21.2.4(conventional-commits-parser@7.1.4)(typescript@6.0.3))(@microsoft/api-extractor@7.60.1(@types/node@24.19.2))(dependency-cruiser@18.7.2)(lint-staged@17.6.0)(secretlint@13.1.0(supports-color@10.2.2))(stylelint@18.0.0)(typescript@6.0.3)
       '@types/node':
         specifier: 'catalog:'
         version: 24.19.2
@@ -464,7 +464,7 @@ importers:
         version: 0.18.5
       '@hussmartinez/sdk-config':
         specifier: 'catalog:'
-        version: 0.2.1(@biomejs/biome@2.6.6)(@commitlint/cli@21.2.4(conventional-commits-parser@7.1.4)(typescript@6.0.3))(@microsoft/api-extractor@7.60.1(@types/node@24.19.2))(dependency-cruiser@18.7.2)(lint-staged@17.6.0)(secretlint@13.1.0(supports-color@10.2.2))(stylelint@18.0.0)(typescript@6.0.3)
+        version: 0.3.0(@biomejs/biome@2.6.6)(@commitlint/cli@21.2.4(conventional-commits-parser@7.1.4)(typescript@6.0.3))(@microsoft/api-extractor@7.60.1(@types/node@24.19.2))(dependency-cruiser@18.7.2)(lint-staged@17.6.0)(secretlint@13.1.0(supports-color@10.2.2))(stylelint@18.0.0)(typescript@6.0.3)
       '@microsoft/api-extractor':
         specifier: 'catalog:'
         version: 7.60.1(@types/node@24.19.2)
@@ -1076,8 +1076,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@hussmartinez/sdk-config@0.2.1':
-    resolution: {integrity: sha512-gZiV37m2dPzx7tBttM+nP78XQGb1Ju5XAcaEzeS9Q5E04BHEB2PkE5384dIIHzuMGpE7xUNBtKPf0PITZmUKNg==}
+  '@hussmartinez/sdk-config@0.3.0':
+    resolution: {integrity: sha512-/lYi7ylnMyHzqWuZUMjKm+eoU7Rt8oGKruSP2fO7szIMx3L+2xMX0Qs5vl6eSut2Y4/j+OTvkGaA7mciZq1BGA==}
     engines: {node: '>=24'}
     hasBin: true
     peerDependencies:
@@ -4126,7 +4126,7 @@ snapshots:
   '@esbuild/win32-x64@0.28.2':
     optional: true
 
-  '@hussmartinez/sdk-config@0.2.1(@biomejs/biome@2.6.6)(@commitlint/cli@21.2.4(conventional-commits-parser@7.1.4)(typescript@6.0.3))(@microsoft/api-extractor@7.60.1(@types/node@24.19.2))(dependency-cruiser@18.7.2)(lint-staged@17.6.0)(secretlint@13.1.0(supports-color@10.2.2))(stylelint@18.0.0)(typescript@6.0.3)':
+  '@hussmartinez/sdk-config@0.3.0(@biomejs/biome@2.6.6)(@commitlint/cli@21.2.4(conventional-commits-parser@7.1.4)(typescript@6.0.3))(@microsoft/api-extractor@7.60.1(@types/node@24.19.2))(dependency-cruiser@18.7.2)(lint-staged@17.6.0)(secretlint@13.1.0(supports-color@10.2.2))(stylelint@18.0.0)(typescript@6.0.3)':
     dependencies:
       '@commitlint/config-conventional': 21.2.4
       '@secretlint/secretlint-rule-preset-recommend': 13.1.0
