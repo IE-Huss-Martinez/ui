@@ -47,6 +47,7 @@ for (const app of apps) {
         'class="hm-toolbar-separator"',
         "hm-icon-button",
         'data-hm-icon="undo"',
+        'role="tooltip"',
         'aria-pressed="false"',
         'class="hm-spinner"',
         "<progress",
@@ -71,6 +72,15 @@ for (const app of apps) {
 
       // The toolbar has exactly one Tab stop after hydration.
       await expect(page.locator('[role="toolbar"] [tabindex="0"]')).toHaveCount(1);
+
+      // The tooltip names the Undo button and shows on keyboard focus.
+      const undo = page.getByRole("button", { name: "Undo" });
+      await undo.focus();
+      await page.keyboard.press("Shift+Tab");
+      await page.keyboard.press("Tab");
+      await expect(page.locator('[role="tooltip"]:popover-open')).toHaveText("Undo");
+      await page.keyboard.press("Escape");
+      await expect(page.locator('[role="tooltip"]:popover-open')).toHaveCount(0);
 
       // A toggle button keeps its own state, even from a Server Component.
       const loop = page.getByRole("button", { name: "Loop" });

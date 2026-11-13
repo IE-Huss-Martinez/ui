@@ -236,6 +236,14 @@ Fine-grained overrides for one component. `ui` never declares them: each compone
 | `--hm-file-drop-zone-dragging-border-color` | `--hm-color-accent` | Solid border of a file drop zone while files are dragged over it. It needs 3:1 contrast with the surface. |
 | `--hm-file-drop-zone-dragging-bg` | `--hm-color-accent-subtle` | Background of a file drop zone while files are dragged over it. |
 | `--hm-file-drop-zone-hint-fg` | `--hm-color-text-muted` | Text of a file drop zone's hint. |
+| `--hm-tooltip-bg` | `--hm-color-text` | Background of a tooltip, inverted from the page. Its text needs 4.5:1 contrast with it. |
+| `--hm-tooltip-fg` | `--hm-color-bg` | Text of a tooltip. |
+| `--hm-tooltip-radius` | `--hm-radius-control` | Corner radius of a tooltip. |
+| `--hm-tooltip-padding` | `--hm-inset-tight` | Space inside a tooltip. |
+| `--hm-tooltip-font-size` | `--hm-font-size-small` | Font size of a tooltip. |
+| `--hm-tooltip-shadow` | `--hm-shadow-raised` | Shadow under a tooltip. |
+| `--hm-tooltip-max-width` | `--hm-surface-width-small` | Widest a tooltip grows before its text wraps. |
+| `--hm-tooltip-offset` | `--hm-gap-tight` | Space between a tooltip and its trigger. |
 
 ## Base tokens
 

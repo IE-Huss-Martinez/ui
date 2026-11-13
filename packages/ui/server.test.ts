@@ -104,6 +104,11 @@ describe("the built package on a server", () => {
       Button: { children: "Save", startIcon: icon },
       IconButton: { label: "Rotate", icon },
       ToggleButton: { label: "Loop", icon, defaultPressed: true },
+      Tooltip: {
+        content: "Rotate",
+        type: "label",
+        children: createElement(component("IconButton"), { label: "Rotate", icon }),
+      },
       VisuallyHidden: { children: "Hidden" },
       Toolbar: { label: "Tools", children: createElement(component("ToolbarSeparator")) },
       ToolbarGroup: { label: "Group" },

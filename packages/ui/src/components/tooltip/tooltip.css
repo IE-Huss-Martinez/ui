@@ -1,0 +1,48 @@
+@layer hm.components {
+  /*
+   * A tooltip in the top layer (popover="manual"). It's placed with
+   * position: fixed, and Tooltip.tsx sets top and left; the offset from the
+   * trigger is a translation, so it never changes the measured box.
+   */
+  .hm-tooltip {
+    box-sizing: border-box;
+    inset: auto;
+    margin: 0;
+    max-inline-size: var(--hm-tooltip-max-width, var(--hm-surface-width-small));
+    overflow: visible;
+    padding: var(--hm-tooltip-padding, var(--hm-inset-tight));
+    position: fixed;
+  }
+
+  .hm-tooltip[data-hm-placement="top"] {
+    translate: 0 calc(var(--hm-tooltip-offset, var(--hm-gap-tight)) * -1);
+  }
+
+  .hm-tooltip[data-hm-placement="bottom"] {
+    translate: 0 var(--hm-tooltip-offset, var(--hm-gap-tight));
+  }
+
+  .hm-tooltip-shortcut {
+    margin-inline-start: var(--hm-tooltip-padding, var(--hm-inset-tight));
+    white-space: nowrap;
+  }
+
+  /*
+   * Visual styles, dropped with unstyled. The border is transparent, so
+   * forced-colours mode draws it.
+   */
+  .hm-tooltip:not([data-hm-unstyled]) {
+    background: var(--hm-tooltip-bg, var(--hm-color-text));
+    border: var(--hm-border-width) solid transparent;
+    border-radius: var(--hm-tooltip-radius, var(--hm-radius-control));
+    box-shadow: var(--hm-tooltip-shadow, var(--hm-shadow-raised));
+    color: var(--hm-tooltip-fg, var(--hm-color-bg));
+    font-family: var(--hm-font-family);
+    font-size: var(--hm-tooltip-font-size, var(--hm-font-size-small));
+    line-height: var(--hm-line-height-tight);
+  }
+
+  .hm-tooltip:not([data-hm-unstyled]) kbd {
+    font-family: inherit;
+  }
+}

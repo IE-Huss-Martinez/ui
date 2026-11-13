@@ -17,6 +17,7 @@ import {
   Toolbar,
   ToolbarGroup,
   ToolbarSeparator,
+  Tooltip,
   UndoIcon,
   VisuallyHidden,
 } from "@hussmartinez/ui/react";
@@ -38,7 +39,9 @@ export default function Page() {
         <p data-testid="token-count">{tokens.length}</p>
         <Toolbar label="Page tools">
           <ToolbarGroup label="History">
-            <IconButton variant="quiet" label="Undo" icon={<UndoIcon />} />
+            <Tooltip type="label" content="Undo">
+              <IconButton variant="quiet" label="Undo" icon={<UndoIcon />} />
+            </Tooltip>
             <Button variant="quiet">Redo</Button>
           </ToolbarGroup>
           <ToolbarSeparator />

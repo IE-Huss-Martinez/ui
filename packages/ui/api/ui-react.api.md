@@ -17,6 +17,7 @@ import { ReactNode } from 'react';
 import { Ref } from 'react';
 import { RefAttributes } from 'react';
 import { RefObject } from 'react';
+import type { ShortcutPart } from '@hussmartinez/sdk-core';
 import type { SVGProps } from 'react';
 
 // @public
@@ -471,6 +472,22 @@ export const ToolbarSeparator: ForwardRefExoticComponent<ToolbarSeparatorProps &
 
 // @public
 export type ToolbarSeparatorProps = Omit<HTMLAttributes<HTMLHRElement>, "children">;
+
+// @public
+export const Tooltip: ForwardRefExoticComponent<TooltipProps & RefAttributes<HTMLDivElement>>;
+
+// @public
+export type TooltipPart = "root" | "content" | "shortcut";
+
+// @public
+export interface TooltipProps extends StyleProps<TooltipPart> {
+    readonly children: ReactElement;
+    readonly content: ReactNode;
+    readonly delay?: number | undefined;
+    readonly placement?: "top" | "bottom" | undefined;
+    readonly shortcut?: readonly ShortcutPart[] | undefined;
+    readonly type?: "description" | "label" | undefined;
+}
 
 // @public
 export function TrimEndIcon(props: IconProps): ReactElement;

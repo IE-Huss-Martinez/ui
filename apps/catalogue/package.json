@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@hussmartinez/sdk-config": "catalog:",
+    "@hussmartinez/sdk-core": "catalog:",
     "@storybook/addon-a11y": "catalog:",
     "@storybook/addon-docs": "catalog:",
     "@storybook/addon-vitest": "catalog:",
