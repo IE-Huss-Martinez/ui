@@ -1,5 +1,11 @@
 # @hussmartinez/ui
 
+## 0.4.0
+
+### Minor Changes
+
+- [#49](https://github.com/ie-huss-martinez/ui/pull/49) [`266d3e8`](https://github.com/ie-huss-martinez/ui/commit/266d3e8a412e8182f968ceb89ef92ced6f03be2d) Thanks [@hussmartinez](https://github.com/hussmartinez)! - Add nine icons for image and video editing: `FlipHorizontalIcon`, `FlipVerticalIcon`, `CropIcon` and `FitIcon` (zoom to fit, also for contain and cover), and `TrimStartIcon`, `TrimEndIcon` (trim to the playhead), `FadeInIcon`, `FadeOutIcon` and `SnapIcon` (a magnet). Their names join `IconName`, so tools can refer to them as `"flip-horizontal"`, `"fit"`, `"trim-start"` and so on.
+
 ## 0.3.0
 
 ### Minor Changes
