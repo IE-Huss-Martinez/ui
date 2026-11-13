@@ -222,10 +222,20 @@ The `@hussmartinez` SDKs build their editors from ui's components, so an applica
 
 - **One stylesheet, required.** Import `@hussmartinez/ui/styles.css` once, before the SDKs' stylesheets. The SDKs' stylesheets never include it, so it loads once however many SDKs you use. Don't leave it out: the focus rings and target sizes of the components inside an SDK live there.
 - **One copy of ui.** Each `ui` copy has its own providers, so `UiMessagesProvider`, `ThemeProvider` and `AnnouncerProvider` from one copy don't reach components from another: their text falls back to English, and announcements are lost. If your application uses ui itself, depend on the same minor version as your SDKs; `npm ls @hussmartinez/ui` should list one version. In development, ui warns when a second copy is in use, and names the versions it found.
-- **Providers once, at the root.** One `UiMessagesProvider`, `ThemeProvider` and `AnnouncerProvider` around your application reach ui's components inside every SDK too.
-- **Headless use.** An SDK's `.` entry never loads ui or React. ui is still installed with the SDK, but its `react` and `react-dom` peers are optional, so there are no peer warnings.
+- **Providers once, at the root.** One `ThemeProvider` and `AnnouncerProvider` around your application reach ui's components inside every SDK too.
+- **Text through the SDK's `messages`.** Inside an SDK, ui's own strings, such as `FileDropZone`'s "Choose a file" or `Dialog`'s "Close", come from the SDK's messages ([ADR 0046](https://github.com/ie-huss-martinez/sdk-core/blob/main/docs/adr/0046-ui-text-through-the-sdk.md)). Override or translate them through the SDK's `messages` prop, next to the SDK's own text: `{ "fileDropZone.choose": "Datei auswählen" }`. Your own `UiMessagesProvider` reaches only the ui components you render yourself.
+- **Headless use.** An SDK's `.` entry never loads React or ui's React components; it may use ui's server-safe root entry, such as the `IconName` type. ui is installed with the SDK, but its `react` and `react-dom` peers are optional, so there are no peer warnings.
 
-**For SDK authors:** list ui in `dependencies` with a caret range on the current minor, such as `^0.2.0`, and import it only from `features/`, `react/` and `element/`. `sdk-config`'s dependency-cruiser preset fails the build when the core, an adapter, a worker or anything the `.` entry reaches imports it.
+**For SDK authors:**
+
+- **The dependency:** list ui in `dependencies` with a caret range on the current minor, such as `^0.4.0`, and import its components only from `features/`, `react/` and `element/`. `sdk-config`'s dependency-cruiser preset fails the build when the core, an adapter or a worker imports ui, or when anything the `.` entry reaches imports React or ui's React entry.
+- **The catalogue:** spread `uiMessages` into your catalogue, next to `sdkCoreMessages`, and pass the one `Messages` object you create with the host's locale and overrides to `UiMessagesProvider` around everything you render. Don't create a second, ui-only object, or hosts can't translate ui's strings.
+
+  ```ts
+  export const myMessages = defineMessages({ ...sdkCoreMessages, ...uiMessages, ...ownMessages });
+  ```
+
+- **Key collisions:** keep a test that your own keys don't overlap `sdkCoreMessages` or `uiMessages`, so a later release can't silently replace your text. ui's keys use component names as prefixes, such as `dialog.` and `fileDropZone.`.
 
 ## Errors and messages
 
