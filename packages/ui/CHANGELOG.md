@@ -1,5 +1,11 @@
 # @hussmartinez/ui
 
+## 0.6.0
+
+### Minor Changes
+
+- [#54](https://github.com/ie-huss-martinez/ui/pull/54) [`ffacdab`](https://github.com/ie-huss-martinez/ui/commit/ffacdab1c3a20fb1415f2928c78aa0051684f0d8) Thanks [@hussmartinez](https://github.com/hussmartinez)! - ui now requires `@hussmartinez/sdk-core` 0.4.1 or a later 0.4 release. In 0.x, ui's previous range, `^0.3.0`, allowed only 0.3 releases, so an application or SDK on sdk-core 0.4 installed two copies of sdk-core, and `instanceof SdkError` failed between them. Upgrade your own `@hussmartinez/sdk-core` to `^0.4.1` too, so `npm ls @hussmartinez/sdk-core` lists one version.
+
 ## 0.5.0
 
 ### Minor Changes
