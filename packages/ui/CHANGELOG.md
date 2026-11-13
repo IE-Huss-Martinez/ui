@@ -1,5 +1,18 @@
 # @hussmartinez/ui
 
+## 0.7.0
+
+### Minor Changes
+
+- [#60](https://github.com/ie-huss-martinez/ui/pull/60) [`c5871f9`](https://github.com/ie-huss-martinez/ui/commit/c5871f9ec031050e7174a7a69147f40461b4ba7c) Thanks [@hussmartinez](https://github.com/hussmartinez)! - Add `TextField`, a single-line text input of type `text`, `search`, `email`, `url`, `tel` or `password`, styled like the family's other fields. Native input props pass through, so it works controlled or uncontrolled, and `onValueChange` gives the new text. Inside a `Field`, it takes the field's label, description and error, and an error colours its border. Restyle it with the `--hm-text-field-*` tokens.
+
+- [#57](https://github.com/ie-huss-martinez/ui/pull/57) [`ac6a811`](https://github.com/ie-huss-martinez/ui/commit/ac6a811fcb4840d39c7dd6e49c6bbd70ee3e937a) Thanks [@hussmartinez](https://github.com/hussmartinez)! - Add `Tooltip`, for short text about a control. It shows after a short delay on hover, and at once on keyboard focus, never on touch or a mouse click's focus. The pointer can move onto it, and Escape closes it without moving focus or closing a surrounding dialog (WCAG 1.4.13). Wrap one ref-forwarding trigger, such as `IconButton`:
+  
+  - `type="label"` makes its text the trigger's name, for icon-only buttons; `description`, the default, describes the trigger.
+  - `shortcut` takes the parts sdk-core's shortcut registry gives (`registry.describe(toolId)[0]`). It shows them in the platform's notation, ⌘⇧Z or Ctrl+Shift+Z, through the `keys.*` messages, and sets `aria-keyshortcuts` on the trigger.
+  
+  It renders in the top layer through the Popover API, above the trigger or below it when there's no room, with no positioning library. Restyle it with the `--hm-tooltip-*` tokens. A disabled trigger needs `focusableWhenDisabled`, because a natively disabled button gets no focus or pointer events.
+
 ## 0.6.0
 
 ### Minor Changes
