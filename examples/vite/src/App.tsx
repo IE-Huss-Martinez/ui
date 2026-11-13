@@ -15,6 +15,7 @@ import {
   Toolbar,
   ToolbarGroup,
   ToolbarSeparator,
+  Tooltip,
   UndoIcon,
   useAnnounce,
   VisuallyHidden,
@@ -74,7 +75,9 @@ export function App() {
         <h1>@hussmartinez/ui in Vite</h1>
         <Toolbar label="Page tools">
           <ToolbarGroup label="History">
-            <IconButton variant="quiet" label="Undo" icon={<UndoIcon />} />
+            <Tooltip type="label" content="Undo">
+              <IconButton variant="quiet" label="Undo" icon={<UndoIcon />} />
+            </Tooltip>
             <Button variant="quiet">Redo</Button>
           </ToolbarGroup>
           <ToolbarSeparator />

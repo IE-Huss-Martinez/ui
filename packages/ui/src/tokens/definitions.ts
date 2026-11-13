@@ -655,7 +655,15 @@ export type ComponentTokenName =
   | "file-drop-zone-border-color"
   | "file-drop-zone-dragging-border-color"
   | "file-drop-zone-dragging-bg"
-  | "file-drop-zone-hint-fg";
+  | "file-drop-zone-hint-fg"
+  | "tooltip-bg"
+  | "tooltip-fg"
+  | "tooltip-radius"
+  | "tooltip-padding"
+  | "tooltip-font-size"
+  | "tooltip-shadow"
+  | "tooltip-max-width"
+  | "tooltip-offset";
 
 type ComponentSpec = { readonly fallback: SemanticTokenName };
 
@@ -779,6 +787,14 @@ const component = {
   "file-drop-zone-dragging-border-color": { fallback: "color-accent" },
   "file-drop-zone-dragging-bg": { fallback: "color-accent-subtle" },
   "file-drop-zone-hint-fg": { fallback: "color-text-muted" },
+  "tooltip-bg": { fallback: "color-text" },
+  "tooltip-fg": { fallback: "color-bg" },
+  "tooltip-radius": { fallback: "radius-control" },
+  "tooltip-padding": { fallback: "inset-tight" },
+  "tooltip-font-size": { fallback: "font-size-small" },
+  "tooltip-shadow": { fallback: "shadow-raised" },
+  "tooltip-max-width": { fallback: "surface-width-small" },
+  "tooltip-offset": { fallback: "gap-tight" },
 } as const satisfies Record<ComponentTokenName, ComponentSpec>;
 
 function baseDefinitions(): TokenDefinition[] {

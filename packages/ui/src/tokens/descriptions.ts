@@ -284,4 +284,13 @@ export const tokenDescriptions: Readonly<Record<TokenName, string>> = {
     "Solid border of a file drop zone while files are dragged over it. It needs 3:1 contrast with the surface.",
   "file-drop-zone-dragging-bg": "Background of a file drop zone while files are dragged over it.",
   "file-drop-zone-hint-fg": "Text of a file drop zone's hint.",
+  "tooltip-bg":
+    "Background of a tooltip, inverted from the page. Its text needs 4.5:1 contrast with it.",
+  "tooltip-fg": "Text of a tooltip.",
+  "tooltip-radius": "Corner radius of a tooltip.",
+  "tooltip-padding": "Space inside a tooltip.",
+  "tooltip-font-size": "Font size of a tooltip.",
+  "tooltip-shadow": "Shadow under a tooltip.",
+  "tooltip-max-width": "Widest a tooltip grows before its text wraps.",
+  "tooltip-offset": "Space between a tooltip and its trigger.",
 };

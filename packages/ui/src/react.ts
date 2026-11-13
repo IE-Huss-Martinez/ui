@@ -65,12 +65,15 @@ export type {
   ToggleButtonVariant,
 } from "./components/toggle-button/ToggleButton.js";
 export { ToggleButton } from "./components/toggle-button/ToggleButton.js";
+
 export type { ToolbarProps } from "./components/toolbar/Toolbar.js";
 export { Toolbar } from "./components/toolbar/Toolbar.js";
 export type { ToolbarGroupProps } from "./components/toolbar/ToolbarGroup.js";
 export { ToolbarGroup } from "./components/toolbar/ToolbarGroup.js";
 export type { ToolbarSeparatorProps } from "./components/toolbar/ToolbarSeparator.js";
 export { ToolbarSeparator } from "./components/toolbar/ToolbarSeparator.js";
+export type { TooltipPart, TooltipProps } from "./components/tooltip/Tooltip.js";
+export { Tooltip } from "./components/tooltip/Tooltip.js";
 export type { VisuallyHiddenProps } from "./components/visually-hidden/VisuallyHidden.js";
 export { VisuallyHidden } from "./components/visually-hidden/VisuallyHidden.js";
 export type { IconComponent, IconProps } from "./icons/create-icon.js";

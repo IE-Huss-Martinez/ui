@@ -281,6 +281,15 @@ describe("development warnings", () => {
   });
 });
 
+describe("Tooltip", () => {
+  it("ships without the components it isn't given", async () => {
+    await expectShipped('import { Tooltip } from "./react.js"; export const app = Tooltip;', {
+      includes: ["hm-tooltip", "showPopover"],
+      excludes: ["hm-slider", "hm-number-field", "hm-file-drop-zone", ROVING_FOCUS],
+    });
+  });
+});
+
 // Path data only one icon has: undo's arrow, and play's triangle.
 const UNDO_PATH = "M9 14 4 9l5-5";
 const PLAY_PATH = "M5 5a2 2 0 0 1 3.008-1.728";
